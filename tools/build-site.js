@@ -75,9 +75,64 @@ function relink(html, prefix) {
   return html.replace(/href="\/([^"#?]*)"/g, (_, target) => `href="${localHref(prefix, target)}"`);
 }
 
+function pageLabel(pathName, title) {
+  if (pathName === "/") return "首页";
+  if (pathName.startsWith("/rank")) return "机场排行";
+  if (pathName.startsWith("/reviews")) return "机场测评";
+  if (pathName.startsWith("/knowledge/") && pathName !== "/knowledge/") return title;
+  if (pathName.startsWith("/knowledge")) return "科普知识";
+  if (pathName.startsWith("/about")) return "关于我们";
+  if (pathName.startsWith("/posts/")) return title;
+  return title;
+}
+
+function commonSchema(title, description, pathName) {
+  const graph = [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: `${SITE_URL}/assets/favicon.svg`,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE_NAME,
+      description: "机场排行、机场测评和机场科普知识博客。",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "zh-CN",
+    },
+  ];
+
+  if (pathName !== "/") {
+    graph.push({
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "首页", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: pageLabel(pathName, title), item: `${SITE_URL}${pathName}` },
+      ],
+    });
+  }
+
+  graph.push({
+    "@type": pathName.endsWith("/") && pathName !== "/about/" ? "CollectionPage" : "WebPage",
+    "@id": `${SITE_URL}${pathName}#webpage`,
+    url: `${SITE_URL}${pathName}`,
+    name: title,
+    description,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    inLanguage: "zh-CN",
+  });
+
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
+}
+
 function layout({ title, description, pathName, content, extraHead = "" }) {
   const prefix = prefixFor(pathName);
   const canonical = `${SITE_URL}${pathName}`;
+  const ogType = pathName === "/" || pathName.endsWith("/") ? "website" : "article";
   const html = `<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -85,14 +140,23 @@ function layout({ title, description, pathName, content, extraHead = "" }) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)} | ${SITE_NAME}</title>
   <meta name="description" content="${escapeHtml(description)}">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="author" content="${SITE_NAME}">
+  <meta name="theme-color" content="#0f766e">
   <link rel="canonical" href="${canonical}">
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <meta property="og:type" content="article">
+  <link rel="alternate" type="application/rss+xml" title="${SITE_NAME} RSS" href="/feed.xml">
+  <meta property="og:type" content="${ogType}">
+  <meta property="og:locale" content="zh_CN">
   <meta property="og:site_name" content="${SITE_NAME}">
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${canonical}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="${escapeHtml(title)}">
+  <meta name="twitter:description" content="${escapeHtml(description)}">
+  ${commonSchema(title, description, pathName)}
   ${extraHead}
 </head>
 <body>
@@ -128,9 +192,12 @@ function schema(title, description, pathName) {
     "@type": "Article",
     headline: title,
     description,
+    url: `${SITE_URL}${pathName}`,
     datePublished: TODAY,
     dateModified: TODAY,
     author: { "@type": "Organization", name: SITE_NAME },
+    publisher: { "@type": "Organization", name: SITE_NAME, logo: { "@type": "ImageObject", url: `${SITE_URL}/assets/favicon.svg` } },
+    inLanguage: "zh-CN",
     mainEntityOfPage: `${SITE_URL}${pathName}`,
   })}</script>`;
 }
@@ -206,7 +273,7 @@ function rankPage(pathName = "/rank/") {
         </table>
       </div>
     </section>`;
-  return layout({ title: "机场排行", description: "18 家去重机场排行列表，包含最低套餐、定位、适合人群和注册链接。", pathName, content });
+  return layout({ title: "机场排行", description: `${airports.length} 家去重机场排行列表，包含最低套餐、定位、适合人群和注册链接。`, pathName, content });
 }
 
 function reviewsPage() {
@@ -218,7 +285,7 @@ function reviewsPage() {
     <section class="section">
       <div class="post-grid">${airports.map(airportCard).join("")}</div>
     </section>`;
-  return layout({ title: "机场测评", description: "18 篇机场测评文章合集，覆盖价格、流量、节点和风险控制。", pathName: "/reviews/", content });
+  return layout({ title: "机场测评", description: `${airports.length} 篇机场测评文章合集，覆盖价格、流量、节点和风险控制。`, pathName: "/reviews/", content });
 }
 
 function knowledgePage() {
@@ -347,7 +414,6 @@ function sitemap() {
   const urls = [
     ["/", "1.0"],
     ["/rank/", "0.9"],
-    ["/airport/", "0.8"],
     ["/reviews/", "0.9"],
     ["/knowledge/", "0.9"],
     ["/about/", "0.6"],
@@ -371,6 +437,89 @@ function robots() {
 Allow: /
 
 Sitemap: ${SITE_URL}/sitemap.xml
+`;
+}
+
+function redirectPage(fromPath, toPath) {
+  const prefix = prefixFor(fromPath);
+  const html = `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta http-equiv="refresh" content="0; url=${toPath}">
+  <link rel="canonical" href="${SITE_URL}${toPath}">
+  <title>正在跳转 | ${SITE_NAME}</title>
+</head>
+<body>
+  <p>正在跳转到 <a href="${toPath}">机场排行</a>。</p>
+</body>
+</html>
+`;
+  return relink(html, prefix);
+}
+
+function rssFeed() {
+  const items = [
+    ...airports.map((item) => ({
+      title: `${item.name}机场怎么样？${item.cheap} 套餐、注册链接与测评`,
+      url: `${SITE_URL}/posts/${item.slug}.html`,
+      description: `${item.name}机场测评，包含最低套餐、适合人群、线路观察和购买建议。`,
+    })),
+    ...knowledgeTopics.map((item) => ({
+      title: item.title,
+      url: `${SITE_URL}/knowledge/${item.slug}.html`,
+      description: item.intro,
+    })),
+  ];
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>${SITE_NAME}</title>
+    <link>${SITE_URL}/</link>
+    <description>机场排行、机场测评和机场科普知识更新。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>${new Date(`${TODAY}T00:00:00Z`).toUTCString()}</lastBuildDate>
+${items.map((item) => `    <item>
+      <title>${escapeHtml(item.title)}</title>
+      <link>${item.url}</link>
+      <guid>${item.url}</guid>
+      <description>${escapeHtml(item.description)}</description>
+      <pubDate>${new Date(`${TODAY}T00:00:00Z`).toUTCString()}</pubDate>
+    </item>`).join("\n")}
+  </channel>
+</rss>
+`;
+}
+
+function llmsTxt() {
+  return `# ${SITE_NAME}
+
+${SITE_NAME} 是一个中文机场推荐、机场测评和机场科普知识站点，面向需要理解机场订阅、线路类型、套餐选择、客户端配置、流媒体解锁、AI 工具访问和风险控制的读者。
+
+## 主要页面
+
+- 首页: ${SITE_URL}/
+- 机场排行: ${SITE_URL}/rank/
+- 机场测评: ${SITE_URL}/reviews/
+- 科普知识: ${SITE_URL}/knowledge/
+- 关于我们: ${SITE_URL}/about/
+- Sitemap: ${SITE_URL}/sitemap.xml
+- RSS: ${SITE_URL}/feed.xml
+
+## 机场测评
+
+${airports.map((item) => `- ${item.name}: ${SITE_URL}/posts/${item.slug}.html`).join("\n")}
+
+## 科普知识
+
+${knowledgeTopics.map((item) => `- ${item.title}: ${SITE_URL}/knowledge/${item.slug}.html`).join("\n")}
+
+## 内容说明
+
+本站不运营机场服务，也不提供代理节点。内容以公开资料整理、选购逻辑说明和新手科普为主。套餐、节点、价格和注册链接以服务商官网实时页面为准。
 `;
 }
 
@@ -457,7 +606,7 @@ function build() {
   write(path.join(root, "assets", "favicon.svg"), favicon());
   write(path.join(root, "index.html"), homePage());
   write(path.join(root, "rank", "index.html"), rankPage("/rank/"));
-  write(path.join(root, "airport", "index.html"), rankPage("/airport/"));
+  write(path.join(root, "airport", "index.html"), redirectPage("/airport/", "/rank/"));
   write(path.join(root, "reviews", "index.html"), reviewsPage());
   write(path.join(root, "knowledge", "index.html"), knowledgePage());
   write(path.join(root, "about", "index.html"), aboutPage());
@@ -465,6 +614,8 @@ function build() {
   knowledgeTopics.forEach((item, index) => write(path.join(root, "knowledge", `${item.slug}.html`), knowledgeArticle(item, index)));
   write(path.join(root, "sitemap.xml"), sitemap());
   write(path.join(root, "robots.txt"), robots());
+  write(path.join(root, "feed.xml"), rssFeed());
+  write(path.join(root, "llms.txt"), llmsTxt());
 }
 
 build();

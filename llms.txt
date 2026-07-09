@@ -1,0 +1,57 @@
+# Tiziline 机场观察
+
+Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普知识站点，面向需要理解机场订阅、线路类型、套餐选择、客户端配置、流媒体解锁、AI 工具访问和风险控制的读者。
+
+## 主要页面
+
+- 首页: https://tiziline.com/
+- 机场排行: https://tiziline.com/rank/
+- 机场测评: https://tiziline.com/reviews/
+- 科普知识: https://tiziline.com/knowledge/
+- 关于我们: https://tiziline.com/about/
+- Sitemap: https://tiziline.com/sitemap.xml
+- RSS: https://tiziline.com/feed.xml
+
+## 机场测评
+
+- 极连云: https://tiziline.com/posts/jilianyun.html
+- 光年梯: https://tiziline.com/posts/guangnianti.html
+- 影子: https://tiziline.com/posts/yingzi.html
+- 边界云机场: https://tiziline.com/posts/bianjieyun.html
+- 飞猫云: https://tiziline.com/posts/feimaoyun.html
+- 可信云: https://tiziline.com/posts/kexinyun.html
+- 速界: https://tiziline.com/posts/sujie.html
+- 快狸: https://tiziline.com/posts/kuaili.html
+- 边缘节点: https://tiziline.com/posts/bianyuanjiedian.html
+- 光速云: https://tiziline.com/posts/guangshuyun.html
+- 星岛梦: https://tiziline.com/posts/xingdaomeng.html
+- 全球云: https://tiziline.com/posts/quanqiuyun.html
+- 瞬云机场: https://tiziline.com/posts/shunyun.html
+- 寰宇云机场: https://tiziline.com/posts/huanyuyun.html
+- Lumina: https://tiziline.com/posts/lumina.html
+- 拼好连: https://tiziline.com/posts/pinhaolian.html
+- 99吧: https://tiziline.com/posts/99bar.html
+- 锦云机场: https://tiziline.com/posts/jinyun.html
+- 山海机场: https://tiziline.com/posts/shanhai.html
+
+## 科普知识
+
+- 机场和 VPN 有什么区别？新手应该怎么选: https://tiziline.com/knowledge/airport-vs-vpn.html
+- IEPL、IPLC、BGP 中转是什么意思: https://tiziline.com/knowledge/iepl-iplc-bgp.html
+- 机场套餐里的倍率、流量和设备数怎么看: https://tiziline.com/knowledge/traffic-rate-device.html
+- Clash、Mihomo、Shadowrocket 订阅导入指南: https://tiziline.com/knowledge/client-subscription-guide.html
+- 如何测试机场晚高峰稳定性: https://tiziline.com/knowledge/peak-hour-test.html
+- 机场流媒体解锁为什么会失效: https://tiziline.com/knowledge/streaming-unlock.html
+- ChatGPT、Claude 使用机场时要注意什么: https://tiziline.com/knowledge/ai-service-guide.html
+- 机场节点地区怎么选：香港、日本、新加坡、美国: https://tiziline.com/knowledge/node-region-guide.html
+- 机场跑路前常见信号和止损方法: https://tiziline.com/knowledge/airport-risk-signals.html
+- 备用机场为什么重要：主力和备用怎么搭配: https://tiziline.com/knowledge/backup-airport.html
+- 机场订阅链接泄露会发生什么: https://tiziline.com/knowledge/subscription-security.html
+- 手机端使用机场的常见问题: https://tiziline.com/knowledge/mobile-airport-guide.html
+- 电脑端使用机场的常见问题: https://tiziline.com/knowledge/desktop-airport-guide.html
+- 便宜机场为什么有时不便宜: https://tiziline.com/knowledge/cheap-airport-cost.html
+- 第一次买机场的完整检查清单: https://tiziline.com/knowledge/first-buy-checklist.html
+
+## 内容说明
+
+本站不运营机场服务，也不提供代理节点。内容以公开资料整理、选购逻辑说明和新手科普为主。套餐、节点、价格和注册链接以服务商官网实时页面为准。
