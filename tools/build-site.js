@@ -191,7 +191,7 @@ function rankPage(pathName = "/rank/") {
     <td>${item.cheap}</td>
     <td>${item.tag}</td>
     <td>${item.angle}</td>
-    <td><a href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">注册</a></td>
+    <td><a href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>
   </tr>`).join("");
   const content = `    <section class="list-hero">
       <p class="eyebrow">Airport Ranking</p>
@@ -296,7 +296,7 @@ function airportArticle(item, index) {
         <h2>${item.name} 总结</h2>
         <p>综合来看，${item.name} 更适合${item.angle.replace(/^适合/, "").replace(/。$/, "")}。如果你刚好属于这个场景，可以从最低套餐或短周期套餐开始，先测试常用地区节点和晚高峰表现。最终建议很简单：先月付，后长付；先测试，后迁移；先看稳定性，再看最低价。</p>
       </section>
-      <aside class="notice"><strong>注册入口：</strong><a href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">${escapeHtml(item.url)}</a></aside>
+      <aside class="notice"><strong>注册入口：</strong><a href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></aside>
       <section><h2>相关推荐</h2><div class="post-grid compact">${related.map(airportCard).join("")}</div></section>
     </article>`;
   return layout({ title, description, pathName: `/posts/${item.slug}.html`, content, extraHead: schema(title, description, `/posts/${item.slug}.html`) });
