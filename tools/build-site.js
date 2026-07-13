@@ -1636,17 +1636,22 @@ function knowledgeCard(item) {
   </a>`;
 }
 
+function excerpt(text, max = 118) {
+  const value = String(text || "").trim();
+  return value.length > max ? `${value.slice(0, max)}...` : value;
+}
+
 function planTable(item) {
   const plans = item.plans || [];
   if (!plans.length) return "";
   const headers = [...new Set(plans.flatMap((plan) => Object.keys(plan)))];
   const linkHeaders = new Set(["购买", "购买链接", "购买地址"]);
   return `<div class="table-wrap">
-        <table>
+        <table class="price-table">
           <thead><tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr></thead>
           <tbody>${plans.map((plan) => `<tr>${headers.map((header) => {
             if (linkHeaders.has(header)) {
-              return `<td><a href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>`;
+              return `<td><a class="official-link" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>`;
             }
             return `<td>${escapeHtml(plan[header] || "-")}</td>`;
           }).join("")}</tr>`).join("")}</tbody>
@@ -1689,12 +1694,11 @@ function homePage() {
 
 function rankPage(pathName = "/rank/") {
   const rows = airports.map((item, index) => `<tr>
-    <td>${index + 1}</td>
-    <td><a href="/posts/${item.slug}.html">${item.name}</a></td>
-    <td>${item.cheap}</td>
-    <td>${item.tag}</td>
-    <td>${item.angle}</td>
-    <td><a href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>
+    <td class="rank-index">${index + 1}</td>
+    <td class="rank-name"><a href="/posts/${item.slug}.html">${item.name}</a><span>${item.tag}</span></td>
+    <td class="rank-price">${item.cheap}</td>
+    <td class="rank-intro">${escapeHtml(excerpt(item.angle))}</td>
+    <td class="rank-action"><a class="official-link" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>
   </tr>`).join("");
   const content = `    <section class="list-hero">
       <p class="eyebrow">Airport Ranking</p>
@@ -1703,8 +1707,15 @@ function rankPage(pathName = "/rank/") {
     </section>
     <section class="section">
       <div class="table-wrap">
-        <table>
-          <thead><tr><th>#</th><th>机场</th><th>最低套餐</th><th>定位</th><th>适合人群</th><th>入口</th></tr></thead>
+        <table class="rank-table">
+          <colgroup>
+            <col class="col-index">
+            <col class="col-name">
+            <col class="col-price">
+            <col class="col-intro">
+            <col class="col-action">
+          </colgroup>
+          <thead><tr><th>#</th><th>机场</th><th>最低套餐</th><th>机场简介</th><th>官网</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -1807,7 +1818,7 @@ function airportArticle(item, index) {
         <h2>${item.name} 总结</h2>
         <p>综合来看，${item.name} 更适合${item.angle.replace(/^适合/, "").replace(/。$/, "")}。如果你刚好属于这个场景，可以从最低套餐或短周期套餐开始，先测试常用地区节点和晚高峰表现。最终建议很简单：先月付，后长付；先测试，后迁移；先看稳定性，再看最低价。</p>
       </section>
-      <aside class="notice"><strong>注册入口：</strong><a href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></aside>
+      <aside class="notice"><strong>注册入口：</strong><a class="official-link" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></aside>
       <section><h2>相关推荐</h2><div class="post-grid compact">${related.map(airportCard).join("")}</div></section>
     </article>`;
   return layout({ title, description, pathName: `/posts/${item.slug}.html`, content, extraHead: schema(title, description, `/posts/${item.slug}.html`) });
@@ -2024,10 +2035,30 @@ main { min-height: 70vh; }
 .quick-card span { display: block; color: var(--muted); font-size: 13px; }
 .quick-card strong { display: block; margin-top: 6px; overflow-wrap: anywhere; }
 .notice { margin: 30px 0; padding: 18px; border-left: 4px solid var(--primary); border-radius: 8px; background: #fff; overflow-wrap: anywhere; }
-.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
-table { width: 100%; border-collapse: collapse; min-width: 840px; }
-th, td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-th { background: #eef4f8; font-size: 14px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; box-shadow: 0 12px 28px rgba(21, 32, 51, .05); }
+table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 840px; }
+th, td { padding: 15px 18px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { background: #eef4f8; color: #26364c; font-size: 14px; font-weight: 800; white-space: nowrap; }
+tbody tr:nth-child(even) { background: #fbfdff; }
+tbody tr:hover { background: #f2faf8; }
+tbody tr:last-child td { border-bottom: 0; }
+.rank-table { min-width: 960px; table-layout: fixed; }
+.rank-table .col-index { width: 54px; }
+.rank-table .col-name { width: 140px; }
+.rank-table .col-price { width: 140px; }
+.rank-table .col-intro { width: auto; }
+.rank-table .col-action { width: 118px; }
+.rank-index { color: var(--muted); font-variant-numeric: tabular-nums; }
+.rank-name a { display: inline-block; color: var(--text); font-weight: 800; }
+.rank-name span { display: block; width: max-content; max-width: 100%; margin-top: 6px; padding: 2px 8px; border-radius: 999px; background: #ecfdf5; color: var(--primary-dark); font-size: 12px; font-weight: 800; }
+.rank-price { color: #0f172a; font-weight: 800; }
+.rank-intro { color: #334155; line-height: 1.7; }
+.rank-action { text-align: center; }
+.official-link { color: var(--primary); font-weight: 900; white-space: nowrap; }
+.official-link:hover { color: var(--primary-dark); text-decoration: underline; text-underline-offset: 3px; }
+.price-table { min-width: 760px; }
+.price-table th:first-child, .price-table td:first-child { font-weight: 800; color: #0f172a; }
+.price-table td { color: #334155; }
 .site-footer { margin-top: 46px; padding: 32px clamp(18px, 4vw, 56px); border-top: 1px solid var(--line); color: var(--muted); text-align: center; }
 .site-footer p { margin: 6px 0; }
 @media (max-width: 860px) {
