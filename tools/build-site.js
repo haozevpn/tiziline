@@ -1695,7 +1695,7 @@ function homePage() {
 function rankPage(pathName = "/rank/") {
   const rows = airports.map((item, index) => `<tr>
     <td class="rank-index">${index + 1}</td>
-    <td class="rank-name"><a href="/posts/${item.slug}.html">${item.name}</a><span>${item.tag}</span></td>
+    <td class="rank-name"><a href="/posts/${item.slug}.html">${item.name}</a></td>
     <td class="rank-price">${item.cheap}</td>
     <td class="rank-intro">${escapeHtml(excerpt(item.angle))}</td>
     <td class="rank-action"><a class="official-link" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>
@@ -2044,13 +2044,12 @@ tbody tr:hover { background: #f2faf8; }
 tbody tr:last-child td { border-bottom: 0; }
 .rank-table { min-width: 960px; table-layout: fixed; }
 .rank-table .col-index { width: 54px; }
-.rank-table .col-name { width: 140px; }
+.rank-table .col-name { width: 130px; }
 .rank-table .col-price { width: 140px; }
 .rank-table .col-intro { width: auto; }
 .rank-table .col-action { width: 118px; }
 .rank-index { color: var(--muted); font-variant-numeric: tabular-nums; }
 .rank-name a { display: inline-block; color: var(--text); font-weight: 800; }
-.rank-name span { display: block; width: max-content; max-width: 100%; margin-top: 6px; padding: 2px 8px; border-radius: 999px; background: #ecfdf5; color: var(--primary-dark); font-size: 12px; font-weight: 800; }
 .rank-price { color: #0f172a; font-weight: 800; }
 .rank-intro { color: #334155; line-height: 1.7; }
 .rank-action { text-align: center; }
