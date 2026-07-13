@@ -12,6 +12,31 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 - Sitemap: https://tiziline.com/sitemap.xml
 - RSS: https://tiziline.com/feed.xml
 
+## 核心关键词
+
+- 便宜机场
+- 稳定机场
+- 机场推荐
+- 梯子推荐
+- 节点推荐
+- Clash机场
+- Clash 机场
+- 小火箭节点
+- Shadowrocket节点
+- 机场排行
+- 机场测评
+- 机场订阅
+
+## 热门搜索专题
+
+- 便宜机场推荐: https://tiziline.com/cheap-airport/
+- 稳定机场推荐: https://tiziline.com/stable-airport/
+- 机场推荐: https://tiziline.com/airport-recommend/
+- 梯子推荐: https://tiziline.com/proxy-recommend/
+- 节点推荐: https://tiziline.com/node-recommend/
+- Clash机场推荐: https://tiziline.com/clash-airport/
+- 小火箭节点推荐: https://tiziline.com/shadowrocket-node/
+
 ## 机场测评
 
 - 极连云: https://tiziline.com/posts/jilianyun.html

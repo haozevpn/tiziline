@@ -349,5 +349,54 @@
       <description>第一次买机场不用追求一步到位，按清单逐项验证能避开大部分新手坑。</description>
       <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
     </item>
+    <item>
+      <title>便宜机场推荐</title>
+      <link>https://tiziline.com/cheap-airport/</link>
+      <guid>https://tiziline.com/cheap-airport/</guid>
+      <description>便宜机场推荐专题，整理低价机场、最低套餐、适合人群、价格列表和购买避坑建议。</description>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>稳定机场推荐</title>
+      <link>https://tiziline.com/stable-airport/</link>
+      <guid>https://tiziline.com/stable-airport/</guid>
+      <description>稳定机场推荐专题，从专线、晚高峰表现、流媒体解锁、售后和长期使用角度筛选机场。</description>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>机场推荐</title>
+      <link>https://tiziline.com/airport-recommend/</link>
+      <guid>https://tiziline.com/airport-recommend/</guid>
+      <description>机场推荐专题，汇总 34 家机场的最低套餐、简介、价格列表和官网注册入口。</description>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>梯子推荐</title>
+      <link>https://tiziline.com/proxy-recommend/</link>
+      <guid>https://tiziline.com/proxy-recommend/</guid>
+      <description>梯子推荐专题，面向新手整理机场、VPN、代理订阅、客户端和购买前检查清单。</description>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>节点推荐</title>
+      <link>https://tiziline.com/node-recommend/</link>
+      <guid>https://tiziline.com/node-recommend/</guid>
+      <description>节点推荐专题，解释香港、日本、新加坡、美国节点怎么选，并推荐适合多地区节点需求的机场。</description>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Clash机场推荐</title>
+      <link>https://tiziline.com/clash-airport/</link>
+      <guid>https://tiziline.com/clash-airport/</guid>
+      <description>Clash机场推荐专题，整理适合 Clash、Mihomo、Clash Verge 订阅导入的机场和配置注意事项。</description>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>小火箭节点推荐</title>
+      <link>https://tiziline.com/shadowrocket-node/</link>
+      <guid>https://tiziline.com/shadowrocket-node/</guid>
+      <description>小火箭节点推荐专题，面向 iPhone Shadowrocket 用户整理机场订阅、节点选择和使用建议。</description>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
   </channel>
 </rss>

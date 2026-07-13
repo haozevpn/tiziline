@@ -4,6 +4,20 @@ const path = require("path");
 const SITE_URL = "https://tiziline.com";
 const SITE_NAME = "Tiziline 机场观察";
 const TODAY = "2026-07-13";
+const SEO_KEYWORDS = [
+  "便宜机场",
+  "稳定机场",
+  "机场推荐",
+  "梯子推荐",
+  "节点推荐",
+  "Clash机场",
+  "Clash 机场",
+  "小火箭节点",
+  "Shadowrocket节点",
+  "机场排行",
+  "机场测评",
+  "机场订阅",
+];
 
 const airports = [
   {
@@ -1463,6 +1477,65 @@ const knowledgeTopics = [
   ["第一次买机场的完整检查清单", "first-buy-checklist", "购买清单", "第一次买机场不用追求一步到位，按清单逐项验证能避开大部分新手坑。"],
 ].map(([title, slug, tag, intro]) => ({ title, slug, tag, intro }));
 
+const keywordPages = [
+  {
+    slug: "cheap-airport",
+    title: "便宜机场推荐",
+    keyword: "便宜机场",
+    description: "便宜机场推荐专题，整理低价机场、最低套餐、适合人群、价格列表和购买避坑建议。",
+    intro: "便宜机场不是单纯找最低月费，而是要同时看流量、倍率、节点稳定性、客服响应和付款周期。这个专题把低价机场集中放在一起，适合学生党、备用线路和轻量用户快速筛选。",
+    names: ["山海机场", "锦云机场", "光年梯", "99吧", "可信云", "速界", "瞬云机场", "青云梯", "拼好连（原Runway Cloud）"],
+  },
+  {
+    slug: "stable-airport",
+    title: "稳定机场推荐",
+    keyword: "稳定机场",
+    description: "稳定机场推荐专题，从专线、晚高峰表现、流媒体解锁、售后和长期使用角度筛选机场。",
+    intro: "稳定机场更适合作为主力订阅。判断稳定性时，不只看测速数字，还要看晚高峰、线路类型、公告维护、订阅更新和常用服务连续可用性。",
+    names: ["极连云", "光年梯", "影子", "边界云机场", "全球云", "奈云", "花云机场 FlowerCloud", "大哥云", "龙猫云"],
+  },
+  {
+    slug: "airport-recommend",
+    title: "机场推荐",
+    keyword: "机场推荐",
+    description: "机场推荐专题，汇总 34 家机场的最低套餐、简介、价格列表和官网注册入口。",
+    intro: "机场推荐页面适合从全局快速筛选。这里按价格、流量、线路、节点地区和适合人群整理机场，适合作为选购前的总入口。",
+    names: ["极连云", "光年梯", "飞猫云", "可信云", "速界", "影子", "星岛梦", "全球云", "山海机场", "花云机场 FlowerCloud"],
+  },
+  {
+    slug: "proxy-recommend",
+    title: "梯子推荐",
+    keyword: "梯子推荐",
+    description: "梯子推荐专题，面向新手整理机场、VPN、代理订阅、客户端和购买前检查清单。",
+    intro: "很多新手搜索梯子推荐，其实是在找稳定的代理订阅、简单的客户端和清晰的购买建议。这个页面用更通俗的方式整理适合日常上网、AI 工具和流媒体的机场选择。",
+    names: ["极连云", "可信云", "光速云", "瞬云机场", "哆啦A梦", "可达加速器", "奈云", "青云梯"],
+  },
+  {
+    slug: "node-recommend",
+    title: "节点推荐",
+    keyword: "节点推荐",
+    description: "节点推荐专题，解释香港、日本、新加坡、美国节点怎么选，并推荐适合多地区节点需求的机场。",
+    intro: "节点推荐要结合用途看：香港、日本适合低延迟，美国适合 AI 和美区服务，新加坡适合东南亚服务。机场节点质量比节点数量更重要。",
+    names: ["全球云", "边缘节点", "光年梯", "极连云", "Lumina", "Edge-X机场", "隐云", "花云机场 FlowerCloud"],
+  },
+  {
+    slug: "clash-airport",
+    title: "Clash机场推荐",
+    keyword: "Clash机场",
+    description: "Clash机场推荐专题，整理适合 Clash、Mihomo、Clash Verge 订阅导入的机场和配置注意事项。",
+    intro: "Clash机场重点看订阅兼容性、规则更新、节点分组和多端使用体验。对电脑用户来说，Clash / Mihomo 类客户端仍然是最常见的机场订阅使用方式。",
+    names: ["极连云", "光年梯", "可信云", "速界", "边缘节点", "影子", "星岛梦", "飞鸟机场"],
+  },
+  {
+    slug: "shadowrocket-node",
+    title: "小火箭节点推荐",
+    keyword: "小火箭节点",
+    description: "小火箭节点推荐专题，面向 iPhone Shadowrocket 用户整理机场订阅、节点选择和使用建议。",
+    intro: "小火箭节点通常指 iOS Shadowrocket 可导入的机场订阅节点。选择时要关注订阅链接兼容性、节点地区、倍率、流媒体解锁和移动网络下的稳定性。",
+    names: ["极连云", "光年梯", "99吧", "锦云机场", "瞬云机场", "LiZione", "哆啦A梦", "青云梯"],
+  },
+];
+
 function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
@@ -1495,6 +1568,8 @@ function relink(html, prefix) {
 
 function pageLabel(pathName, title) {
   if (pathName === "/") return "首页";
+  const keywordPage = keywordPages.find((page) => pathName === `/${page.slug}/`);
+  if (keywordPage) return keywordPage.title;
   if (pathName.startsWith("/rank")) return "机场排行";
   if (pathName.startsWith("/reviews")) return "机场测评";
   if (pathName.startsWith("/knowledge/") && pathName !== "/knowledge/") return title;
@@ -1504,7 +1579,31 @@ function pageLabel(pathName, title) {
   return title;
 }
 
-function commonSchema(title, description, pathName) {
+function pageKeywords(title, description, extra = []) {
+  const candidates = [...extra, ...SEO_KEYWORDS].filter(Boolean);
+  const source = `${title} ${description}`;
+  const matched = candidates.filter((keyword) => source.includes(keyword));
+  return [...new Set([...matched, ...SEO_KEYWORDS])].slice(0, 12);
+}
+
+function itemListSchema(items, pathName, name) {
+  return `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    url: `${SITE_URL}${pathName}`,
+    inLanguage: "zh-CN",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: `${SITE_URL}/posts/${item.slug}.html`,
+      description: item.angle,
+    })),
+  })}</script>`;
+}
+
+function commonSchema(title, description, pathName, keywords = SEO_KEYWORDS) {
   const graph = [
     {
       "@type": "Organization",
@@ -1521,6 +1620,7 @@ function commonSchema(title, description, pathName) {
       description: "机场排行、机场测评和机场科普知识博客。",
       publisher: { "@id": `${SITE_URL}/#organization` },
       inLanguage: "zh-CN",
+      keywords,
     },
   ];
 
@@ -1540,6 +1640,7 @@ function commonSchema(title, description, pathName) {
     url: `${SITE_URL}${pathName}`,
     name: title,
     description,
+    keywords,
     isPartOf: { "@id": `${SITE_URL}/#website` },
     inLanguage: "zh-CN",
   });
@@ -1547,10 +1648,11 @@ function commonSchema(title, description, pathName) {
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
 }
 
-function layout({ title, description, pathName, content, extraHead = "" }) {
+function layout({ title, description, pathName, content, extraHead = "", keywords = [] }) {
   const prefix = prefixFor(pathName);
   const canonical = `${SITE_URL}${pathName}`;
   const ogType = pathName === "/" || pathName.endsWith("/") ? "website" : "article";
+  const finalKeywords = pageKeywords(title, description, keywords);
   const html = `<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -1558,6 +1660,7 @@ function layout({ title, description, pathName, content, extraHead = "" }) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)} | ${SITE_NAME}</title>
   <meta name="description" content="${escapeHtml(description)}">
+  <meta name="keywords" content="${escapeHtml(finalKeywords.join(", "))}">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="author" content="${SITE_NAME}">
   <meta name="theme-color" content="#0f766e">
@@ -1574,7 +1677,7 @@ function layout({ title, description, pathName, content, extraHead = "" }) {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
-  ${commonSchema(title, description, pathName)}
+  ${commonSchema(title, description, pathName, finalKeywords)}
   ${extraHead}
 </head>
 <body>
@@ -1605,6 +1708,7 @@ ${content}
 }
 
 function schema(title, description, pathName) {
+  const keywords = pageKeywords(title, description);
   return `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Article",
@@ -1615,6 +1719,7 @@ function schema(title, description, pathName) {
     dateModified: TODAY,
     author: { "@type": "Organization", name: SITE_NAME },
     publisher: { "@type": "Organization", name: SITE_NAME, logo: { "@type": "ImageObject", url: `${SITE_URL}/assets/favicon.svg` } },
+    keywords,
     inLanguage: "zh-CN",
     mainEntityOfPage: `${SITE_URL}${pathName}`,
   })}</script>`;
@@ -1633,6 +1738,14 @@ function knowledgeCard(item) {
     <span class="tag">${item.tag}</span>
     <h3>${item.title}</h3>
     <p>${item.intro}</p>
+  </a>`;
+}
+
+function keywordCard(item) {
+  return `<a class="post-card" href="/${item.slug}/">
+    <span class="tag">${item.keyword}</span>
+    <h3>${item.title}</h3>
+    <p>${item.description}</p>
   </a>`;
 }
 
@@ -1686,10 +1799,21 @@ function homePage() {
       <div class="post-grid">${airports.slice(0, 6).map(airportCard).join("")}</div>
     </section>
     <section class="section">
+      <div class="section-head"><h2>热门专题</h2><a href="/airport-recommend/">机场推荐</a></div>
+      <div class="post-grid">${keywordPages.map(keywordCard).join("")}</div>
+    </section>
+    <section class="section">
       <div class="section-head"><h2>科普知识</h2><a href="/knowledge/">全部科普</a></div>
       <div class="post-grid">${knowledgeTopics.slice(0, 6).map(knowledgeCard).join("")}</div>
     </section>`;
-  return layout({ title: "机场排行、机场测评与科普知识", description: "整理机场排行、机场测评、机场科普知识、注册链接和套餐对比。", pathName: "/", content });
+  return layout({
+    title: "机场排行、机场测评与科普知识",
+    description: "整理机场排行、机场测评、机场科普知识、注册链接和套餐对比。",
+    pathName: "/",
+    content,
+    keywords: ["机场推荐", "机场排行", "便宜机场", "稳定机场", "Clash机场", "小火箭节点"],
+    extraHead: itemListSchema(airports.slice(0, 10), "/", "热门机场推荐"),
+  });
 }
 
 function rankPage(pathName = "/rank/") {
@@ -1720,7 +1844,14 @@ function rankPage(pathName = "/rank/") {
         </table>
       </div>
     </section>`;
-  return layout({ title: "机场排行", description: `${airports.length} 家去重机场排行列表，包含最低套餐、定位、适合人群和注册链接。`, pathName, content });
+  return layout({
+    title: "机场排行",
+    description: `${airports.length} 家去重机场排行列表，包含最低套餐、定位、适合人群和注册链接。`,
+    pathName,
+    content,
+    keywords: ["机场排行", "机场推荐", "便宜机场", "稳定机场"],
+    extraHead: itemListSchema(airports, pathName, "机场排行"),
+  });
 }
 
 function reviewsPage() {
@@ -1745,6 +1876,75 @@ function knowledgePage() {
       <div class="post-grid">${knowledgeTopics.map(knowledgeCard).join("")}</div>
     </section>`;
   return layout({ title: "科普知识", description: "15 篇机场相关科普知识文章，帮助新手理解机场订阅和科学上网基础概念。", pathName: "/knowledge/", content });
+}
+
+function keywordPage(page) {
+  const picked = page.names.map((name) => airports.find((airport) => airport.name === name)).filter(Boolean);
+  const fallback = airports.filter((airport) => !picked.includes(airport)).slice(0, Math.max(0, 8 - picked.length));
+  const list = [...picked, ...fallback].slice(0, 10);
+  const rows = list.map((item, index) => `<tr>
+    <td class="rank-index">${index + 1}</td>
+    <td class="rank-name"><a href="/posts/${item.slug}.html">${item.name}</a></td>
+    <td class="rank-price">${item.cheap}</td>
+    <td class="rank-intro">${escapeHtml(excerpt(item.angle, 96))}</td>
+    <td class="rank-action"><a class="official-link" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>
+  </tr>`).join("");
+  const faq = [
+    [`${page.keyword}怎么选？`, `先看自己的用途，再比较最低套餐、月流量、节点地区、倍率、客户端兼容性和售后公告。${page.keyword}不建议只按最低价格排序。`],
+    [`${page.keyword}适合新手吗？`, `适合，但新手应优先月付或短周期测试，确认常用节点、AI 工具、流媒体和移动端都稳定后，再考虑长期套餐。`],
+    [`${page.keyword}和普通机场排行有什么区别？`, `机场排行是全量列表，${page.keyword}专题会围绕特定搜索需求筛选更匹配的机场和使用建议。`],
+  ];
+  const faqSchema = `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  })}</script>`;
+  const content = `    <article class="article">
+      <div class="article-hero">
+        <p class="eyebrow">热门专题 · ${page.keyword}</p>
+        <h1>${page.title}</h1>
+        <p class="lead">${page.intro}</p>
+      </div>
+      <section>
+        <h2>${page.keyword}筛选原则</h2>
+        <p>${page.keyword}想要获得稳定体验，不能只看首页宣传词。更可靠的判断方式是把价格、流量、倍率、节点地区、协议兼容、客户端导入和售后渠道放在一起看。对于新站或低价套餐，建议先短周期测试，不要第一次就直接购买多年套餐。</p>
+        <p>如果你主要用于 AI 工具、海外资料检索和日常网页，低价小流量套餐就可能够用；如果你需要 4K 视频、直播、远程办公或多设备共享，应该优先看专线稳定性、流量上限和晚高峰表现。</p>
+      </section>
+      <section>
+        <h2>${page.title}列表</h2>
+        <div class="table-wrap">
+          <table class="rank-table">
+            <colgroup>
+              <col class="col-index">
+              <col class="col-name">
+              <col class="col-price">
+              <col class="col-intro">
+              <col class="col-action">
+            </colgroup>
+            <thead><tr><th>#</th><th>机场</th><th>最低套餐</th><th>推荐理由</th><th>官网</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>${page.keyword}常见问题</h2>
+        ${faq.map(([question, answer]) => `<h3>${question}</h3><p>${answer}</p>`).join("")}
+      </section>
+      <aside class="notice">更多完整对比可查看 <a class="official-link" href="/rank/">机场排行</a> 和 <a class="official-link" href="/reviews/">机场测评</a>。</aside>
+    </article>`;
+  return layout({
+    title: page.title,
+    description: page.description,
+    pathName: `/${page.slug}/`,
+    content,
+    keywords: [page.keyword, page.title],
+    extraHead: `${faqSchema}
+  ${itemListSchema(list, `/${page.slug}/`, page.title)}`,
+  });
 }
 
 function aboutPage() {
@@ -1872,6 +2072,7 @@ function sitemap() {
     ["/reviews/", "0.9"],
     ["/knowledge/", "0.9"],
     ["/about/", "0.6"],
+    ...keywordPages.map((item) => [`/${item.slug}/`, "0.85"]),
     ...airports.map((item) => [`/posts/${item.slug}.html`, "0.8"]),
     ...knowledgeTopics.map((item) => [`/knowledge/${item.slug}.html`, "0.8"]),
   ];
@@ -1927,6 +2128,11 @@ function rssFeed() {
       url: `${SITE_URL}/knowledge/${item.slug}.html`,
       description: item.intro,
     })),
+    ...keywordPages.map((item) => ({
+      title: item.title,
+      url: `${SITE_URL}/${item.slug}/`,
+      description: item.description,
+    })),
   ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1963,6 +2169,14 @@ ${SITE_NAME} 是一个中文机场推荐、机场测评和机场科普知识站�
 - 关于我们: ${SITE_URL}/about/
 - Sitemap: ${SITE_URL}/sitemap.xml
 - RSS: ${SITE_URL}/feed.xml
+
+## 核心关键词
+
+${SEO_KEYWORDS.map((keyword) => `- ${keyword}`).join("\n")}
+
+## 热门搜索专题
+
+${keywordPages.map((item) => `- ${item.title}: ${SITE_URL}/${item.slug}/`).join("\n")}
 
 ## 机场测评
 
@@ -2084,6 +2298,7 @@ function build() {
   write(path.join(root, "reviews", "index.html"), reviewsPage());
   write(path.join(root, "knowledge", "index.html"), knowledgePage());
   write(path.join(root, "about", "index.html"), aboutPage());
+  keywordPages.forEach((item) => write(path.join(root, item.slug, "index.html"), keywordPage(item)));
   airports.forEach((item, index) => write(path.join(root, "posts", `${item.slug}.html`), airportArticle(item, index)));
   knowledgeTopics.forEach((item, index) => write(path.join(root, "knowledge", `${item.slug}.html`), knowledgeArticle(item, index)));
   write(path.join(root, "sitemap.xml"), sitemap());
