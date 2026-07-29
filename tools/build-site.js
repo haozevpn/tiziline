@@ -1456,8 +1456,54 @@ const airports = [
         "备注": "重度/多设备"
       }
     ]
+  },
+  {
+    "name": "微风网络",
+    "slug": "weifengwangluo",
+    "url": "https://vip01.breezenetaff.com/#/?code=JxFsshSn",
+    "cheap": "¥137/年 · 100GB",
+    "tag": "全IPLC专线",
+    "angle": "微风网络提供清风、乘风、破风和御风四档套餐，价格从年付入门方案到月付大流量方案都有覆盖。根据公开套餐信息，四档方案均采用全IPLC专线，支持多设备同时接入且不限速，适合需要稳定线路、视频流媒体和多设备使用的用户。清风套餐为每月100GB，流量从购买日起自动重置；其余套餐分别提供200GB、500GB和1.2TB月流量。",
+    "sourcePath": "/airport/weifengwangluo.html",
+    "plans": [
+      {
+        "套餐名称": "清风（Breeze）",
+        "价格": "¥137.00/年",
+        "流量": "100GB/月",
+        "特性": "每月流量100G，购买日起自动重置；全IPLC专线；不限设备；不限速",
+        "购买链接": "购买链接"
+      },
+      {
+        "套餐名称": "乘风（Riding）",
+        "价格": "¥27.00/月",
+        "流量": "200GB/月",
+        "特性": "全IPLC专线，享受低延迟高速率；不限设备；不限速",
+        "购买链接": "购买链接"
+      },
+      {
+        "套餐名称": "破风（Breaking）",
+        "价格": "¥57.00/月",
+        "流量": "500GB/月",
+        "特性": "全IPLC专线，享受低延迟高速率；不限设备；不限速",
+        "购买链接": "购买链接"
+      },
+      {
+        "套餐名称": "御风（Mastery）",
+        "价格": "¥127.00/月",
+        "流量": "1.2TB/月",
+        "特性": "每月流量1200G；全IPLC专线，享受低延迟高速率；不限设备；不限速",
+        "购买链接": "购买链接"
+      }
+    ]
   }
 ];
+
+const airportPriority = ["feimaoyun", "jilianyun", "weifengwangluo"];
+airports.sort((a, b) => {
+  const aRank = airportPriority.indexOf(a.slug);
+  const bRank = airportPriority.indexOf(b.slug);
+  return (aRank === -1 ? Number.MAX_SAFE_INTEGER : aRank) - (bRank === -1 ? Number.MAX_SAFE_INTEGER : bRank);
+});
 
 const knowledgeTopics = [
   ["机场和 VPN 有什么区别？新手应该怎么选", "airport-vs-vpn", "区别选择", "很多新手会把机场和 VPN 混在一起，其实二者在产品形态、客户端、线路组织和使用风险上都有明显差异。"],
@@ -1498,9 +1544,9 @@ const keywordPages = [
     slug: "airport-recommend",
     title: "机场推荐",
     keyword: "机场推荐",
-    description: "机场推荐专题，汇总 34 家机场的最低套餐、简介、价格列表和官网注册入口。",
+    description: `机场推荐专题，汇总 ${airports.length} 家机场的最低套餐、简介、价格列表和官网注册入口。`,
     intro: "机场推荐页面适合从全局快速筛选。这里按价格、流量、线路、节点地区和适合人群整理机场，适合作为选购前的总入口。",
-    names: ["极连云", "光年梯", "飞猫云", "可信云", "速界", "影子", "星岛梦", "全球云", "山海机场", "花云机场 FlowerCloud"],
+    names: ["飞猫云", "极连云", "微风网络", "光年梯", "可信云", "速界", "影子", "星岛梦", "全球云", "山海机场"],
   },
   {
     slug: "proxy-recommend",
