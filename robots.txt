@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://tiziline.com/sitemap.xml
+# IndexNow key file: https://tiziline.com/tiziline-2026-indexnow-7f3c2a91.txt

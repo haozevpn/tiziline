@@ -1,0 +1,101 @@
+{
+  "generatedAt": "2026-09-14",
+  "articleCount": 15,
+  "longformCount": 10,
+  "titleCount": 15,
+  "duplicateTitles": [],
+  "duplicateParagraphs": [],
+  "similarPairs": [],
+  "articles": [
+    {
+      "slug": "airport-vs-vpn",
+      "title": "机场和 VPN 有什么区别？新手选机场前先看这份对比",
+      "chars": 1982,
+      "paragraphCount": 12
+    },
+    {
+      "slug": "iepl-iplc-bgp",
+      "title": "IEPL、IPLC、BGP 中转是什么意思？机场线路选择指南",
+      "chars": 1869,
+      "paragraphCount": 12
+    },
+    {
+      "slug": "traffic-rate-device",
+      "title": "机场套餐里的倍率、流量和设备数怎么看？",
+      "chars": 1903,
+      "paragraphCount": 13
+    },
+    {
+      "slug": "client-subscription-guide",
+      "title": "Clash、Mihomo、Shadowrocket 订阅导入指南",
+      "chars": 1801,
+      "paragraphCount": 12
+    },
+    {
+      "slug": "peak-hour-test",
+      "title": "如何测试机场晚高峰稳定性？一套可复用的测速方法",
+      "chars": 1815,
+      "paragraphCount": 13
+    },
+    {
+      "slug": "streaming-unlock",
+      "title": "机场流媒体解锁为什么会失效？Netflix、Disney+节点排查",
+      "chars": 1842,
+      "paragraphCount": 12
+    },
+    {
+      "slug": "ai-service-guide",
+      "title": "ChatGPT、Claude 使用机场时要注意什么？AI节点选择指南",
+      "chars": 1830,
+      "paragraphCount": 12
+    },
+    {
+      "slug": "node-region-guide",
+      "title": "机场节点地区怎么选？香港、日本、新加坡、美国对比",
+      "chars": 1823,
+      "paragraphCount": 13
+    },
+    {
+      "slug": "airport-risk-signals",
+      "title": "机场跑路前常见信号和止损方法：购买前的风险控制",
+      "chars": 1917,
+      "paragraphCount": 14
+    },
+    {
+      "slug": "backup-airport",
+      "title": "备用机场为什么重要？主力和备用机场搭配方案",
+      "chars": 1867,
+      "paragraphCount": 14
+    },
+    {
+      "slug": "subscription-security",
+      "title": "机场订阅链接泄露会发生什么",
+      "chars": 1016,
+      "paragraphCount": 8
+    },
+    {
+      "slug": "mobile-airport-guide",
+      "title": "手机端使用机场的常见问题",
+      "chars": 1079,
+      "paragraphCount": 8
+    },
+    {
+      "slug": "desktop-airport-guide",
+      "title": "电脑端使用机场的常见问题",
+      "chars": 1100,
+      "paragraphCount": 8
+    },
+    {
+      "slug": "cheap-airport-cost",
+      "title": "便宜机场为什么有时不便宜",
+      "chars": 1005,
+      "paragraphCount": 8
+    },
+    {
+      "slug": "first-buy-checklist",
+      "title": "第一次买机场的完整检查清单",
+      "chars": 1214,
+      "paragraphCount": 10
+    }
+  ]
+}
