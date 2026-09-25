@@ -2467,6 +2467,7 @@ function icon(name, className = "") {
     shield: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path>`,
     chart: `<path d="M3 3v18h18"></path><path d="m7 15 4-4 3 3 5-6"></path>`,
     link: `<path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.1 1.1"></path><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.1-1.1"></path>`,
+    send: `<path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path>`,
     arrow: `<path d="M5 12h14M13 6l6 6-6 6"></path>`,
   };
   return `<svg class="icon ${className}" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths[name] || paths.arrow}</svg>`;
@@ -2600,8 +2601,9 @@ ${isDetailPage ? `<div class="content-shell">${content}${sideRail}</div>` : cont
   </main>
   <footer class="site-footer">
     <div><a class="footer-brand" href="/"><span class="brand-mark">T</span><strong>${SITE_NAME}</strong></a><p>只做公开信息整理与选购思路说明，套餐、节点和注册链接以服务商官网实时页面为准。</p></div>
-    <div class="footer-links"><a href="/knowledge/">内容中心</a><a href="/about/">编辑政策</a><button type="button" data-open-dialog="quick-links-dialog">快捷导航</button><a href="/sitemap.xml">Sitemap</a></div>
+    <div class="footer-links"><a href="/knowledge/">内容中心</a><a href="/about/">编辑政策</a><button type="button" data-open-dialog="quick-links-dialog">快捷导航</button></div>
   </footer>
+  <a class="floating-contact" href="https://t.me/feifei04" target="_blank" rel="noopener noreferrer" aria-label="联系我们">${icon("send")}<span>联系我们</span></a>
   <dialog class="site-dialog search-dialog" id="site-search-dialog"><div class="dialog-head"><div><span>全站搜索</span><strong>查找机场、测评和教程</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭">${icon("close")}</button></div><label class="dialog-search">${icon("search")}<input id="site-search-input" type="search" placeholder="输入机场名称或问题，例如：晚高峰、飞猫云"></label><div class="search-results" id="site-search-results"></div></dialog>
   <dialog class="site-dialog links-dialog" id="quick-links-dialog"><div class="dialog-head"><div><span>站点导航</span><strong>快速找到需要的内容</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭">${icon("close")}</button></div><p class="dialog-copy">本站按选购、测评、教程和安全问题维护内容，不使用弹窗跳转到未知注册页面。</p><div class="dialog-link-grid">${editorialCategories.map((item) => `<a href="/${item.slug}/"><strong>${item.title}</strong><span>${item.description}</span></a>`).join("")}</div></dialog>
 </body>
@@ -2911,32 +2913,38 @@ function keywordPage(page) {
 }
 
 function aboutPage() {
-  const content = `    <article class="article">
-      <div class="article-hero">
+  const content = `    <article class="article about-article">
+      <div class="article-hero about-hero">
         <p class="eyebrow">About</p>
         <h1>关于我们</h1>
         <p class="lead">Tiziline 机场观察是一个机场推荐与科普型静态博客，主要整理公开页面中的机场信息、套餐入口、使用场景和选购注意事项。</p>
       </div>
-      <section>
-        <h2>本站定位</h2>
-        <p>本站不运营机场服务，也不提供代理节点。所有文章都以公开资料整理、选购逻辑说明和新手科普为主，帮助读者理解机场套餐、线路类型、客户端配置、流媒体解锁、AI 工具访问和风险控制。</p>
-        <p>机场行业变化很快，套餐价格、域名入口、节点质量和售后状态都可能随时调整。本站内容适合作为筛选参考，真正下单前仍应以服务商官网实时页面为准。</p>
-      </section>
-      <section>
-        <h2>内容原则</h2>
-        <p>我们优先关注可读性和可验证性：把复杂术语讲清楚，把适合人群写明白，把购买风险提前说明。相近搜索标题会合并到一篇主文章，不为了关键词数量复制正文；品牌相关的“怎么样、靠谱吗、值得买吗、优惠码和对比”集中在该品牌唯一测评页。</p>
-        <p>文章中的套餐、流量、线路和入口来自服务商公开页面，并标注更新时间。页面不会把宣传词直接写成事实结论，涉及速度、解锁和稳定性的内容会提醒读者使用自己的设备、运营商和晚高峰场景验证。</p>
-      </section>
-      <section>
-        <h2>推广链接与独立性</h2>
-        <p>部分官网注册链接可能包含推广参数，本站可能因此获得佣金，但不会改变用户看到的公开套餐价格。推广关系不代表稳定性保证，也不会替代风险提示；注册链接统一使用 sponsored 和 nofollow 标记。</p>
-        <p>本站不接受把无法验证的“永久稳定”“百分百解锁”写成编辑结论。若套餐或入口发生变化，以服务商官网、公告和结算页为准。</p>
-      </section>
-      <section>
-        <h2>更新与纠错</h2>
-        <p>内容按选购科普、测评对比、使用教程和安全避坑分类维护。每次更新会同步 Sitemap 与 IndexNow 清单，并检查重复标题、重复段落、Meta 描述和站内链接。</p>
-        <p>如果发现套餐、入口或文章表述已过时，应先核对官方页面，再更新对应的唯一规范页，避免创建多个互相冲突的版本。</p>
-      </section>
+      <div class="about-card-grid">
+        <section class="about-card">
+          <span class="about-card-index" aria-hidden="true">01</span>
+          <h2>本站定位</h2>
+          <p>本站不运营机场服务，也不提供代理节点。所有文章都以公开资料整理、选购逻辑说明和新手科普为主，帮助读者理解机场套餐、线路类型、客户端配置、流媒体解锁、AI 工具访问和风险控制。</p>
+          <p>机场行业变化很快，套餐价格、域名入口、节点质量和售后状态都可能随时调整。本站内容适合作为筛选参考，真正下单前仍应以服务商官网实时页面为准。</p>
+        </section>
+        <section class="about-card">
+          <span class="about-card-index" aria-hidden="true">02</span>
+          <h2>内容原则</h2>
+          <p>我们优先关注可读性和可验证性：把复杂术语讲清楚，把适合人群写明白，把购买风险提前说明。相近搜索标题会合并到一篇主文章，不为了关键词数量复制正文；品牌相关的“怎么样、靠谱吗、值得买吗、优惠码和对比”集中在该品牌唯一测评页。</p>
+          <p>文章中的套餐、流量、线路和入口来自服务商公开页面，并标注更新时间。页面不会把宣传词直接写成事实结论，涉及速度、解锁和稳定性的内容会提醒读者使用自己的设备、运营商和晚高峰场景验证。</p>
+        </section>
+        <section class="about-card">
+          <span class="about-card-index" aria-hidden="true">03</span>
+          <h2>推广链接与独立性</h2>
+          <p>部分官网注册链接可能包含推广参数，本站可能因此获得佣金，但不会改变用户看到的公开套餐价格。推广关系不代表稳定性保证，也不会替代风险提示；注册链接统一使用 sponsored 和 nofollow 标记。</p>
+          <p>本站不接受把无法验证的“永久稳定”“百分百解锁”写成编辑结论。若套餐或入口发生变化，以服务商官网、公告和结算页为准。</p>
+        </section>
+        <section class="about-card">
+          <span class="about-card-index" aria-hidden="true">04</span>
+          <h2>更新与纠错</h2>
+          <p>内容按选购科普、测评对比、使用教程和安全避坑分类维护。每次更新会同步 Sitemap 与 IndexNow 清单，并检查重复标题、重复段落、Meta 描述和站内链接。</p>
+          <p>如果发现套餐、入口或文章表述已过时，应先核对官方页面，再更新对应的唯一规范页，避免创建多个互相冲突的版本。</p>
+        </section>
+      </div>
     </article>`;
   return layout({ title: "关于我们与编辑政策", description: "了解 Tiziline 机场观察的内容定位、公开信息来源、推广链接披露、文章去重原则、更新流程和购买风险提示。", pathName: "/about/", content });
 }
@@ -3515,6 +3523,16 @@ main { min-height: 70vh; }
 .article h3 { margin: 24px 0 8px; font-size: 20px; }
 .article p { color: #35465f; }
 .article-meta, .affiliate-note { color: var(--muted) !important; font-size: 13px; }
+.about-article { width: min(1120px, calc(100% - 36px)); margin: 34px auto 70px; padding: 34px; }
+.about-hero { padding: 20px 6px 34px; }
+.about-hero .lead { max-width: 860px; margin-bottom: 0; }
+.about-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.about-card { position: relative; min-width: 0; padding: 28px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(145deg, #fff 0%, #f7fafc 100%); box-shadow: 0 10px 28px rgba(25, 52, 83, .06); }
+.about-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; border-radius: 14px 0 0 14px; background: var(--teal); opacity: .82; }
+.about-card-index { display: inline-flex; align-items: center; justify-content: center; min-width: 42px; height: 28px; padding: 0 10px; border-radius: 999px; background: #e4f2f0; color: var(--teal-dark); font-size: 12px; font-weight: 900; letter-spacing: .08em; }
+.about-card h2 { margin: 16px 0 12px; font-size: 23px; }
+.about-card p { margin: 0; color: #40526b; }
+.about-card p + p { margin-top: 12px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 8px; font-weight: 800; }
 .button.primary { border-color: var(--teal); background: var(--teal); color: #fff; }
@@ -3576,6 +3594,9 @@ tbody tr:last-child td { border-bottom: 0; }
 
 .site-footer { display: flex; justify-content: space-between; gap: 34px; margin-top: 30px; padding: 42px max(20px, calc((100vw - 1120px) / 2)); border-top: 1px solid var(--line); background: #eaf0f6; color: var(--muted); }
 .footer-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); }.site-footer p { max-width: 650px; margin: 9px 0 0; font-size: 13px; }.footer-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 15px; font-size: 13px; font-weight: 800; }.footer-links button { padding: 0; border: 0; background: transparent; cursor: pointer; font-weight: 800; }
+.floating-contact { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 45; display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 10px 17px; border: 1px solid rgba(255, 255, 255, .48); border-radius: 999px; background: var(--teal); color: #fff; font-size: 14px; font-weight: 900; box-shadow: 0 14px 34px rgba(13, 102, 95, .3); transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+.floating-contact:hover { transform: translateY(-2px); background: var(--teal-dark); box-shadow: 0 17px 38px rgba(13, 102, 95, .36); }
+.floating-contact .icon { width: 18px; height: 18px; }
 
 @media (max-width: 1040px) {
   .header-inner { gap: 14px; }.top-nav { gap: 13px; font-size: 13px; }.header-search span { display: none; }
@@ -3587,8 +3608,9 @@ tbody tr:last-child td { border-bottom: 0; }
   .home-hero { min-height: 0; padding: 22px 14px 34px; background-position: 58% bottom; }.hero-panel { padding: 34px 18px 30px; border-radius: 18px; }.hero-panel h1 { font-size: 38px; }.hero-lead { font-size: 16px; }.hero-chips { gap: 7px; margin-top: 22px; }.hero-chips a { padding: 6px 10px; font-size: 12px; }
   .hero-search button { padding: 0 14px; }.feature-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }.feature-card { min-height: 0; }
   .section, .list-hero { width: min(100% - 28px, 1120px); }.section { padding: 44px 0; }.alt-section { width: 100%; padding-left: 14px; padding-right: 14px; }.section-head { align-items: flex-start; flex-direction: column; margin-bottom: 20px; }.section-head h2 { font-size: 25px; }
-  .post-grid, .quick-card, .site-rail, .dialog-link-grid { grid-template-columns: 1fr; }.post-card { min-height: 0; }.content-shell { width: min(100% - 22px, 1160px); padding-top: 20px; }.article { padding: 18px 17px 36px; }.article-hero h1, .list-hero h1 { font-size: 34px; }.query-box ul { columns: 1; }
+  .post-grid, .quick-card, .site-rail, .dialog-link-grid, .about-card-grid { grid-template-columns: 1fr; }.post-card { min-height: 0; }.content-shell { width: min(100% - 22px, 1160px); padding-top: 20px; }.article { padding: 18px 17px 36px; }.about-article { width: min(100% - 22px, 1120px); margin: 20px auto 54px; padding: 20px 16px; }.about-hero { padding: 12px 4px 26px; }.about-card-grid { gap: 14px; margin-top: 20px; }.about-card { padding: 23px 21px 22px; }.article-hero h1, .list-hero h1 { font-size: 34px; }.query-box ul { columns: 1; }
   .site-footer { flex-direction: column; padding: 34px 20px; }.footer-links { justify-content: flex-start; }
+  .floating-contact { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); min-height: 44px; padding: 9px 14px; }
   .search-result { grid-template-columns: 1fr; }.search-result span { grid-row: auto; }.search-result small { white-space: normal; }.dialog-head { padding: 18px; }.dialog-search { margin: 16px 18px 10px; }.search-results { padding: 4px 18px 18px; }.dialog-link-grid { padding: 8px 18px 18px; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
