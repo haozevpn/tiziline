@@ -1539,6 +1539,13 @@ airports.sort((a, b) => {
   return (aRank === -1 ? Number.MAX_SAFE_INTEGER : aRank) - (bRank === -1 ? Number.MAX_SAFE_INTEGER : bRank);
 });
 
+const rankingPriority = ["jilianyun", "guangnianti"];
+const rankedAirports = [...airports].sort((a, b) => {
+  const aRank = rankingPriority.indexOf(a.slug);
+  const bRank = rankingPriority.indexOf(b.slug);
+  return (aRank === -1 ? Number.MAX_SAFE_INTEGER : aRank) - (bRank === -1 ? Number.MAX_SAFE_INTEGER : bRank);
+});
+
 const knowledgeTopics = [
   ["机场和 VPN 有什么区别？新手选机场前先看这份对比", "airport-vs-vpn", "区别选择", "机场和 VPN 都能提供跨地区网络连接，但产品形态、客户端、套餐计费和节点管理方式不同。理解这些差异，才能按自己的设备、预算和使用场景选择。"],
   ["IEPL、IPLC、BGP 中转是什么意思？机场线路选择指南", "iepl-iplc-bgp", "线路科普", "机场页面经常出现 IEPL、IPLC、BGP 中转和专线入口。它们对应不同的线路描述，理解延迟、拥塞、倍率和维护边界，才能看懂套餐差异。"],
@@ -2603,7 +2610,7 @@ ${isDetailPage ? `<div class="content-shell">${content}${sideRail}</div>` : cont
     <div><a class="footer-brand" href="/"><span class="brand-mark">T</span><strong>${SITE_NAME}</strong></a><p>只做公开信息整理与选购思路说明，套餐、节点和注册链接以服务商官网实时页面为准。</p></div>
     <div class="footer-links"><a href="/knowledge/">内容中心</a><a href="/about/">编辑政策</a><button type="button" data-open-dialog="quick-links-dialog">快捷导航</button></div>
   </footer>
-  <a class="floating-contact" href="https://t.me/feifei04" target="_blank" rel="noopener noreferrer" aria-label="联系我们">${icon("send")}<span>联系我们</span></a>
+  <a class="floating-contact" href="https://t.me/JIAN6688" target="_blank" rel="noopener noreferrer" aria-label="联系我们">${icon("send")}<span>联系我们</span></a>
   <dialog class="site-dialog search-dialog" id="site-search-dialog"><div class="dialog-head"><div><span>全站搜索</span><strong>查找机场、测评和教程</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭">${icon("close")}</button></div><label class="dialog-search">${icon("search")}<input id="site-search-input" type="search" placeholder="输入机场名称或问题，例如：晚高峰、飞猫云"></label><div class="search-results" id="site-search-results"></div></dialog>
   <dialog class="site-dialog links-dialog" id="quick-links-dialog"><div class="dialog-head"><div><span>站点导航</span><strong>快速找到需要的内容</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭">${icon("close")}</button></div><p class="dialog-copy">本站按选购、测评、教程和安全问题维护内容，不使用弹窗跳转到未知注册页面。</p><div class="dialog-link-grid">${editorialCategories.map((item) => `<a href="/${item.slug}/"><strong>${item.title}</strong><span>${item.description}</span></a>`).join("")}</div></dialog>
 </body>
@@ -2745,7 +2752,7 @@ function homePage() {
     </section>
     <section class="section home-section">
       <div class="section-head"><div><span class="section-kicker">Ranking</span><h2>热门机场排行</h2><p>先看公开套餐，再进入独立测评核对适合人群和风险。</p></div><a class="section-more" href="/rank/">查看全部 ${icon("arrow")}</a></div>
-      <div class="post-grid">${airports.slice(0, 6).map(airportCard).join("")}</div>
+      <div class="post-grid">${rankedAirports.slice(0, 6).map(airportCard).join("")}</div>
     </section>
     <section class="section home-section alt-section">
       <div class="section-head"><div><span class="section-kicker">Topics</span><h2>按使用需求选择</h2><p>相近搜索问题合并到规范专题页，减少重复内容。</p></div><a class="section-more" href="/recommend/">全部专题 ${icon("arrow")}</a></div>
@@ -2761,12 +2768,12 @@ function homePage() {
     pathName: "/",
     content,
     keywords: ["机场推荐", "机场排行", "便宜机场", "稳定机场", "Clash机场", "小火箭节点"],
-    extraHead: itemListSchema(airports.slice(0, 10), "/", "热门机场推荐"),
+    extraHead: itemListSchema(rankedAirports.slice(0, 10), "/", "热门机场推荐"),
   });
 }
 
 function rankPage(pathName = "/rank/") {
-  const rows = airports.map((item, index) => `<tr>
+  const rows = rankedAirports.map((item, index) => `<tr>
     <td class="rank-index">${index + 1}</td>
     <td class="rank-name"><a href="/posts/${item.slug}.html">${item.name}</a></td>
     <td class="rank-price">${item.cheap}</td>
@@ -2795,11 +2802,11 @@ function rankPage(pathName = "/rank/") {
     </section>`;
   return layout({
     title: "机场排行",
-    description: `${airports.length} 家去重机场排行列表，包含最低套餐、定位、适合人群和注册链接。`,
+    description: `${rankedAirports.length} 家去重机场排行列表，包含最低套餐、定位、适合人群和注册链接。`,
     pathName,
     content,
     keywords: ["机场排行", "机场推荐", "便宜机场", "稳定机场"],
-    extraHead: itemListSchema(airports, pathName, "机场排行"),
+    extraHead: itemListSchema(rankedAirports, pathName, "机场排行"),
   });
 }
 
