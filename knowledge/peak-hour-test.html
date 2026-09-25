@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>如何测试机场晚高峰稳定性？一套可复用的测速方法 | Tiziline 机场观察</title>
-  <meta name="description" content="如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，整理机场订阅、线路、套餐和使用中的实用判断方法。">
-  <meta name="keywords" content="测速方法, 如何测试机场晚高峰稳定性？一套可复用的测速方法, 稳定机场, 机场测速, 机场晚高峰, 机场推荐, 便宜机场, 梯子推荐, 节点推荐, 机场测评, 机场订阅, 机场套餐, 备用机场">
+  <meta name="description" content="如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，并覆盖机场测速教程：延迟、速度、丢包率怎么看？、晚高峰机场测速：为什么白天快、晚上却很慢？。">
+  <meta name="keywords" content="测速方法, 如何测试机场晚高峰稳定性？一套可复用的测速方法, 机场测速教程：延迟、速度、丢包率怎么看？, 晚高峰机场测速：为什么白天快、晚上却很慢？, 如何测试机场节点的真实下载速度？, 机场晚高峰速度慢怎么办？节点选择技巧, 稳定机场, 机场测速, 机场晚高峰, 机场推荐, 便宜机场, 梯子推荐, 节点推荐, 机场测评, 机场订阅, 机场套餐, 备用机场">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="author" content="Tiziline 机场观察">
   <meta name="theme-color" content="#0f766e">
@@ -16,46 +16,47 @@
   <link rel="stylesheet" href="../assets/style.css">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="Tiziline 机场观察 RSS" href="../feed.xml">
+  <script>window.TIZI_BASE_PREFIX="../";</script>
+  <script src="../assets/search-index.js" defer></script>
+  <script src="../assets/site.js" defer></script>
   <meta property="og:type" content="article">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:site_name" content="Tiziline 机场观察">
   <meta property="og:title" content="如何测试机场晚高峰稳定性？一套可复用的测速方法">
-  <meta property="og:description" content="如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，整理机场订阅、线路、套餐和使用中的实用判断方法。">
+  <meta property="og:description" content="如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，并覆盖机场测速教程：延迟、速度、丢包率怎么看？、晚高峰机场测速：为什么白天快、晚上却很慢？。">
   <meta property="og:url" content="https://tiziline.com/knowledge/peak-hour-test.html">
-  <meta property="og:image" content="https://tiziline.com/assets/favicon.svg">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://tiziline.com/assets/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="如何测试机场晚高峰稳定性？一套可复用的测速方法">
-  <meta name="twitter:description" content="如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，整理机场订阅、线路、套餐和使用中的实用判断方法。">
-  <meta name="twitter:image" content="https://tiziline.com/assets/favicon.svg">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://tiziline.com/#organization","name":"Tiziline 机场观察","url":"https://tiziline.com","logo":"https://tiziline.com/assets/favicon.svg","description":"整理机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、套餐和客户端科普。","areaServed":"中文互联网用户","knowsAbout":["机场推荐","便宜机场","稳定机场","高速机场","梯子推荐","节点推荐","Clash机场","小火箭节点","科学上网机场","VPN和机场区别","IPLC机场","IEPL机场","专线机场","Netflix机场","ChatGPT机场","流媒体机场","游戏加速机场","机场测速","机场晚高峰","机场倍率","机场流量","机场套餐","机场注册","机场订阅链接","机场跑路","机场避坑","机场多设备","机场协议","机场客户端","机场备用方案"]},{"@type":"WebSite","@id":"https://tiziline.com/#website","url":"https://tiziline.com","name":"Tiziline 机场观察","description":"机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、机场测评与机场科普知识博客。","publisher":{"@id":"https://tiziline.com/#organization"},"inLanguage":"zh-CN","keywords":["测速方法","如何测试机场晚高峰稳定性？一套可复用的测速方法","稳定机场","机场测速","机场晚高峰","机场推荐","便宜机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","备用机场"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://tiziline.com/"},{"@type":"ListItem","position":2,"name":"如何测试机场晚高峰稳定性？一套可复用的测速方法","item":"https://tiziline.com/knowledge/peak-hour-test.html"}]},{"@type":"WebPage","@id":"https://tiziline.com/knowledge/peak-hour-test.html#webpage","url":"https://tiziline.com/knowledge/peak-hour-test.html","name":"如何测试机场晚高峰稳定性？一套可复用的测速方法","description":"如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，整理机场订阅、线路、套餐和使用中的实用判断方法。","keywords":["测速方法","如何测试机场晚高峰稳定性？一套可复用的测速方法","稳定机场","机场测速","机场晚高峰","机场推荐","便宜机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","备用机场"],"isPartOf":{"@id":"https://tiziline.com/#website"},"about":{"@type":"Thing","name":"机场订阅与跨地区网络连接选择"},"audience":{"@type":"Audience","audienceType":"需要机场推荐和机场使用知识的中文用户"},"inLanguage":"zh-CN"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"如何测试机场晚高峰稳定性？一套可复用的测速方法","description":"如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，整理机场订阅、线路、套餐和使用中的实用判断方法。","url":"https://tiziline.com/knowledge/peak-hour-test.html","datePublished":"2026-09-14","dateModified":"2026-09-14","author":{"@type":"Organization","name":"Tiziline 机场观察"},"publisher":{"@type":"Organization","name":"Tiziline 机场观察","logo":{"@type":"ImageObject","url":"https://tiziline.com/assets/favicon.svg"}},"keywords":["机场晚高峰","机场推荐","便宜机场","稳定机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","机场测速","备用机场"],"wordCount":1815,"articleSection":"测速方法","inLanguage":"zh-CN","mainEntityOfPage":"https://tiziline.com/knowledge/peak-hour-test.html"}</script>
+  <meta name="twitter:description" content="如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，并覆盖机场测速教程：延迟、速度、丢包率怎么看？、晚高峰机场测速：为什么白天快、晚上却很慢？。">
+  <meta name="twitter:image" content="https://tiziline.com/assets/og-cover.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://tiziline.com/#organization","name":"Tiziline 机场观察","url":"https://tiziline.com","logo":"https://tiziline.com/assets/favicon.svg","description":"整理机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、套餐和客户端科普。","areaServed":"中文互联网用户","knowsAbout":["机场推荐","便宜机场","稳定机场","高速机场","梯子推荐","节点推荐","Clash机场","小火箭节点","科学上网机场","VPN和机场区别","IPLC机场","IEPL机场","专线机场","Netflix机场","ChatGPT机场","流媒体机场","游戏加速机场","机场测速","机场晚高峰","机场倍率","机场流量","机场套餐","机场注册","机场订阅链接","机场跑路","机场避坑","机场多设备","机场协议","机场客户端","机场备用方案"]},{"@type":"WebSite","@id":"https://tiziline.com/#website","url":"https://tiziline.com","name":"Tiziline 机场观察","description":"机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、机场测评与机场科普知识博客。","publisher":{"@id":"https://tiziline.com/#organization"},"inLanguage":"zh-CN","keywords":["测速方法","如何测试机场晚高峰稳定性？一套可复用的测速方法","机场测速教程：延迟、速度、丢包率怎么看？","晚高峰机场测速：为什么白天快、晚上却很慢？","如何测试机场节点的真实下载速度？","机场晚高峰速度慢怎么办？节点选择技巧","稳定机场","机场测速","机场晚高峰","机场推荐","便宜机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","备用机场"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://tiziline.com/"},{"@type":"ListItem","position":2,"name":"如何测试机场晚高峰稳定性？一套可复用的测速方法","item":"https://tiziline.com/knowledge/peak-hour-test.html"}]},{"@type":"WebPage","@id":"https://tiziline.com/knowledge/peak-hour-test.html#webpage","url":"https://tiziline.com/knowledge/peak-hour-test.html","name":"如何测试机场晚高峰稳定性？一套可复用的测速方法","description":"如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，并覆盖机场测速教程：延迟、速度、丢包率怎么看？、晚高峰机场测速：为什么白天快、晚上却很慢？。","keywords":["测速方法","如何测试机场晚高峰稳定性？一套可复用的测速方法","机场测速教程：延迟、速度、丢包率怎么看？","晚高峰机场测速：为什么白天快、晚上却很慢？","如何测试机场节点的真实下载速度？","机场晚高峰速度慢怎么办？节点选择技巧","稳定机场","机场测速","机场晚高峰","机场推荐","便宜机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","备用机场"],"isPartOf":{"@id":"https://tiziline.com/#website"},"about":{"@type":"Thing","name":"机场订阅与跨地区网络连接选择"},"audience":{"@type":"Audience","audienceType":"需要机场推荐和机场使用知识的中文用户"},"inLanguage":"zh-CN"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"如何测试机场晚高峰稳定性？一套可复用的测速方法","description":"如何测试机场晚高峰稳定性？一套可复用的测速方法：测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到... 本文约 1815 字，并覆盖机场测速教程：延迟、速度、丢包率怎么看？、晚高峰机场测速：为什么白天快、晚上却很慢？。","url":"https://tiziline.com/knowledge/peak-hour-test.html","datePublished":"2026-09-14","dateModified":"2026-09-25","author":{"@type":"Organization","name":"Tiziline 机场观察"},"publisher":{"@type":"Organization","name":"Tiziline 机场观察","logo":{"@type":"ImageObject","url":"https://tiziline.com/assets/favicon.svg"}},"keywords":["机场测速","机场晚高峰","机场推荐","便宜机场","稳定机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","备用机场"],"wordCount":1815,"articleSection":"测评对比","about":[{"@type":"Thing","name":"测速方法"},{"@type":"Thing","name":"测评对比"},{"@type":"Thing","name":"机场测速教程：延迟、速度、丢包率怎么看？"},{"@type":"Thing","name":"晚高峰机场测速：为什么白天快、晚上却很慢？"},{"@type":"Thing","name":"如何测试机场节点的真实下载速度？"},{"@type":"Thing","name":"机场晚高峰速度慢怎么办？节点选择技巧"}],"mentions":[{"@type":"Thing","name":"机场测速教程：延迟、速度、丢包率怎么看？"},{"@type":"Thing","name":"晚高峰机场测速：为什么白天快、晚上却很慢？"},{"@type":"Thing","name":"如何测试机场节点的真实下载速度？"},{"@type":"Thing","name":"机场晚高峰速度慢怎么办？节点选择技巧"}],"inLanguage":"zh-CN","mainEntityOfPage":"https://tiziline.com/knowledge/peak-hour-test.html"}</script>
 </head>
-<body>
+<body class="detail-page">
   <header class="site-header">
-    <a class="brand" href="../index.html" aria-label="Tiziline 机场观察">
-      <span class="brand-mark"></span>
-      <span>Tiziline 机场观察</span>
-    </a>
-    <nav class="top-nav" aria-label="主导航">
-      <a href="../index.html">首页</a>
-      <a href="../rank/index.html">机场排行</a>
-      <a href="../reviews/index.html">机场测评</a>
-      <a href="../knowledge/index.html">科普知识</a>
-      <a href="../about/index.html">关于我们</a>
-    </nav>
+    <div class="header-inner">
+      <a class="brand" href="../index.html" aria-label="Tiziline 机场观察"><span class="brand-mark">T</span><span><strong>Tiziline</strong><small>机场观察</small></span></a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="打开导航" aria-expanded="false"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+      <nav class="top-nav" aria-label="主导航" data-site-nav>
+        <a href="../recommend/index.html">机场推荐</a><a href="../rank/index.html">机场排行</a><a href="../reviews/index.html">机场测评</a><a href="../guides/index.html">选购科普</a><a href="../tutorials/index.html">使用教程</a><a href="../safety/index.html">安全避坑</a><a href="../about/index.html">关于我们</a>
+      </nav>
+      <button class="header-search" type="button" data-open-search aria-label="搜索本站"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>搜索</span></button>
+    </div>
   </header>
   <main>
-    <article class="article">
+<div class="content-shell">    <article class="article">
       <div class="article-hero">
-        <p class="eyebrow">科普知识 · 测速方法</p>
+        <p class="eyebrow">测评对比 · 测速方法</p>
         <h1>如何测试机场晚高峰稳定性？一套可复用的测速方法</h1>
         <p class="lead">机场是否稳定，不能只看白天测速。通过固定时间、固定节点和固定任务记录晚高峰表现，才更接近真实使用体验。</p>
-        <p class="article-meta">本文约 1815 字 · 更新于 2026-09-14 · 适合机场新手和准备更换订阅的用户</p>
+        <p class="article-meta">本文约 1815 字 · 更新于 2026-09-25 · 适合机场新手和准备更换订阅的用户</p>
       </div>
       <section class="answer-box">
         <h2>先说结论</h2>
         <p>测试机场晚高峰，重点是记录连续可用性，而不是只看一次测速峰值。建议在同一网络和同一客户端下，于白天、晚间高峰和周末分别测试网页、视频、下载、AI工具及节点切换，并记录延迟、丢包、缓冲、掉线和订阅更新结果，至少观察三到五次再作判断。</p>
       </section>
+      <section class="query-box"><h2>本文同时回答这些问题</h2><ul><li>机场测速教程：延迟、速度、丢包率怎么看？</li><li>晚高峰机场测速：为什么白天快、晚上却很慢？</li><li>如何测试机场节点的真实下载速度？</li><li>机场晚高峰速度慢怎么办？节点选择技巧</li></ul></section>
       <section><h2>为什么白天测速不能代表晚高峰</h2><p>白天网络使用量较低，家庭宽带、跨境入口和落地服务器通常有更多余量，测速结果容易显得漂亮。到了晚间，视频、游戏、直播和办公流量同时增加，共享带宽、出口拥塞或某个地区节点的连接数都可能上升。一次白天下载跑满，并不能说明晚上观看视频时也会稳定，时间段本身就是测试变量。</p><p>晚高峰测试的目的不是证明某家机场永远不会变慢，而是看它在你最常用的时间是否仍然可用。若你每天在固定时段工作，就应把那个时段放在测试中心；若家庭成员晚上同时使用，应该加入多设备并行的情况。测试结果必须与自己的网络、地点和任务相关，不能直接套用他人的截图。</p></section><section><h2>先固定变量，再建立测试记录</h2><p>为了让结果可比较，尽量使用同一台设备、同一个客户端和同一条家庭网络。选择两到四个常用地区节点，记录测试日期、开始时间、节点名称、网络类型和客户端模式。不要在一个节点失败后立刻换十个节点再得出结论，先保留失败记录，再换一个同地区节点，才能看出是单节点问题还是区域性问题。</p><p>可以使用表格记录五项内容：连接是否成功、网页打开时间、视频目标画质、持续播放是否缓冲、连续下载是否掉速。游戏用户还应加入延迟、抖动和丢包，AI 用户记录登录、对话提交和验证频率。数据不需要非常精密，关键是每次采用相同方法，能在一周后回看趋势。</p></section><section><h2>网页、视频和下载要分开测</h2><p>网页打开适合观察 DNS、连接建立和基础延迟，选择几个平时确实会访问的站点即可。视频测试不能只看能否进入播放页，要把画质切换到常用档位并连续播放十到二十分钟，留意自动降画质、缓冲和声音画面不同步。某个节点能够打开 Netflix 或 YouTube，并不代表它能在晚高峰稳定播放。</p><p>下载测试更容易占用流量，因此控制文件大小和次数，避免把一次测速变成套餐消耗。观察开始速度、五分钟后的速度和是否出现周期性归零。下载快但网页慢，可能是不同路径或 DNS 问题；网页快但视频卡，可能是流媒体落地或带宽问题。把任务拆开后，故障位置会更清晰。</p></section><section><h2>如何判断延迟、抖动和丢包</h2><p>延迟代表数据往返所需时间，适合比较节点距离和基础连接；抖动表示延迟在不同时间的变化，视频会议和游戏更在意它；丢包则代表部分数据没有正常到达，通常会表现为重传、卡顿或连接重置。低延迟并不一定等于稳定，某节点平均值很好但偶尔出现大幅波动，实际体验仍可能不佳。</p><p>普通用户不必追求一个绝对数字，可以记录中位数、最高值和明显异常次数。网页和视频测试中，如果只有偶尔一次跳变，可以继续观察；如果每隔几分钟就出现卡顿或重连，就应把它标成高峰期不稳定。游戏场景还要关注本地宽带到节点的路径，机场节点本身稳定也无法消除无线网络或本地拥塞。</p></section><section><h2>对比多个机场时要用相同方法</h2><p>如果要比较机场推荐列表中的多个服务，尽量在相同日期和相近时间测试相同地区。把价格、倍率、流量、客户端和节点覆盖先记在表格里，再填入晚高峰结果。不要让一家使用高倍率视频节点、另一家使用低倍率网页节点，这样的比较会把套餐规则混进速度结论，失去公平性。</p><p>连续三到五次的结果通常比一次峰值更有价值。可以把“连接成功率、视频可持续时间、平均延迟、异常次数和客服响应”作为综合指标，而不是只按下载速度排名。机场推荐是帮助筛选，不是替用户作出绝对结论；同一服务在不同运营商和地区可能表现不同，测试记录应保留自己的环境说明。</p></section><section><h2>测试后如何决定续费或更换</h2><p>如果晚高峰只是个别节点波动，且服务商能通过换节点或公告解决，可以保留观察；如果多个地区同时失败、订阅更新中断、工单长期没有回应，就应暂停长付并准备备用机场。遇到问题先检查客户端和本地网络，排除自身因素后再判断服务质量，避免因为一次 Wi-Fi 波动做出过快结论。</p><p>最终记录可以给出三个结论：主力节点、备用节点和不推荐节点。续费时优先选择已经在自己高频时间段验证过的套餐，长期付款仍要考虑域名迁移和运营风险。把测试当成持续记录而不是一次考试，机场线路、家庭网络和服务策略发生变化时，及时重新评估即可。</p><p>还可以给每个节点标记一个使用场景，例如网页、视频、AI 或游戏，并记录它在不同时间的表现。这样下一次连接变慢时，可以直接切换到同场景的备选节点，而不是从整个列表重新试起。测试记录越贴近日常任务，机场推荐和续费决定就越有依据。</p></section>
       <section><h2>相关机场专题</h2><div class="post-grid compact"><a class="post-card" href="../stable-airport/index.html">
     <span class="tag">稳定机场</span>
@@ -70,12 +71,28 @@
     <h3>机场晚高峰变慢怎么办？原因分析与解决办法</h3>
     <p>机场晚高峰专题分析拥塞、入口带宽、节点倍率、运营商差异和客户端规则导致的变慢问题，并给出排查顺序与备用方案。</p>
   </a></div></section>
-      <aside class="notice">下一篇：<a href="../knowledge/streaming-unlock.html">机场流媒体解锁为什么会失效？Netflix、Disney+节点排查</a></aside>
-    </article>
+      <section><h2>同类文章</h2><div class="post-grid compact"><a class="post-card" href="../knowledge/objective-airport-review.html">
+    <span class="tag">测评方法</span>
+    <h3>如何客观测评一家机场？六项核心指标与记录模板</h3>
+    <p>客观测评需要固定网络、时间、客户端和任务，并同时记录价格、连接成功率、速度、丢包、解锁与售后。单次测速无法代表长期体验。</p>
+  </a><a class="post-card" href="../knowledge/low-price-vs-premium.html">
+    <span class="tag">价格对比</span>
+    <h3>低价机场和高价机场有什么区别？成本、线路与体验对比</h3>
+    <p>低价与高价机场的差异可能来自线路、带宽、节点成本、客服和营销，也可能只是套餐设计不同。判断价值需要回到实际使用任务。</p>
+  </a></div></section>
+      <aside class="notice">下一篇：<a href="../knowledge/objective-airport-review.html">如何客观测评一家机场？六项核心指标与记录模板</a></aside>
+    </article><aside class="site-rail" aria-label="文章快捷导航">
+      <button class="rail-search" type="button" data-open-search><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>搜索本站内容</span></button>
+      <section class="rail-panel"><p class="rail-label">快速入口</p><a href="../recommend/index.html">机场推荐<svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="../rank/index.html">机场排行<svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="../tutorials/index.html">使用教程<svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="../safety/index.html">安全避坑<svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></section>
+      <section class="rail-panel"><p class="rail-label">热门机场</p><a href="../posts/feimaoyun.html"><span>飞猫云</span><small>¥84.00/年（学生版）</small></a><a href="../posts/jilianyun.html"><span>极连云</span><small>8元 60G/月</small></a><a href="../posts/weifengwangluo.html"><span>微风网络</span><small>¥137/年 · 100GB</small></a><a href="../posts/guangnianti.html"><span>光年梯</span><small>7.5元 50G/月</small></a></section>
+      <section class="rail-note"><strong>购买提醒</strong><p>先短期测试，再考虑长付；价格、入口与节点状态以官网实时页面为准。</p></section>
+    </aside></div>
   </main>
   <footer class="site-footer">
-    <p>Tiziline 机场观察 只做公开信息整理与选购思路说明，套餐、节点和注册链接以服务商官网实时页面为准。</p>
-    <p><a href="../sitemap.xml">Sitemap</a> · <a href="../robots.txt">Robots</a></p>
+    <div><a class="footer-brand" href="../index.html"><span class="brand-mark">T</span><strong>Tiziline 机场观察</strong></a><p>只做公开信息整理与选购思路说明，套餐、节点和注册链接以服务商官网实时页面为准。</p></div>
+    <div class="footer-links"><a href="../knowledge/index.html">内容中心</a><a href="../about/index.html">编辑政策</a><button type="button" data-open-dialog="quick-links-dialog">快捷导航</button><a href="../sitemap.xml">Sitemap</a></div>
   </footer>
+  <dialog class="site-dialog search-dialog" id="site-search-dialog"><div class="dialog-head"><div><span>全站搜索</span><strong>查找机场、测评和教程</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button></div><label class="dialog-search"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="site-search-input" type="search" placeholder="输入机场名称或问题，例如：晚高峰、飞猫云"></label><div class="search-results" id="site-search-results"></div></dialog>
+  <dialog class="site-dialog links-dialog" id="quick-links-dialog"><div class="dialog-head"><div><span>站点导航</span><strong>快速找到需要的内容</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button></div><p class="dialog-copy">本站按选购、测评、教程和安全问题维护内容，不使用弹窗跳转到未知注册页面。</p><div class="dialog-link-grid"><a href="../recommend/index.html"><strong>机场推荐</strong><span>按预算、流量、线路、付款周期和使用场景整理机场推荐内容，帮助读者从排行进入更具体的选购决策。</span></a><a href="../guides/index.html"><strong>选购科普</strong><span>解释机场订阅、节点、线路、倍率、流量、原生 IP 和设备限制等基础概念，减少只看宣传词造成的误判。</span></a><a href="../comparisons/index.html"><strong>测评对比</strong><span>提供机场测速、晚高峰观察、横向对比和客观测评方法，帮助读者用同一套标准比较不同服务。</span></a><a href="../tutorials/index.html"><strong>使用教程</strong><span>覆盖机场购买、订阅导入、更新失败、节点超时、网页打不开、设备迁移和客户端排查等实际问题。</span></a><a href="../safety/index.html"><strong>安全避坑</strong><span>整理免费机场、年付促销、退款、账号共享、订阅泄露、官网失联和机场跑路等风险控制方法。</span></a></div></dialog>
 </body>
 </html>

@@ -1,101 +1,669 @@
 {
-  "generatedAt": "2026-09-14",
-  "articleCount": 15,
+  "generatedAt": "2026-09-25",
+  "articleCount": 94,
   "longformCount": 10,
-  "titleCount": 15,
+  "titleCount": 94,
   "duplicateTitles": [],
   "duplicateParagraphs": [],
   "similarPairs": [],
   "articles": [
     {
-      "slug": "airport-vs-vpn",
+      "type": "article",
+      "slug": "/knowledge/airport-vs-vpn.html",
       "title": "机场和 VPN 有什么区别？新手选机场前先看这份对比",
       "chars": 1982,
-      "paragraphCount": 12
+      "paragraphCount": 14
     },
     {
-      "slug": "iepl-iplc-bgp",
+      "type": "article",
+      "slug": "/knowledge/iepl-iplc-bgp.html",
       "title": "IEPL、IPLC、BGP 中转是什么意思？机场线路选择指南",
-      "chars": 1869,
-      "paragraphCount": 12
+      "chars": 1891,
+      "paragraphCount": 15
     },
     {
-      "slug": "traffic-rate-device",
+      "type": "article",
+      "slug": "/knowledge/traffic-rate-device.html",
       "title": "机场套餐里的倍率、流量和设备数怎么看？",
       "chars": 1903,
-      "paragraphCount": 13
+      "paragraphCount": 15
     },
     {
-      "slug": "client-subscription-guide",
+      "type": "article",
+      "slug": "/knowledge/client-subscription-guide.html",
       "title": "Clash、Mihomo、Shadowrocket 订阅导入指南",
       "chars": 1801,
-      "paragraphCount": 12
+      "paragraphCount": 14
     },
     {
-      "slug": "peak-hour-test",
+      "type": "article",
+      "slug": "/knowledge/peak-hour-test.html",
       "title": "如何测试机场晚高峰稳定性？一套可复用的测速方法",
-      "chars": 1815,
-      "paragraphCount": 13
+      "chars": 1836,
+      "paragraphCount": 16
     },
     {
-      "slug": "streaming-unlock",
+      "type": "article",
+      "slug": "/knowledge/streaming-unlock.html",
       "title": "机场流媒体解锁为什么会失效？Netflix、Disney+节点排查",
-      "chars": 1842,
-      "paragraphCount": 12
+      "chars": 1863,
+      "paragraphCount": 15
     },
     {
-      "slug": "ai-service-guide",
+      "type": "article",
+      "slug": "/knowledge/ai-service-guide.html",
       "title": "ChatGPT、Claude 使用机场时要注意什么？AI节点选择指南",
-      "chars": 1830,
-      "paragraphCount": 12
+      "chars": 1856,
+      "paragraphCount": 15
     },
     {
-      "slug": "node-region-guide",
+      "type": "article",
+      "slug": "/knowledge/node-region-guide.html",
       "title": "机场节点地区怎么选？香港、日本、新加坡、美国对比",
       "chars": 1823,
-      "paragraphCount": 13
+      "paragraphCount": 15
     },
     {
-      "slug": "airport-risk-signals",
+      "type": "article",
+      "slug": "/knowledge/airport-risk-signals.html",
       "title": "机场跑路前常见信号和止损方法：购买前的风险控制",
       "chars": 1917,
-      "paragraphCount": 14
+      "paragraphCount": 16
     },
     {
-      "slug": "backup-airport",
+      "type": "article",
+      "slug": "/knowledge/backup-airport.html",
       "title": "备用机场为什么重要？主力和备用机场搭配方案",
       "chars": 1867,
-      "paragraphCount": 14
+      "paragraphCount": 16
     },
     {
-      "slug": "subscription-security",
+      "type": "article",
+      "slug": "/knowledge/subscription-security.html",
       "title": "机场订阅链接泄露会发生什么",
       "chars": 1016,
-      "paragraphCount": 8
+      "paragraphCount": 10
     },
     {
-      "slug": "mobile-airport-guide",
+      "type": "article",
+      "slug": "/knowledge/mobile-airport-guide.html",
       "title": "手机端使用机场的常见问题",
       "chars": 1079,
-      "paragraphCount": 8
+      "paragraphCount": 10
     },
     {
-      "slug": "desktop-airport-guide",
+      "type": "article",
+      "slug": "/knowledge/desktop-airport-guide.html",
       "title": "电脑端使用机场的常见问题",
       "chars": 1100,
-      "paragraphCount": 8
+      "paragraphCount": 10
     },
     {
-      "slug": "cheap-airport-cost",
+      "type": "article",
+      "slug": "/knowledge/cheap-airport-cost.html",
       "title": "便宜机场为什么有时不便宜",
       "chars": 1005,
+      "paragraphCount": 10
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/first-buy-checklist.html",
+      "title": "第一次买机场的完整检查清单",
+      "chars": 1214,
+      "paragraphCount": 12
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/billing-cycle-guide.html",
+      "title": "月付、季付还是年付？机场套餐周期怎么选？",
+      "chars": 698,
       "paragraphCount": 8
     },
     {
-      "slug": "first-buy-checklist",
-      "title": "第一次买机场的完整检查清单",
-      "chars": 1214,
+      "type": "article",
+      "slug": "/knowledge/node-count-quality.html",
+      "title": "机场节点越多越好吗？节点数量与质量怎么判断",
+      "chars": 659,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/native-ip-guide.html",
+      "title": "原生 IP 和广播 IP 有什么区别？哪些场景真的需要原生节点",
+      "chars": 740,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/objective-airport-review.html",
+      "title": "如何客观测评一家机场？六项核心指标与记录模板",
+      "chars": 625,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/low-price-vs-premium.html",
+      "title": "低价机场和高价机场有什么区别？成本、线路与体验对比",
+      "chars": 645,
+      "paragraphCount": 9
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/subscription-update-troubleshooting.html",
+      "title": "机场订阅更新失败怎么办？从链接到客户端逐项排查",
+      "chars": 575,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/all-nodes-timeout.html",
+      "title": "机场节点全部超时怎么办？完整排查步骤",
+      "chars": 569,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/low-latency-but-laggy.html",
+      "title": "机场节点延迟低却很卡？速度、抖动和丢包原因分析",
+      "chars": 541,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/device-and-expiry-troubleshooting.html",
+      "title": "更换设备后机场不能用？订阅迁移与到期问题排查",
+      "chars": 527,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/official-site-down.html",
+      "title": "机场官网打不开，是维护、域名更换还是跑路？",
+      "chars": 516,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/subscription-conversion-safety.html",
+      "title": "机场订阅转换安全吗？使用前要注意什么",
+      "chars": 490,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/free-airport-risk.html",
+      "title": "免费机场安全吗？使用前需要了解的风险",
+      "chars": 523,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/promotion-refund-risk.html",
+      "title": "机场优惠、退款和长期套餐怎么避坑",
+      "chars": 517,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/account-sharing-risk.html",
+      "title": "机场账号共享有哪些风险？设备、流量与订阅安全说明",
+      "chars": 502,
+      "paragraphCount": 8
+    },
+    {
+      "type": "review",
+      "slug": "/posts/feimaoyun.html",
+      "title": "飞猫云机场怎么样？¥84.00/年（学生版） 套餐、注册链接与测评",
+      "chars": 310,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/jilianyun.html",
+      "title": "极连云机场怎么样？8元 60G/月 套餐、注册链接与测评",
+      "chars": 441,
+      "paragraphCount": 7
+    },
+    {
+      "type": "review",
+      "slug": "/posts/weifengwangluo.html",
+      "title": "微风网络机场怎么样？¥137/年 · 100GB 套餐、注册链接与测评",
+      "chars": 416,
+      "paragraphCount": 5
+    },
+    {
+      "type": "review",
+      "slug": "/posts/guangnianti.html",
+      "title": "光年梯机场怎么样？7.5元 50G/月 套餐、注册链接与测评",
+      "chars": 437,
+      "paragraphCount": 7
+    },
+    {
+      "type": "review",
+      "slug": "/posts/kexinyun.html",
+      "title": "可信云机场怎么样？8元 60G/月 套餐、注册链接与测评",
+      "chars": 285,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/sujie.html",
+      "title": "速界机场怎么样？7.5元 50G/月 套餐、注册链接与测评",
+      "chars": 236,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/kuaili.html",
+      "title": "快狸机场怎么样？10元 30GB/月 套餐、注册链接与测评",
+      "chars": 233,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/bianyuanjiedian.html",
+      "title": "边缘节点机场怎么样？9元 45GB/月 套餐、注册链接与测评",
+      "chars": 244,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/guangshuyun.html",
+      "title": "光速云机场怎么样？8.25元 59G/月 套餐、注册链接与测评",
+      "chars": 357,
+      "paragraphCount": 7
+    },
+    {
+      "type": "review",
+      "slug": "/posts/yingzi.html",
+      "title": "影子机场怎么样？18.80元 150GB/月 套餐、注册链接与测评",
+      "chars": 259,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/bianjieyun.html",
+      "title": "边界云机场机场怎么样？12.33元 50GB/月 套餐、注册链接与测评",
+      "chars": 299,
+      "paragraphCount": 5
+    },
+    {
+      "type": "review",
+      "slug": "/posts/xingdaomeng.html",
+      "title": "星岛梦机场怎么样？16元 100G/月 套餐、注册链接与测评",
+      "chars": 378,
+      "paragraphCount": 6
+    },
+    {
+      "type": "review",
+      "slug": "/posts/quanqiuyun.html",
+      "title": "全球云机场怎么样？20元 120G/月 套餐、注册链接与测评",
+      "chars": 264,
+      "paragraphCount": 6
+    },
+    {
+      "type": "review",
+      "slug": "/posts/shunyun.html",
+      "title": "瞬云机场机场怎么样？8.25元 59G/月 套餐、注册链接与测评",
+      "chars": 382,
+      "paragraphCount": 5
+    },
+    {
+      "type": "review",
+      "slug": "/posts/huanyuyun.html",
+      "title": "寰宇云机场机场怎么样？89元/年 60G/月 套餐、注册链接与测评",
+      "chars": 377,
+      "paragraphCount": 7
+    },
+    {
+      "type": "review",
+      "slug": "/posts/lumina.html",
+      "title": "Lumina机场怎么样？10.00元 200GB/月 套餐、注册链接与测评",
+      "chars": 300,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/pinhaolian.html",
+      "title": "拼好连（原Runway Cloud）机场怎么样？9.90元 100GB/月 套餐、注册链接与测评",
+      "chars": 280,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/99bar.html",
+      "title": "99吧机场怎么样？7.5元 66GB/月 套餐、注册链接与测评",
+      "chars": 264,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/jinyun.html",
+      "title": "锦云机场机场怎么样？6元 50GB/月 套餐、注册链接与测评",
+      "chars": 196,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/jisuyun.html",
+      "title": "极速云机场机场怎么样？8.25元 800G/月 套餐、注册链接与测评",
+      "chars": 378,
       "paragraphCount": 10
+    },
+    {
+      "type": "review",
+      "slug": "/posts/shanshuiyun.html",
+      "title": "山水云机场怎么样？14.99元 100GB/月 套餐、注册链接与测评",
+      "chars": 449,
+      "paragraphCount": 10
+    },
+    {
+      "type": "review",
+      "slug": "/posts/miaomiaoyun.html",
+      "title": "秒秒云机场怎么样？14元 128GB/月 套餐、注册链接与测评",
+      "chars": 402,
+      "paragraphCount": 9
+    },
+    {
+      "type": "review",
+      "slug": "/posts/xundavpn.html",
+      "title": "迅达VPN机场怎么样？15元 150GB/月 套餐、注册链接与测评",
+      "chars": 245,
+      "paragraphCount": 5
+    },
+    {
+      "type": "review",
+      "slug": "/posts/edge-x.html",
+      "title": "Edge-X机场机场怎么样？16.8元 100GB/月 套餐、注册链接与测评",
+      "chars": 324,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/keda.html",
+      "title": "可达加速器机场怎么样？10元 100GB/月 套餐、注册链接与测评",
+      "chars": 240,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/naiyun.html",
+      "title": "奈云机场怎么样？10.6元 168G/月 套餐、注册链接与测评",
+      "chars": 343,
+      "paragraphCount": 7
+    },
+    {
+      "type": "review",
+      "slug": "/posts/yinyun.html",
+      "title": "隐云机场怎么样？25元 150G/月 套餐、注册链接与测评",
+      "chars": 344,
+      "paragraphCount": 7
+    },
+    {
+      "type": "review",
+      "slug": "/posts/shanhai.html",
+      "title": "山海机场机场怎么样？3元 128G/月 套餐、注册链接与测评",
+      "chars": 213,
+      "paragraphCount": 5
+    },
+    {
+      "type": "review",
+      "slug": "/posts/lizione.html",
+      "title": "LiZione机场怎么样？10元 100G/月 套餐、注册链接与测评",
+      "chars": 238,
+      "paragraphCount": 5
+    },
+    {
+      "type": "review",
+      "slug": "/posts/duolaameng.html",
+      "title": "哆啦A梦机场怎么样？10元 100G/月 套餐、注册链接与测评",
+      "chars": 288,
+      "paragraphCount": 5
+    },
+    {
+      "type": "review",
+      "slug": "/posts/dageyun.html",
+      "title": "大哥云机场怎么样？19.9元 100G/月 套餐、注册链接与测评",
+      "chars": 357,
+      "paragraphCount": 8
+    },
+    {
+      "type": "review",
+      "slug": "/posts/longmaoyun.html",
+      "title": "龙猫云机场怎么样？15元 150G/月 套餐、注册链接与测评",
+      "chars": 148,
+      "paragraphCount": 3
+    },
+    {
+      "type": "review",
+      "slug": "/posts/feiniaojichang.html",
+      "title": "飞鸟机场机场怎么样？15元 100G/月 套餐、注册链接与测评",
+      "chars": 250,
+      "paragraphCount": 5
+    },
+    {
+      "type": "review",
+      "slug": "/posts/qingyunti.html",
+      "title": "青云梯机场怎么样？8元 60G/月 套餐、注册链接与测评",
+      "chars": 259,
+      "paragraphCount": 4
+    },
+    {
+      "type": "review",
+      "slug": "/posts/huayunjichang.html",
+      "title": "花云机场 FlowerCloud机场怎么样？128元/年 20G/月 套餐、注册链接与测评",
+      "chars": 280,
+      "paragraphCount": 5
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-recommend/",
+      "title": "机场推荐：2026年稳定、高速、便宜机场怎么选",
+      "chars": 182,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/cheap-airport/",
+      "title": "便宜机场推荐：低价套餐、流量和线路质量对比",
+      "chars": 165,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/stable-airport/",
+      "title": "稳定机场推荐：晚高峰、专线和售后如何判断",
+      "chars": 178,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/high-speed-airport/",
+      "title": "高速机场推荐：4K视频、下载和大流量场景怎么选",
+      "chars": 177,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/proxy-recommend/",
+      "title": "梯子推荐：新手机场订阅、客户端与套餐选择指南",
+      "chars": 172,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/node-recommend/",
+      "title": "节点推荐：香港、日本、新加坡、美国节点怎么选",
+      "chars": 183,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/clash-airport/",
+      "title": "Clash机场推荐：适合Clash、Mihomo和Clash Verge的订阅",
+      "chars": 206,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/shadowrocket-node/",
+      "title": "小火箭节点推荐：Shadowrocket机场订阅选择指南",
+      "chars": 207,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/science-airport/",
+      "title": "科学上网机场怎么选？从订阅、线路到安全性一次讲清",
+      "chars": 182,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/vpn-vs-airport/",
+      "title": "VPN和机场有什么区别？新手应该怎么选择",
+      "chars": 179,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/ipcl-airport/",
+      "title": "IPLC机场是什么意思？线路特点、速度和适用人群介绍",
+      "chars": 181,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/iepl-airport/",
+      "title": "IEPL机场推荐：IEPL专线与普通中转线路有什么不同",
+      "chars": 181,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/dedicated-airport/",
+      "title": "专线机场有什么优势？晚高峰稳定性与流媒体解锁分析",
+      "chars": 163,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/netflix-airport/",
+      "title": "Netflix机场推荐：哪些节点适合解锁奈飞不同地区内容",
+      "chars": 210,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/chatgpt-airport/",
+      "title": "ChatGPT机场怎么选？AI工具节点和线路要求详解",
+      "chars": 218,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/streaming-airport/",
+      "title": "流媒体机场推荐：Netflix、Disney+、YouTube解锁与测速方法",
+      "chars": 211,
+      "paragraphCount": 4
+    },
+    {
+      "type": "topic",
+      "slug": "/game-airport/",
+      "title": "游戏加速机场怎么选？延迟、丢包和线路稳定性分析",
+      "chars": 168,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-speed-test/",
+      "title": "机场测速方法：如何测试速度、延迟和晚高峰表现",
+      "chars": 170,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-peak-hour/",
+      "title": "机场晚高峰变慢怎么办？原因分析与解决办法",
+      "chars": 172,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-multiplier/",
+      "title": "机场倍率是什么意思？1倍、0.5倍和高倍率节点怎么选",
+      "chars": 201,
+      "paragraphCount": 4
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-traffic/",
+      "title": "机场流量怎么算？倍率、重置周期和套餐大小详解",
+      "chars": 168,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-plan/",
+      "title": "机场套餐怎么选？月付、季付、年付哪个更划算",
+      "chars": 163,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-register/",
+      "title": "机场注册教程：购买套餐到获取订阅链接的完整流程",
+      "chars": 175,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/subscription-link/",
+      "title": "机场订阅链接是什么？泄露后有什么风险",
+      "chars": 165,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-risk/",
+      "title": "机场跑路前有哪些信号？用户如何降低损失",
+      "chars": 175,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-avoid/",
+      "title": "机场避坑指南：购买前需要检查的十个细节",
+      "chars": 175,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/multi-device-airport/",
+      "title": "支持多设备的机场推荐：手机、电脑和平板同时使用指南",
+      "chars": 190,
+      "paragraphCount": 4
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-protocol/",
+      "title": "机场协议怎么选？SS、Trojan、VLESS和其他协议对比",
+      "chars": 182,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/airport-client/",
+      "title": "机场客户端推荐：Clash、Mihomo、Shadowrocket使用对比",
+      "chars": 189,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/backup-airport/",
+      "title": "为什么需要备用机场？主力与备用机场如何搭配",
+      "chars": 176,
+      "paragraphCount": 3
     }
   ]
 }

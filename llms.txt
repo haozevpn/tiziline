@@ -78,6 +78,14 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 - 机场客户端推荐：Clash、Mihomo、Shadowrocket使用对比: https://tiziline.com/airport-client/
 - 为什么需要备用机场？主力与备用机场如何搭配: https://tiziline.com/backup-airport/
 
+## 编辑分类
+
+- 机场推荐: https://tiziline.com/recommend/
+- 选购科普: https://tiziline.com/guides/
+- 测评对比: https://tiziline.com/comparisons/
+- 使用教程: https://tiziline.com/tutorials/
+- 安全避坑: https://tiziline.com/safety/
+
 ## 机场测评
 
 - 飞猫云: https://tiziline.com/posts/feimaoyun.html
@@ -133,6 +141,20 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 - 电脑端使用机场的常见问题: https://tiziline.com/knowledge/desktop-airport-guide.html
 - 便宜机场为什么有时不便宜: https://tiziline.com/knowledge/cheap-airport-cost.html
 - 第一次买机场的完整检查清单: https://tiziline.com/knowledge/first-buy-checklist.html
+- 月付、季付还是年付？机场套餐周期怎么选？: https://tiziline.com/knowledge/billing-cycle-guide.html
+- 机场节点越多越好吗？节点数量与质量怎么判断: https://tiziline.com/knowledge/node-count-quality.html
+- 原生 IP 和广播 IP 有什么区别？哪些场景真的需要原生节点: https://tiziline.com/knowledge/native-ip-guide.html
+- 如何客观测评一家机场？六项核心指标与记录模板: https://tiziline.com/knowledge/objective-airport-review.html
+- 低价机场和高价机场有什么区别？成本、线路与体验对比: https://tiziline.com/knowledge/low-price-vs-premium.html
+- 机场订阅更新失败怎么办？从链接到客户端逐项排查: https://tiziline.com/knowledge/subscription-update-troubleshooting.html
+- 机场节点全部超时怎么办？完整排查步骤: https://tiziline.com/knowledge/all-nodes-timeout.html
+- 机场节点延迟低却很卡？速度、抖动和丢包原因分析: https://tiziline.com/knowledge/low-latency-but-laggy.html
+- 更换设备后机场不能用？订阅迁移与到期问题排查: https://tiziline.com/knowledge/device-and-expiry-troubleshooting.html
+- 机场官网打不开，是维护、域名更换还是跑路？: https://tiziline.com/knowledge/official-site-down.html
+- 机场订阅转换安全吗？使用前要注意什么: https://tiziline.com/knowledge/subscription-conversion-safety.html
+- 免费机场安全吗？使用前需要了解的风险: https://tiziline.com/knowledge/free-airport-risk.html
+- 机场优惠、退款和长期套餐怎么避坑: https://tiziline.com/knowledge/promotion-refund-risk.html
+- 机场账号共享有哪些风险？设备、流量与订阅安全说明: https://tiziline.com/knowledge/account-sharing-risk.html
 
 ## 内容说明
 

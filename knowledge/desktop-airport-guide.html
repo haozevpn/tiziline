@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>电脑端使用机场的常见问题 | Tiziline 机场观察</title>
-  <meta name="description" content="电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，整理机场订阅、线路、套餐和使用中的实用判断方法。">
-  <meta name="keywords" content="电脑端, 电脑端使用机场的常见问题, Clash机场, 机场客户端, 机场测速, 机场推荐, 便宜机场, 稳定机场, 梯子推荐, 节点推荐, 机场测评, 机场订阅, 机场套餐, 备用机场">
+  <meta name="description" content="电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，并覆盖机场客户端显示订阅过期怎么解决？。">
+  <meta name="keywords" content="电脑端, 电脑端使用机场的常见问题, 机场客户端显示订阅过期怎么解决？, Clash机场, 机场客户端, 机场测速, 机场推荐, 便宜机场, 稳定机场, 梯子推荐, 节点推荐, 机场测评, 机场订阅, 机场套餐, 备用机场">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="author" content="Tiziline 机场观察">
   <meta name="theme-color" content="#0f766e">
@@ -16,46 +16,47 @@
   <link rel="stylesheet" href="../assets/style.css">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="Tiziline 机场观察 RSS" href="../feed.xml">
+  <script>window.TIZI_BASE_PREFIX="../";</script>
+  <script src="../assets/search-index.js" defer></script>
+  <script src="../assets/site.js" defer></script>
   <meta property="og:type" content="article">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:site_name" content="Tiziline 机场观察">
   <meta property="og:title" content="电脑端使用机场的常见问题">
-  <meta property="og:description" content="电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，整理机场订阅、线路、套餐和使用中的实用判断方法。">
+  <meta property="og:description" content="电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，并覆盖机场客户端显示订阅过期怎么解决？。">
   <meta property="og:url" content="https://tiziline.com/knowledge/desktop-airport-guide.html">
-  <meta property="og:image" content="https://tiziline.com/assets/favicon.svg">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://tiziline.com/assets/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="电脑端使用机场的常见问题">
-  <meta name="twitter:description" content="电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，整理机场订阅、线路、套餐和使用中的实用判断方法。">
-  <meta name="twitter:image" content="https://tiziline.com/assets/favicon.svg">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://tiziline.com/#organization","name":"Tiziline 机场观察","url":"https://tiziline.com","logo":"https://tiziline.com/assets/favicon.svg","description":"整理机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、套餐和客户端科普。","areaServed":"中文互联网用户","knowsAbout":["机场推荐","便宜机场","稳定机场","高速机场","梯子推荐","节点推荐","Clash机场","小火箭节点","科学上网机场","VPN和机场区别","IPLC机场","IEPL机场","专线机场","Netflix机场","ChatGPT机场","流媒体机场","游戏加速机场","机场测速","机场晚高峰","机场倍率","机场流量","机场套餐","机场注册","机场订阅链接","机场跑路","机场避坑","机场多设备","机场协议","机场客户端","机场备用方案"]},{"@type":"WebSite","@id":"https://tiziline.com/#website","url":"https://tiziline.com","name":"Tiziline 机场观察","description":"机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、机场测评与机场科普知识博客。","publisher":{"@id":"https://tiziline.com/#organization"},"inLanguage":"zh-CN","keywords":["电脑端","电脑端使用机场的常见问题","Clash机场","机场客户端","机场测速","机场推荐","便宜机场","稳定机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","备用机场"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://tiziline.com/"},{"@type":"ListItem","position":2,"name":"电脑端使用机场的常见问题","item":"https://tiziline.com/knowledge/desktop-airport-guide.html"}]},{"@type":"WebPage","@id":"https://tiziline.com/knowledge/desktop-airport-guide.html#webpage","url":"https://tiziline.com/knowledge/desktop-airport-guide.html","name":"电脑端使用机场的常见问题","description":"电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，整理机场订阅、线路、套餐和使用中的实用判断方法。","keywords":["电脑端","电脑端使用机场的常见问题","Clash机场","机场客户端","机场测速","机场推荐","便宜机场","稳定机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","备用机场"],"isPartOf":{"@id":"https://tiziline.com/#website"},"about":{"@type":"Thing","name":"机场订阅与跨地区网络连接选择"},"audience":{"@type":"Audience","audienceType":"需要机场推荐和机场使用知识的中文用户"},"inLanguage":"zh-CN"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"电脑端使用机场的常见问题","description":"电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，整理机场订阅、线路、套餐和使用中的实用判断方法。","url":"https://tiziline.com/knowledge/desktop-airport-guide.html","datePublished":"2026-09-14","dateModified":"2026-09-14","author":{"@type":"Organization","name":"Tiziline 机场观察"},"publisher":{"@type":"Organization","name":"Tiziline 机场观察","logo":{"@type":"ImageObject","url":"https://tiziline.com/assets/favicon.svg"}},"keywords":["机场推荐","便宜机场","稳定机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","机场测速","备用机场"],"wordCount":1100,"articleSection":"电脑端","inLanguage":"zh-CN","mainEntityOfPage":"https://tiziline.com/knowledge/desktop-airport-guide.html"}</script>
+  <meta name="twitter:description" content="电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，并覆盖机场客户端显示订阅过期怎么解决？。">
+  <meta name="twitter:image" content="https://tiziline.com/assets/og-cover.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://tiziline.com/#organization","name":"Tiziline 机场观察","url":"https://tiziline.com","logo":"https://tiziline.com/assets/favicon.svg","description":"整理机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、套餐和客户端科普。","areaServed":"中文互联网用户","knowsAbout":["机场推荐","便宜机场","稳定机场","高速机场","梯子推荐","节点推荐","Clash机场","小火箭节点","科学上网机场","VPN和机场区别","IPLC机场","IEPL机场","专线机场","Netflix机场","ChatGPT机场","流媒体机场","游戏加速机场","机场测速","机场晚高峰","机场倍率","机场流量","机场套餐","机场注册","机场订阅链接","机场跑路","机场避坑","机场多设备","机场协议","机场客户端","机场备用方案"]},{"@type":"WebSite","@id":"https://tiziline.com/#website","url":"https://tiziline.com","name":"Tiziline 机场观察","description":"机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、机场测评与机场科普知识博客。","publisher":{"@id":"https://tiziline.com/#organization"},"inLanguage":"zh-CN","keywords":["电脑端","电脑端使用机场的常见问题","机场客户端显示订阅过期怎么解决？","Clash机场","机场客户端","机场测速","机场推荐","便宜机场","稳定机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","备用机场"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://tiziline.com/"},{"@type":"ListItem","position":2,"name":"电脑端使用机场的常见问题","item":"https://tiziline.com/knowledge/desktop-airport-guide.html"}]},{"@type":"WebPage","@id":"https://tiziline.com/knowledge/desktop-airport-guide.html#webpage","url":"https://tiziline.com/knowledge/desktop-airport-guide.html","name":"电脑端使用机场的常见问题","description":"电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，并覆盖机场客户端显示订阅过期怎么解决？。","keywords":["电脑端","电脑端使用机场的常见问题","机场客户端显示订阅过期怎么解决？","Clash机场","机场客户端","机场测速","机场推荐","便宜机场","稳定机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","备用机场"],"isPartOf":{"@id":"https://tiziline.com/#website"},"about":{"@type":"Thing","name":"机场订阅与跨地区网络连接选择"},"audience":{"@type":"Audience","audienceType":"需要机场推荐和机场使用知识的中文用户"},"inLanguage":"zh-CN"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"电脑端使用机场的常见问题","description":"电脑端使用机场的常见问题：电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用... 本文约 1100 字，并覆盖机场客户端显示订阅过期怎么解决？。","url":"https://tiziline.com/knowledge/desktop-airport-guide.html","datePublished":"2026-09-14","dateModified":"2026-09-25","author":{"@type":"Organization","name":"Tiziline 机场观察"},"publisher":{"@type":"Organization","name":"Tiziline 机场观察","logo":{"@type":"ImageObject","url":"https://tiziline.com/assets/favicon.svg"}},"keywords":["机场客户端","机场推荐","便宜机场","稳定机场","梯子推荐","节点推荐","机场测评","机场订阅","机场套餐","机场测速","备用机场"],"wordCount":1100,"articleSection":"使用教程","about":[{"@type":"Thing","name":"电脑端"},{"@type":"Thing","name":"使用教程"},{"@type":"Thing","name":"机场客户端显示订阅过期怎么解决？"}],"mentions":[{"@type":"Thing","name":"机场客户端显示订阅过期怎么解决？"}],"inLanguage":"zh-CN","mainEntityOfPage":"https://tiziline.com/knowledge/desktop-airport-guide.html"}</script>
 </head>
-<body>
+<body class="detail-page">
   <header class="site-header">
-    <a class="brand" href="../index.html" aria-label="Tiziline 机场观察">
-      <span class="brand-mark"></span>
-      <span>Tiziline 机场观察</span>
-    </a>
-    <nav class="top-nav" aria-label="主导航">
-      <a href="../index.html">首页</a>
-      <a href="../rank/index.html">机场排行</a>
-      <a href="../reviews/index.html">机场测评</a>
-      <a href="../knowledge/index.html">科普知识</a>
-      <a href="../about/index.html">关于我们</a>
-    </nav>
+    <div class="header-inner">
+      <a class="brand" href="../index.html" aria-label="Tiziline 机场观察"><span class="brand-mark">T</span><span><strong>Tiziline</strong><small>机场观察</small></span></a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="打开导航" aria-expanded="false"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+      <nav class="top-nav" aria-label="主导航" data-site-nav>
+        <a href="../recommend/index.html">机场推荐</a><a href="../rank/index.html">机场排行</a><a href="../reviews/index.html">机场测评</a><a href="../guides/index.html">选购科普</a><a href="../tutorials/index.html">使用教程</a><a href="../safety/index.html">安全避坑</a><a href="../about/index.html">关于我们</a>
+      </nav>
+      <button class="header-search" type="button" data-open-search aria-label="搜索本站"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>搜索</span></button>
+    </div>
   </header>
   <main>
-    <article class="article">
+<div class="content-shell">    <article class="article">
       <div class="article-hero">
-        <p class="eyebrow">科普知识 · 电脑端</p>
+        <p class="eyebrow">使用教程 · 电脑端</p>
         <h1>电脑端使用机场的常见问题</h1>
         <p class="lead">电脑端更适合复杂规则和多软件协作，但也更容易被系统代理、DNS 和防火墙影响。</p>
-        <p class="article-meta">本文约 1100 字 · 更新于 2026-09-14 · 适合机场新手和准备更换订阅的用户</p>
+        <p class="article-meta">本文约 1100 字 · 更新于 2026-09-25 · 适合机场新手和准备更换订阅的用户</p>
       </div>
       <section class="answer-box">
         <h2>先说结论</h2>
         <p>电脑端机场使用的关键是系统代理、规则分流、DNS 和应用兼容。Clash、Mihomo 等客户端功能较多，先完成订阅更新和一个节点的基础连接，再设置规则；出现问题时分别测试浏览器、终端、下载工具和游戏，避免把单个应用故障误判为机场整体不可用。</p>
       </section>
+      <section class="query-box"><h2>本文同时回答这些问题</h2><ul><li>机场客户端显示订阅过期怎么解决？</li></ul></section>
       <section><h2>系统代理会影响哪些软件</h2><p>桌面客户端通常有系统代理开关，打开后浏览器和支持系统代理的应用会自动使用节点；有些终端、下载器、游戏平台或虚拟机则有自己的代理设置，可能不跟随系统。出现浏览器能用、某个软件不能用时，先确认该软件的代理方式，再看规则和 DNS，而不是立刻更换机场。</p><p>系统中同时运行多个代理客户端也容易冲突。旧的 VPN、加速器、浏览器扩展和安全软件可能修改代理、路由或 DNS，导致节点连接成功但网页异常。排查时只保留一个主客户端，关闭不需要的网络扩展，测试完成后再逐个恢复，这样可以减少变量。</p></section><section><h2>规则模式怎样满足日常分流</h2><p>规则模式可以让不同域名走直连、代理或指定地区节点。新手可以先使用机场提供的默认规则，确认常用网站和应用能够访问，再按需要调整代理组。不要随意复制来源不明的规则文件，规则过期或写法冲突可能导致网页循环、DNS 泄露或某些服务无法打开。</p><p>全局模式适合短时间确认节点，长期使用要考虑流量、延迟和本地服务兼容。办公软件、网盘、游戏平台和开发工具可能需要不同策略，全部代理不一定更好。把高频任务列出来，逐项确认命中规则，建立一套简单可维护的配置，远比堆叠几十个规则集稳定。</p></section><section><h2>DNS、浏览器和应用测试</h2><p>电脑端出现域名打不开时，可能是 DNS 解析、本地缓存、规则或节点出口问题。先用浏览器访问普通网站，再访问需要代理的网站；如果只有域名解析失败，检查客户端 DNS 模式和系统缓存；如果页面能开但视频或下载失败，再检查节点带宽和应用代理设置。分层测试比只看一个测速网站更有效。</p><p>测试应用时，浏览器、终端、视频播放器和下载工具要分别记录。终端可能使用独立的环境变量，播放器可能不支持系统代理，下载器可能有自己的连接线程。明确哪些软件能跟随系统代理、哪些需要手动设置，才能把机场客户端的能力用在正确的位置。</p></section><section><h2>电脑端更新和故障恢复</h2><p>订阅更新前确认客户端版本和配置备份，更新后检查节点数量、更新时间和规则文件日期。不要在高峰期临时升级客户端或替换全部配置，最好先保留一个已验证的旧配置作为回退。若节点全部消失，先恢复备份或重新添加订阅，再判断是否为机场面板问题。</p><p>遇到系统代理残留、浏览器无法连接或网络恢复后仍异常，可以关闭客户端代理、退出应用并检查系统代理设置，确认本地网络恢复后再重新连接。记录错误时间、客户端版本和节点名称，联系服务商时提供脱敏信息，既方便定位也能保护订阅安全。</p></section>
       <section><h2>相关机场专题</h2><div class="post-grid compact"><a class="post-card" href="../clash-airport/index.html">
     <span class="tag">Clash机场</span>
@@ -70,12 +71,32 @@
     <h3>机场测速方法：如何测试速度、延迟和晚高峰表现</h3>
     <p>机场测速专题提供网页、视频、下载、延迟、丢包和连续连接的测试步骤，帮助用户建立可重复的机场速度与稳定性记录。</p>
   </a></div></section>
-      <aside class="notice">下一篇：<a href="../knowledge/cheap-airport-cost.html">便宜机场为什么有时不便宜</a></aside>
-    </article>
+      <section><h2>同类文章</h2><div class="post-grid compact"><a class="post-card" href="../knowledge/mobile-airport-guide.html">
+    <span class="tag">手机端</span>
+    <h3>手机端使用机场的常见问题</h3>
+    <p>手机端常见问题包括系统代理、规则模式、耗电、通知和后台保活。</p>
+  </a><a class="post-card" href="../knowledge/subscription-update-troubleshooting.html">
+    <span class="tag">订阅更新</span>
+    <h3>机场订阅更新失败怎么办？从链接到客户端逐项排查</h3>
+    <p>订阅更新失败可能来自链接失效、套餐过期、客户端缓存、网络拦截或机场面板维护。按顺序排查能避免反复卸载客户端。</p>
+  </a><a class="post-card" href="../knowledge/all-nodes-timeout.html">
+    <span class="tag">节点超时</span>
+    <h3>机场节点全部超时怎么办？完整排查步骤</h3>
+    <p>全部节点同时超时通常不是所有服务器一起故障，更常见的是订阅、系统代理、DNS、本地网络或客户端状态出现问题。</p>
+  </a></div></section>
+      <aside class="notice">下一篇：<a href="../knowledge/subscription-update-troubleshooting.html">机场订阅更新失败怎么办？从链接到客户端逐项排查</a></aside>
+    </article><aside class="site-rail" aria-label="文章快捷导航">
+      <button class="rail-search" type="button" data-open-search><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>搜索本站内容</span></button>
+      <section class="rail-panel"><p class="rail-label">快速入口</p><a href="../recommend/index.html">机场推荐<svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="../rank/index.html">机场排行<svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="../tutorials/index.html">使用教程<svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="../safety/index.html">安全避坑<svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></section>
+      <section class="rail-panel"><p class="rail-label">热门机场</p><a href="../posts/feimaoyun.html"><span>飞猫云</span><small>¥84.00/年（学生版）</small></a><a href="../posts/jilianyun.html"><span>极连云</span><small>8元 60G/月</small></a><a href="../posts/weifengwangluo.html"><span>微风网络</span><small>¥137/年 · 100GB</small></a><a href="../posts/guangnianti.html"><span>光年梯</span><small>7.5元 50G/月</small></a></section>
+      <section class="rail-note"><strong>购买提醒</strong><p>先短期测试，再考虑长付；价格、入口与节点状态以官网实时页面为准。</p></section>
+    </aside></div>
   </main>
   <footer class="site-footer">
-    <p>Tiziline 机场观察 只做公开信息整理与选购思路说明，套餐、节点和注册链接以服务商官网实时页面为准。</p>
-    <p><a href="../sitemap.xml">Sitemap</a> · <a href="../robots.txt">Robots</a></p>
+    <div><a class="footer-brand" href="../index.html"><span class="brand-mark">T</span><strong>Tiziline 机场观察</strong></a><p>只做公开信息整理与选购思路说明，套餐、节点和注册链接以服务商官网实时页面为准。</p></div>
+    <div class="footer-links"><a href="../knowledge/index.html">内容中心</a><a href="../about/index.html">编辑政策</a><button type="button" data-open-dialog="quick-links-dialog">快捷导航</button><a href="../sitemap.xml">Sitemap</a></div>
   </footer>
+  <dialog class="site-dialog search-dialog" id="site-search-dialog"><div class="dialog-head"><div><span>全站搜索</span><strong>查找机场、测评和教程</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button></div><label class="dialog-search"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="site-search-input" type="search" placeholder="输入机场名称或问题，例如：晚高峰、飞猫云"></label><div class="search-results" id="site-search-results"></div></dialog>
+  <dialog class="site-dialog links-dialog" id="quick-links-dialog"><div class="dialog-head"><div><span>站点导航</span><strong>快速找到需要的内容</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭"><svg class="icon " aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button></div><p class="dialog-copy">本站按选购、测评、教程和安全问题维护内容，不使用弹窗跳转到未知注册页面。</p><div class="dialog-link-grid"><a href="../recommend/index.html"><strong>机场推荐</strong><span>按预算、流量、线路、付款周期和使用场景整理机场推荐内容，帮助读者从排行进入更具体的选购决策。</span></a><a href="../guides/index.html"><strong>选购科普</strong><span>解释机场订阅、节点、线路、倍率、流量、原生 IP 和设备限制等基础概念，减少只看宣传词造成的误判。</span></a><a href="../comparisons/index.html"><strong>测评对比</strong><span>提供机场测速、晚高峰观察、横向对比和客观测评方法，帮助读者用同一套标准比较不同服务。</span></a><a href="../tutorials/index.html"><strong>使用教程</strong><span>覆盖机场购买、订阅导入、更新失败、节点超时、网页打不开、设备迁移和客户端排查等实际问题。</span></a><a href="../safety/index.html"><strong>安全避坑</strong><span>整理免费机场、年付促销、退款、账号共享、订阅泄露、官网失联和机场跑路等风险控制方法。</span></a></div></dialog>
 </body>
 </html>

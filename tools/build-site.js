@@ -1,9 +1,11 @@
 const fs = require("fs");
 const path = require("path");
+const { editorialCategories, topicTaxonomy, additionalTopics } = require("./editorial-content");
 
 const SITE_URL = "https://tiziline.com";
 const SITE_NAME = "Tiziline 机场观察";
-const TODAY = "2026-09-14";
+const SITE_LAUNCH_DATE = "2026-09-14";
+const TODAY = "2026-09-25";
 const INDEXNOW_KEY = "tiziline-2026-indexnow-7f3c2a91";
 const INDEXNOW_KEY_FILE = `${INDEXNOW_KEY}.txt`;
 const SEO_KEYWORDS = [
@@ -1986,6 +1988,30 @@ Object.assign(knowledgeProfiles, {
   },
 });
 
+for (const topic of knowledgeTopics) {
+  const taxonomy = topicTaxonomy[topic.slug] || {};
+  Object.assign(topic, taxonomy);
+  if (knowledgeProfiles[topic.slug]) Object.assign(knowledgeProfiles[topic.slug], taxonomy);
+}
+
+for (const topic of additionalTopics) {
+  knowledgeTopics.push({
+    title: topic.title,
+    slug: topic.slug,
+    tag: topic.tag,
+    intro: topic.intro,
+    category: topic.category,
+    aliases: topic.aliases || [],
+  });
+  knowledgeProfiles[topic.slug] = {
+    answer: topic.answer,
+    related: topic.related || [],
+    sections: topic.sections,
+    category: topic.category,
+    aliases: topic.aliases || [],
+  };
+}
+
 const keywordPages = [
   {
     slug: "airport-recommend",
@@ -2289,13 +2315,30 @@ const keywordPages = [
   },
 ];
 
+const keywordTitleAliases = {
+  "airport-recommend": ["2026年稳定机场推荐：不同预算怎么选？"],
+  "cheap-airport": ["高性价比机场推荐：价格、流量与线路对比", "便宜好用的机场有哪些？低预算选择指南", "学生党机场推荐：低预算套餐选择指南"],
+  "stable-airport": ["稳定机场怎么选？购买前重点关注这几个指标", "老牌机场推荐：运营时间长是否更可靠？"],
+  "airport-plan": ["月付机场推荐：适合短期使用的灵活套餐", "不限时流量机场推荐：低频用户如何选择？", "按量付费机场推荐：偶尔使用怎么买更划算？"],
+  "airport-traffic": ["大流量机场推荐：适合视频与多设备用户"],
+  "airport-multiplier": ["机场倍率是什么意思？流量扣除规则详细说明", "机场流量消耗过快怎么办？倍率与后台流量排查"],
+  "ipcl-airport": ["IPLC专线机场推荐：价格贵在哪里？"],
+  "iepl-airport": ["IEPL机场推荐：线路特点与适合人群分析"],
+  "streaming-airport": ["原生IP机场推荐：哪些场景真的需要原生节点？"],
+  "airport-avoid": ["小众机场推荐：人少速度快，但有哪些风险？"],
+  "multi-device-airport": ["家庭多设备机场推荐：设备数量与流量怎么选？"],
+};
+
+for (const page of keywordPages) page.aliases = keywordTitleAliases[page.slug] || [];
+
 function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
 function write(file, content) {
   ensureDir(path.dirname(file));
-  fs.writeFileSync(file, content, "utf8");
+  const normalized = String(content).replace(/[ \t]+$/gm, "");
+  fs.writeFileSync(file, normalized, "utf8");
 }
 
 function escapeHtml(value) {
@@ -2316,11 +2359,13 @@ function localHref(prefix, target) {
 }
 
 function relink(html, prefix) {
-  return html.replace(/href="\/([^"#?]*)"/g, (_, target) => `href="${localHref(prefix, target)}"`);
+  return html.replace(/(href|src)="\/([^"#?]*)"/g, (_, attribute, target) => `${attribute}="${localHref(prefix, target)}"`);
 }
 
 function pageLabel(pathName, title) {
   if (pathName === "/") return "首页";
+  const category = editorialCategories.find((item) => pathName === `/${item.slug}/`);
+  if (category) return category.title;
   const keywordPage = keywordPages.find((page) => pathName === `/${page.slug}/`);
   if (keywordPage) return keywordPage.title;
   if (pathName.startsWith("/rank")) return "机场排行";
@@ -2412,12 +2457,98 @@ function commonSchema(title, description, pathName, keywords = SEO_KEYWORDS) {
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
 }
 
+function icon(name, className = "") {
+  const paths = {
+    search: `<circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path>`,
+    menu: `<path d="M4 6h16M4 12h16M4 18h16"></path>`,
+    close: `<path d="M18 6 6 18M6 6l12 12"></path>`,
+    plane: `<path d="M17.8 19 12 16l-5.8 3L7 13l-4-2 1-2 4 1 3-7h2l3 7 4-1 1 2-4 2 .8 6Z"></path>`,
+    book: `<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13Z"></path><path d="M8 8h8M8 12h6"></path>`,
+    shield: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path>`,
+    chart: `<path d="M3 3v18h18"></path><path d="m7 15 4-4 3 3 5-6"></path>`,
+    link: `<path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.1 1.1"></path><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.1-1.1"></path>`,
+    arrow: `<path d="M5 12h14M13 6l6 6-6 6"></path>`,
+  };
+  return `<svg class="icon ${className}" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths[name] || paths.arrow}</svg>`;
+}
+
+function searchIndexScript() {
+  const entries = [
+    ...editorialCategories.map((item) => ({ title: item.title, url: `/${item.slug}/`, type: "内容分类", description: item.description })),
+    ...keywordPages.map((item) => ({ title: item.title, url: `/${item.slug}/`, type: "推荐专题", description: item.description })),
+    ...airports.map((item) => ({ title: `${item.name}机场测评`, url: `/posts/${item.slug}.html`, type: "机场测评", description: `${item.cheap} · ${item.tag} · ${item.angle}` })),
+    ...knowledgeTopics.map((item) => ({ title: item.title, url: `/knowledge/${item.slug}.html`, type: item.tag, description: item.intro })),
+  ];
+  return `window.TIZI_SEARCH_INDEX=${JSON.stringify(entries)};\n`;
+}
+
+function siteScript() {
+  return `(() => {
+  const navToggle = document.querySelector('[data-nav-toggle]');
+  const nav = document.querySelector('[data-site-nav]');
+  if (navToggle && nav) navToggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  });
+
+  const searchDialog = document.getElementById('site-search-dialog');
+  const searchInput = document.getElementById('site-search-input');
+  const searchResults = document.getElementById('site-search-results');
+  const index = window.TIZI_SEARCH_INDEX || [];
+  const normalize = (value) => String(value || '').toLowerCase().replace(/\\s+/g, '');
+  const resolveUrl = (url) => {
+    if (location.protocol !== 'file:') return url;
+    const clean = url.replace(/^\\//, '');
+    const local = clean.endsWith('/') ? clean + 'index.html' : clean;
+    return (window.TIZI_BASE_PREFIX || '') + local;
+  };
+  const renderResults = (query = '') => {
+    if (!searchResults) return;
+    const keyword = normalize(query);
+    const matches = (keyword ? index.filter((item) => normalize(item.title + item.description + item.type).includes(keyword)) : index.slice(0, 8)).slice(0, 12);
+    searchResults.innerHTML = matches.length ? matches.map((item) => '<a class="search-result" href="' + resolveUrl(item.url) + '"><span>' + item.type + '</span><strong>' + item.title + '</strong><small>' + item.description.slice(0, 88) + '</small></a>').join('') : '<p class="search-empty">没有找到匹配内容，试试“机场推荐”“晚高峰”或具体机场名称。</p>';
+  };
+  document.querySelectorAll('[data-open-search]').forEach((button) => button.addEventListener('click', () => {
+    if (!searchDialog) return;
+    searchDialog.showModal();
+    renderResults(searchInput ? searchInput.value : '');
+    setTimeout(() => searchInput && searchInput.focus(), 50);
+  }));
+  if (searchInput) searchInput.addEventListener('input', (event) => renderResults(event.target.value));
+  document.querySelectorAll('[data-search-form]').forEach((form) => form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = form.querySelector('input');
+    if (searchInput && input) searchInput.value = input.value;
+    if (searchDialog) searchDialog.showModal();
+    renderResults(input ? input.value : '');
+  }));
+
+  document.querySelectorAll('[data-open-dialog]').forEach((button) => button.addEventListener('click', () => {
+    const dialog = document.getElementById(button.dataset.openDialog);
+    if (dialog) dialog.showModal();
+  }));
+  document.querySelectorAll('[data-close-dialog]').forEach((button) => button.addEventListener('click', () => button.closest('dialog')?.close()));
+  document.querySelectorAll('dialog').forEach((dialog) => dialog.addEventListener('click', (event) => {
+    const rect = dialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+  }));
+})();\n`;
+}
+
 function layout({ title, description, pathName, content, extraHead = "", keywords = [] }) {
   const prefix = prefixFor(pathName);
   const canonical = `${SITE_URL}${pathName}`;
   const ogType = pathName === "/" || pathName.endsWith("/") ? "website" : "article";
   const finalDescription = normalizeDescription(description);
   const finalKeywords = pageKeywords(title, finalDescription, keywords);
+  const isDetailPage = pathName.startsWith("/posts/") || (pathName.startsWith("/knowledge/") && pathName !== "/knowledge/") || keywordPages.some((page) => pathName === `/${page.slug}/`);
+  const bodyClass = pathName === "/" ? "home-page" : isDetailPage ? "detail-page" : "listing-page";
+  const sideRail = isDetailPage ? `<aside class="site-rail" aria-label="文章快捷导航">
+      <button class="rail-search" type="button" data-open-search>${icon("search")}<span>搜索本站内容</span></button>
+      <section class="rail-panel"><p class="rail-label">快速入口</p><a href="/recommend/">机场推荐${icon("arrow")}</a><a href="/rank/">机场排行${icon("arrow")}</a><a href="/tutorials/">使用教程${icon("arrow")}</a><a href="/safety/">安全避坑${icon("arrow")}</a></section>
+      <section class="rail-panel"><p class="rail-label">热门机场</p>${airports.slice(0, 4).map((item) => `<a href="/posts/${item.slug}.html"><span>${item.name}</span><small>${item.cheap}</small></a>`).join("")}</section>
+      <section class="rail-note"><strong>购买提醒</strong><p>先短期测试，再考虑长付；价格、入口与节点状态以官网实时页面为准。</p></section>
+    </aside>` : "";
   const html = `<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -2436,41 +2567,43 @@ function layout({ title, description, pathName, content, extraHead = "", keyword
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="${SITE_NAME} RSS" href="/feed.xml">
+  <script>window.TIZI_BASE_PREFIX=${JSON.stringify(prefix)};</script>
+  <script src="/assets/search-index.js" defer></script>
+  <script src="/assets/site.js" defer></script>
   <meta property="og:type" content="${ogType}">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:site_name" content="${SITE_NAME}">
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(finalDescription)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${SITE_URL}/assets/favicon.svg">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="${SITE_URL}/assets/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(finalDescription)}">
-  <meta name="twitter:image" content="${SITE_URL}/assets/favicon.svg">
+  <meta name="twitter:image" content="${SITE_URL}/assets/og-cover.png">
   ${commonSchema(title, finalDescription, pathName, finalKeywords)}
   ${extraHead}
 </head>
-<body>
+<body class="${bodyClass}">
   <header class="site-header">
-    <a class="brand" href="/" aria-label="${SITE_NAME}">
-      <span class="brand-mark"></span>
-      <span>${SITE_NAME}</span>
-    </a>
-    <nav class="top-nav" aria-label="主导航">
-      <a href="/">首页</a>
-      <a href="/rank/">机场排行</a>
-      <a href="/reviews/">机场测评</a>
-      <a href="/knowledge/">科普知识</a>
-      <a href="/about/">关于我们</a>
-    </nav>
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="${SITE_NAME}"><span class="brand-mark">T</span><span><strong>Tiziline</strong><small>机场观察</small></span></a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="打开导航" aria-expanded="false">${icon("menu")}</button>
+      <nav class="top-nav" aria-label="主导航" data-site-nav>
+        <a href="/recommend/">机场推荐</a><a href="/rank/">机场排行</a><a href="/reviews/">机场测评</a><a href="/guides/">选购科普</a><a href="/tutorials/">使用教程</a><a href="/safety/">安全避坑</a><a href="/about/">关于我们</a>
+      </nav>
+      <button class="header-search" type="button" data-open-search aria-label="搜索本站">${icon("search")}<span>搜索</span></button>
+    </div>
   </header>
   <main>
-${content}
+${isDetailPage ? `<div class="content-shell">${content}${sideRail}</div>` : content}
   </main>
   <footer class="site-footer">
-    <p>${SITE_NAME} 只做公开信息整理与选购思路说明，套餐、节点和注册链接以服务商官网实时页面为准。</p>
-    <p><a href="/sitemap.xml">Sitemap</a> · <a href="/robots.txt">Robots</a></p>
+    <div><a class="footer-brand" href="/"><span class="brand-mark">T</span><strong>${SITE_NAME}</strong></a><p>只做公开信息整理与选购思路说明，套餐、节点和注册链接以服务商官网实时页面为准。</p></div>
+    <div class="footer-links"><a href="/knowledge/">内容中心</a><a href="/about/">编辑政策</a><button type="button" data-open-dialog="quick-links-dialog">快捷导航</button><a href="/sitemap.xml">Sitemap</a></div>
   </footer>
+  <dialog class="site-dialog search-dialog" id="site-search-dialog"><div class="dialog-head"><div><span>全站搜索</span><strong>查找机场、测评和教程</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭">${icon("close")}</button></div><label class="dialog-search">${icon("search")}<input id="site-search-input" type="search" placeholder="输入机场名称或问题，例如：晚高峰、飞猫云"></label><div class="search-results" id="site-search-results"></div></dialog>
+  <dialog class="site-dialog links-dialog" id="quick-links-dialog"><div class="dialog-head"><div><span>站点导航</span><strong>快速找到需要的内容</strong></div><button type="button" class="dialog-close" data-close-dialog aria-label="关闭">${icon("close")}</button></div><p class="dialog-copy">本站按选购、测评、教程和安全问题维护内容，不使用弹窗跳转到未知注册页面。</p><div class="dialog-link-grid">${editorialCategories.map((item) => `<a href="/${item.slug}/"><strong>${item.title}</strong><span>${item.description}</span></a>`).join("")}</div></dialog>
 </body>
 </html>
 `;
@@ -2486,13 +2619,15 @@ function schema(title, description, pathName, metadata = {}) {
     headline: title,
     description: finalDescription,
     url: `${SITE_URL}${pathName}`,
-    datePublished: TODAY,
+    datePublished: metadata.publishedAt || SITE_LAUNCH_DATE,
     dateModified: TODAY,
     author: { "@type": "Organization", name: SITE_NAME },
     publisher: { "@type": "Organization", name: SITE_NAME, logo: { "@type": "ImageObject", url: `${SITE_URL}/assets/favicon.svg` } },
     keywords,
     wordCount: metadata.wordCount,
     articleSection: metadata.section,
+    about: (metadata.about || keywords.slice(0, 6)).map((name) => ({ "@type": "Thing", name })),
+    mentions: (metadata.aliases || []).slice(0, 8).map((name) => ({ "@type": "Thing", name })),
     inLanguage: "zh-CN",
     mainEntityOfPage: `${SITE_URL}${pathName}`,
   })}</script>`;
@@ -2545,39 +2680,78 @@ function planTable(item) {
       </div>`;
 }
 
+const recommendationTopicSlugs = new Set([
+  "airport-recommend",
+  "cheap-airport",
+  "stable-airport",
+  "high-speed-airport",
+  "proxy-recommend",
+  "node-recommend",
+  "ipcl-airport",
+  "iepl-airport",
+  "dedicated-airport",
+  "netflix-airport",
+  "streaming-airport",
+  "game-airport",
+  "multi-device-airport",
+  "airport-plan",
+  "backup-airport",
+]);
+
+function categoryPage(category) {
+  const topics = knowledgeTopics.filter((item) => item.category === category.key);
+  const recommendationPages = category.key === "recommend"
+    ? keywordPages.filter((item) => recommendationTopicSlugs.has(item.slug))
+    : [];
+  const content = `    <section class="list-hero">
+      <p class="eyebrow">${category.eyebrow}</p>
+      <h1>${category.title}</h1>
+      <p>${category.description}</p>
+    </section>
+    ${recommendationPages.length ? `<section class="section">
+      <div class="section-head"><h2>按需求找机场</h2><a href="/rank/">查看完整排行</a></div>
+      <div class="post-grid">${recommendationPages.map(keywordCard).join("")}</div>
+    </section>` : ""}
+    <section class="section">
+      <div class="section-head"><h2>${category.key === "recommend" ? "推荐方法与场景" : `${category.title}文章`}</h2><a href="/knowledge/">全部文章</a></div>
+      <div class="post-grid">${topics.map(knowledgeCard).join("")}</div>
+    </section>`;
+  return layout({
+    title: category.title,
+    description: category.description,
+    pathName: `/${category.slug}/`,
+    content,
+    keywords: [category.title, "机场推荐", "机场订阅", "机场长尾词"],
+  });
+}
+
 function homePage() {
   const content = `    <section class="home-hero">
-      <div class="hero-copy">
-        <p class="eyebrow">${TODAY.slice(0, 4)} 机场推荐博客</p>
-        <h1>机场订阅怎么选，一次看清价格、流量和风险</h1>
-        <p>这里整理去重后的机场排行、独立测评、注册链接、最低套餐和机场科普知识。内容按真实选购流程组织，方便新手快速筛选，也方便老用户查漏补缺。</p>
-        <div class="hero-actions">
-          <a class="button primary" href="/rank/">查看机场排行</a>
-          <a class="button secondary" href="/knowledge/">阅读科普知识</a>
-        </div>
+      <div class="hero-panel">
+        <p class="eyebrow">${TODAY.slice(0, 4)} 机场选择与使用指南</p>
+        <h1>找到更稳定、透明、适合你的机场方案</h1>
+        <p class="hero-lead">从套餐价格到晚高峰表现，从订阅导入到风险判断，用清晰的测评和教程减少试错。</p>
+        <div class="hero-chips"><a href="/stable-airport/">稳定可靠</a><a href="/cheap-airport/">低价套餐</a><a href="/dedicated-airport/">专线体验</a><a href="/streaming-airport/">流媒体解锁</a><a href="/chatgpt-airport/">AI 工具</a><a href="/multi-device-airport/">多设备</a></div>
+        <form class="hero-search" data-search-form><label>${icon("search")}<input type="search" aria-label="搜索本站" placeholder="搜索机场、测评和教程，例如：飞猫云、便宜机场、测速"></label><button type="submit">搜索</button></form>
       </div>
-      <div class="hero-visual" aria-label="机场线路视觉图">
-        <div class="radar"></div>
-        <div class="route r1"></div>
-        <div class="route r2"></div>
-        <div class="route r3"></div>
-        <span class="node n1">HK</span>
-        <span class="node n2">JP</span>
-        <span class="node n3">SG</span>
-        <span class="node n4">US</span>
+      <div class="feature-grid" aria-label="核心内容入口">
+        <a class="feature-card" href="/recommend/"><span class="feature-icon">${icon("plane")}</span><strong>机场推荐</strong><p>按预算、流量和用途筛选适合的机场方案。</p><span class="feature-link">开始筛选 ${icon("arrow")}</span></a>
+        <a class="feature-card" href="/reviews/"><span class="feature-icon">${icon("book")}</span><strong>机场测评</strong><p>查看套餐、价格、优缺点和品牌长尾问答。</p><span class="feature-link">查看测评 ${icon("arrow")}</span></a>
+        <a class="feature-card" href="/safety/"><span class="feature-icon">${icon("shield")}</span><strong>安全避坑</strong><p>识别年付、订阅泄露、失联与退款风险。</p><span class="feature-link">阅读指南 ${icon("arrow")}</span></a>
+        <a class="feature-card" href="/comparisons/"><span class="feature-icon">${icon("chart")}</span><strong>测速对比</strong><p>理解延迟、丢包、速度和晚高峰表现。</p><span class="feature-link">学习测试 ${icon("arrow")}</span></a>
       </div>
     </section>
-    <section class="section">
-      <div class="section-head"><h2>机场排行</h2><a href="/rank/">全部排行</a></div>
+    <section class="section home-section">
+      <div class="section-head"><div><span class="section-kicker">Ranking</span><h2>热门机场排行</h2><p>先看公开套餐，再进入独立测评核对适合人群和风险。</p></div><a class="section-more" href="/rank/">查看全部 ${icon("arrow")}</a></div>
       <div class="post-grid">${airports.slice(0, 6).map(airportCard).join("")}</div>
     </section>
-    <section class="section">
-      <div class="section-head"><h2>热门专题</h2><a href="/airport-recommend/">机场推荐</a></div>
-      <div class="post-grid">${keywordPages.map(keywordCard).join("")}</div>
+    <section class="section home-section alt-section">
+      <div class="section-head"><div><span class="section-kicker">Topics</span><h2>按使用需求选择</h2><p>相近搜索问题合并到规范专题页，减少重复内容。</p></div><a class="section-more" href="/recommend/">全部专题 ${icon("arrow")}</a></div>
+      <div class="post-grid">${keywordPages.filter((item) => recommendationTopicSlugs.has(item.slug)).slice(0, 6).map(keywordCard).join("")}</div>
     </section>
-    <section class="section">
-      <div class="section-head"><h2>科普知识</h2><a href="/knowledge/">全部科普</a></div>
-      <div class="post-grid">${knowledgeTopics.slice(0, 6).map(knowledgeCard).join("")}</div>
+    <section class="section home-section">
+      <div class="section-head"><div><span class="section-kicker">Knowledge</span><h2>最新实用文章</h2><p>从客户端操作到选购风险，优先解决真实使用问题。</p></div><a class="section-more" href="/knowledge/">内容中心 ${icon("arrow")}</a></div>
+      <div class="post-grid">${knowledgeTopics.slice(-6).reverse().map(knowledgeCard).join("")}</div>
     </section>`;
   return layout({
     title: "机场排行、机场测评与科普知识",
@@ -2641,14 +2815,15 @@ function reviewsPage() {
 
 function knowledgePage() {
   const content = `    <section class="list-hero">
-      <p class="eyebrow">Knowledge Base</p>
-      <h1>科普知识</h1>
-      <p>这里整理 15 篇机场相关科普文章，其中 10 篇扩展为约 2000 字独立长文，覆盖机场推荐、线路、套餐、客户端、节点地区、流媒体、AI 工具、安全和购买避坑。</p>
+      <p class="eyebrow">Editorial Library</p>
+      <h1>机场文章内容中心</h1>
+      <p>这里按机场推荐、选购科普、测评对比、使用教程和安全避坑整理 ${knowledgeTopics.length} 篇主文章。相近搜索问题合并到同一篇内容，减少重复页面与关键词内耗。</p>
     </section>
-    <section class="section">
-      <div class="post-grid">${knowledgeTopics.map(knowledgeCard).join("")}</div>
-    </section>`;
-  return layout({ title: "科普知识", description: "15 篇机场相关科普知识文章，包含 10 篇约 2000 字原创长文，帮助新手理解机场推荐、机场订阅、线路、套餐、客户端和安全边界。", pathName: "/knowledge/", content, keywords: ["机场推荐", "梯子推荐", "机场订阅", "机场避坑"] });
+    ${editorialCategories.map((category) => {
+      const topics = knowledgeTopics.filter((item) => item.category === category.key);
+      return `<section class="section"><div class="section-head"><h2>${category.title}</h2><a href="/${category.slug}/">查看分类</a></div><div class="post-grid">${topics.map(knowledgeCard).join("")}</div></section>`;
+    }).join("")}`;
+  return layout({ title: "机场文章内容中心", description: `${knowledgeTopics.length} 篇机场相关主文章，按推荐、选购、测评、教程和安全分类，覆盖机场推荐、梯子推荐、机场订阅、线路、套餐、客户端和长尾问题。`, pathName: "/knowledge/", content, keywords: ["机场推荐", "梯子推荐", "机场订阅", "机场避坑"] });
 }
 
 function keywordPage(page) {
@@ -2667,7 +2842,7 @@ function keywordPage(page) {
   </tr>`).join("");
   const faq = [
     [`${page.keyword}怎么选？`, `先看自己的用途，再比较最低套餐、月流量、节点地区、倍率、客户端兼容性和售后公告。${page.keyword}不建议只按最低价格排序。`],
-    [`${page.keyword}适合新手吗？`, `适合，但新手应优先月付或短周期测试，确认常用节点、AI 工具、流媒体和移动端都稳定后，再考虑长期套餐。`],
+    [`${page.keyword}适合新手吗？`, `${page.keyword}可以作为新手的筛选方向，但应优先月付或短周期测试，确认常用节点、AI 工具、流媒体和移动端都稳定后，再考虑长期套餐。`],
     [`${page.keyword}和普通机场排行有什么区别？`, `机场排行是全量列表，${page.keyword}专题会围绕特定搜索需求筛选更匹配的机场和使用建议。`],
   ];
   const faqSchema = `<script type="application/ld+json">${JSON.stringify({
@@ -2685,11 +2860,12 @@ function keywordPage(page) {
         <h1>${page.title}</h1>
         <p class="lead">${page.intro}</p>
       </div>
+      ${page.aliases.length ? `<section class="query-box"><h2>本专题覆盖的搜索问题</h2><ul>${page.aliases.map((alias) => `<li>${escapeHtml(alias)}</li>`).join("")}</ul></section>` : ""}
       <section>
         <h2>${page.keyword}怎么选？</h2>
         <p>${page.focus}</p>
-        <p>筛选时先把使用场景写下来，再逐项比较价格、流量、倍率、节点地区、协议兼容、客户端导入和售后渠道。公开套餐和官网公告可以作为购买前的事实依据，宣传中的“高速”“稳定”“全解锁”等描述则需要通过自己的常用任务验证。</p>
-        <p>预算较紧或第一次购买时，先用月付或短周期套餐测试；已经确认晚高峰、视频、AI 工具和移动端都符合预期，再考虑季付或年付。套餐、节点和入口会变化，页面信息应以服务商官网实时页面为准。</p>
+        <p>筛选${page.keyword}时先把使用场景写下来，再逐项比较价格、流量、倍率、节点地区、协议兼容、客户端导入和售后渠道。公开套餐和官网公告可以作为购买前的事实依据，宣传中的“高速”“稳定”“全解锁”等描述则需要通过自己的常用任务验证。</p>
+        <p>选择${page.keyword}且预算较紧或第一次购买时，先用月付或短周期套餐测试；已经确认晚高峰、视频、AI 工具和移动端都符合预期，再考虑季付或年付。套餐、节点和入口会变化，页面信息应以服务商官网实时页面为准。</p>
       </section>
       <section>
         <h2>筛选${page.keyword}时重点看什么</h2>
@@ -2728,7 +2904,7 @@ function keywordPage(page) {
     description: page.description,
     pathName: `/${page.slug}/`,
     content,
-    keywords: [page.keyword, page.title],
+    keywords: [page.keyword, page.title, ...page.aliases],
     extraHead: `${faqSchema}
   ${itemListSchema(list, `/${page.slug}/`, page.title)}`,
   });
@@ -2748,26 +2924,82 @@ function aboutPage() {
       </section>
       <section>
         <h2>内容原则</h2>
-        <p>我们优先关注可读性和实用性：把复杂术语讲清楚，把适合人群写明白，把购买风险提前说明。对于低价套餐、年付套餐和共用跳转入口，会尽量提醒读者先短周期测试，避免冲动长付。</p>
+        <p>我们优先关注可读性和可验证性：把复杂术语讲清楚，把适合人群写明白，把购买风险提前说明。相近搜索标题会合并到一篇主文章，不为了关键词数量复制正文；品牌相关的“怎么样、靠谱吗、值得买吗、优惠码和对比”集中在该品牌唯一测评页。</p>
+        <p>文章中的套餐、流量、线路和入口来自服务商公开页面，并标注更新时间。页面不会把宣传词直接写成事实结论，涉及速度、解锁和稳定性的内容会提醒读者使用自己的设备、运营商和晚高峰场景验证。</p>
+      </section>
+      <section>
+        <h2>推广链接与独立性</h2>
+        <p>部分官网注册链接可能包含推广参数，本站可能因此获得佣金，但不会改变用户看到的公开套餐价格。推广关系不代表稳定性保证，也不会替代风险提示；注册链接统一使用 sponsored 和 nofollow 标记。</p>
+        <p>本站不接受把无法验证的“永久稳定”“百分百解锁”写成编辑结论。若套餐或入口发生变化，以服务商官网、公告和结算页为准。</p>
+      </section>
+      <section>
+        <h2>更新与纠错</h2>
+        <p>内容按选购科普、测评对比、使用教程和安全避坑分类维护。每次更新会同步 Sitemap 与 IndexNow 清单，并检查重复标题、重复段落、Meta 描述和站内链接。</p>
+        <p>如果发现套餐、入口或文章表述已过时，应先核对官方页面，再更新对应的唯一规范页，避免创建多个互相冲突的版本。</p>
       </section>
     </article>`;
-  return layout({ title: "关于我们", description: "了解 Tiziline 机场观察的内容定位、信息来源和更新原则。", pathName: "/about/", content });
+  return layout({ title: "关于我们与编辑政策", description: "了解 Tiziline 机场观察的内容定位、公开信息来源、推广链接披露、文章去重原则、更新流程和购买风险提示。", pathName: "/about/", content });
+}
+
+function firstPlanValue(plan, keys) {
+  for (const key of keys) if (plan && plan[key]) return plan[key];
+  return "未注明";
+}
+
+function airportPlanHighlights(item) {
+  return (item.plans || []).slice(0, 4).map((plan) => ({
+    name: firstPlanValue(plan, ["套餐名称", "套餐", "名称"]),
+    price: firstPlanValue(plan, ["价格", "月费", "售价"]),
+    traffic: firstPlanValue(plan, ["流量", "月流量", "流量额度"]),
+    feature: firstPlanValue(plan, ["特性", "说明", "适用人群"]),
+  }));
 }
 
 function airportArticle(item, index) {
   const title = `${item.name}机场怎么样？${item.cheap} 套餐、注册链接与测评`;
-  const description = `${item.name}机场测评：整理官网入口、最低套餐、月流量、线路特点、适合人群、晚高峰观察和购买前注意事项，帮助读者按机场推荐与梯子推荐的常见标准进行比较。`;
+  const description = `${item.name}机场测评：整理官网注册入口、最低套餐、价格流量、公开线路特点、适合人群、优缺点、优惠信息和购买前验证方法，回答${item.name}怎么样、靠谱吗以及是否值得买。`;
   const related = airports.filter((airport) => airport.slug !== item.slug).slice(index % 6, index % 6 + 3);
   const relatedTopics = keywordPages.filter((page) => page.names.includes(item.name)).slice(0, 3);
+  const plans = airportPlanHighlights(item);
+  const primaryPlan = plans[0] || { name: "入门套餐", price: item.cheap, traffic: "以官网为准", feature: item.tag };
+  const compare = related[0] || airports.find((airport) => airport.slug !== item.slug);
+  const couponMatch = item.angle.match(/优惠码[：:]\s*([^。；\s]+)/u);
+  const couponText = couponMatch
+    ? `${item.name}公开介绍中包含优惠码 <strong>${escapeHtml(couponMatch[1])}</strong>，结算前应确认优惠仍然有效。`
+    : `本站没有为 ${item.name} 虚构固定优惠码。若官网提供活动、季付或年付折扣，应以结算页和官方公告为准。`;
+  const brandQueries = [
+    `${item.name}机场怎么样？`,
+    `${item.name}机场靠谱吗？`,
+    `${item.name}机场值得买吗？`,
+    `${item.name}机场优惠码与套餐介绍`,
+    `${item.name}与${compare.name}哪个好？`,
+  ];
+  const faq = [
+    [brandQueries[0], `${item.name}公开信息显示最低套餐为${item.cheap}，定位为${item.tag}。是否适合仍要结合所在地、运营商、常用节点和晚高峰实测。`],
+    [brandQueries[1], `仅凭 ${item.name} 的注册链接和套餐表不能证明长期可靠。建议核对官网、公告、工单、订阅更新和最近服务状态，并从短周期套餐开始。`],
+    [brandQueries[2], `如果你需要的线路、流量和设备条件与${item.name}公开套餐匹配，可以先购买最低或短周期套餐测试；不建议未经测试直接多年付。`],
+    [brandQueries[3], `${couponMatch ? `当前整理到的优惠信息为 ${couponMatch[1]}` : "优惠与活动以官网结算页为准"}，套餐价格和流量可能随运营调整。`],
+    [brandQueries[4], `${item.name}当前最低公开套餐为${item.cheap}，${compare.name}为${compare.cheap}。价格只是第一步，还应比较线路、流量、节点地区和自己网络下的晚高峰表现。`],
+  ];
+  const faqSchema = `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  })}</script>`;
   const content = `    <article class="article">
       <div class="article-hero">
         <p class="eyebrow">机场测评 · ${TODAY}</p>
         <h1>${title}</h1>
-        <p class="lead">${item.angle} 本文基于公开页面整理 ${item.name} 的入口、价格、使用场景和避坑要点，适合在下单前快速建立判断框架。</p>
+        <p class="lead">${item.angle} 本文只基于公开套餐和页面信息做结构化整理，不把注册链接当作稳定性证明；购买前仍需用自己的网络完成节点和晚高峰测试。</p>
         <div class="hero-actions">
           <a class="button primary" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">访问 ${item.name} 注册入口</a>
           <a class="button secondary" href="/reviews/">返回机场测评</a>
         </div>
+        <p class="affiliate-note">${item.name} 注册链接可能包含推广参数，但不会改变你的公开套餐价格。本站不运营机场服务，结论与链接位置分开处理。</p>
       </div>
       <section class="quick-card">
         <div><span>机场名称</span><strong>${item.name}</strong></div>
@@ -2777,56 +3009,81 @@ function airportArticle(item, index) {
       <section>
         <h2>${item.name} 机场简介</h2>
         <p>${item.angle}</p>
+        <p>从公开信息看，${item.name} 当前用 <strong>${item.tag}</strong> 作为主要定位，最低公开门槛是 <strong>${item.cheap}</strong>。它适不适合你，取决于常用地区、月流量、设备数量和固定使用时段，不应只按价格或节点数量判断。</p>
       </section>
       <section>
-        <h2>${item.name} 价格列表</h2>
+        <h2>${item.name} 套餐与价格列表</h2>
         ${planTable(item)}
+        <p>${item.name} 当前整理到 ${item.plans.length} 个公开套餐。入门项为“${escapeHtml(primaryPlan.name)}”，公开价格为 ${escapeHtml(primaryPlan.price)}，流量为 ${escapeHtml(primaryPlan.traffic)}，主要说明是 ${escapeHtml(primaryPlan.feature)}。套餐可能调整，下单前应再次核对流量重置、倍率、设备限制和退款条件。</p>
       </section>
       <section>
-        <h2>${item.name} 适合谁？</h2>
-        <p>机场订阅的好坏，不能只看能不能打开网页，更要看你的使用节奏：是否经常看视频，是否长时间使用 ChatGPT、YouTube、Netflix、Telegram 等服务，是否有多台设备同时在线。</p>
-        <p>${item.name} 的最低公开套餐是 <strong>${item.cheap}</strong>。新手比较稳妥的方式是先买短周期套餐，用几天观察常用节点，再决定是否续费更长周期。如果你的需求集中在浏览网页、同步资料、登录海外服务和偶尔看视频，入门套餐会比较容易控制成本。</p>
+        <h2>${item.name}机场靠谱吗？</h2>
+        <p>${item.name} 是否“靠谱”不能由本站或一张套餐表直接认证。更可验证的信号包括：官网和公告是否连续更新，订阅能否正常刷新，常用节点在工作日晚高峰是否稳定，工单是否回复，以及发生域名迁移时是否有明确通知。</p>
+        <p>对 ${item.name} 的合理验证方式是先用最低或短周期套餐，分别测试网页、视频、AI 工具和移动网络。连续几天可用只能说明当前体验，不代表未来没有线路调整，因此主力用户仍应准备不同运营方的备用服务。</p>
       </section>
       <section>
-        <h2>套餐与性价比观察</h2>
-        <p>看性价比时，建议把价格换算成每月可用流量、每 GB 成本和常用节点倍率。低价套餐通常适合试用、备用和轻量访问；中高档套餐更适合长期追剧、多设备同步和家庭共享。真实销售页可能因为促销、节点维护、套餐改版而变化，下单前务必以官网收银台为准。</p>
-        <p>如果套餐流量看起来很多，也要检查热门节点是否额外倍率扣流量。一个 50GB 的低价包适合轻量用户，但若常用节点按 2 倍或 3 倍消耗，实际可用时长会明显缩短。反过来，大流量套餐如果晚高峰不稳，也未必比小而稳的套餐更值得买。</p>
+        <h2>${item.name}机场值得买吗？</h2>
+        <p>如果你的预算接近 ${item.cheap}，并且 ${item.name} 的公开节点、流量和客户端条件与实际任务匹配，它可以进入短期测试名单。轻量浏览更关注最低套餐和连接成功率，视频与下载更关注持续带宽，AI 与流媒体还要验证目标地区和 IP 状态。</p>
+        <p>不适合直接购买 ${item.name} 的情况包括：尚未确认官方入口、只看到长期套餐、常用地区没有备用节点、规则与设备限制没有写清，或你无法承受服务中断。先测试再长付，比寻找一个永久答案更现实。</p>
       </section>
       <section>
-        <h2>线路、节点和解锁能力</h2>
-        <p>机场常见线路包括公网中转、BGP 中转、IEPL、IPLC 和多个地区落地节点。普通用户不必纠结术语本身，重点看三项实际指标：晚高峰是否能稳定连上，YouTube 1080p 或 4K 是否持续缓冲，常用 AI 与流媒体服务是否频繁风控。</p>
-        <p>香港、日本、新加坡、台湾、美国通常是中文用户最常用的区域。香港和日本延迟低，适合日常网页和视频；美国节点适合 ChatGPT、Claude、Google、Netflix 美区等服务。购买后优先使用后台提供的一键订阅导入，并打开自动更新订阅。</p>
+        <h2>${item.name}优缺点与购买前检查</h2>
+        <ul class="check-list">
+          <li><strong>公开优势：</strong>${escapeHtml(excerpt(item.angle, 150))}</li>
+          <li><strong>价格入口：</strong>最低公开套餐为 ${escapeHtml(item.cheap)}，适合先用较低成本验证真实体验。</li>
+          <li><strong>需要核对：</strong>常用节点倍率、流量重置、同时在线设备、退款和域名迁移渠道。</li>
+          <li><strong>测试重点：</strong>工作日晚高峰、移动网络、目标流媒体或 AI 服务，以及连续连接是否稳定。</li>
+        </ul>
       </section>
       <section>
-        <h2>购买前风险控制</h2>
-        <p>机场行业变化很快，域名迁移、套餐调整、节点临时维护都很常见。无论看起来多便宜，都不建议第一次就购买多年套餐，也不要把全部网络访问都压在一家机场上。更稳的方式是主力机场加备用机场，两个服务商的入口和通知渠道尽量分散。</p>
-        <p>下单前建议检查公告频道、工单响应、教程完整度和退款说明。隐私方面，机场并不等于完全匿名，不要把订阅链接公开到论坛或群聊；订阅链接本质上就是你的节点凭证，一旦泄露，流量可能被别人消耗。</p>
+        <h2>${item.name}优惠码与套餐介绍</h2>
+        <p>${couponText}</p>
+        <p>不要为了临时折扣跳过测试。优惠后的总价、付款周期、有效流量和退款条件应该放在一起比较；第一次使用 ${item.name} 时，优先选择损失可控的套餐。</p>
       </section>
       <section>
-        <h2>${item.name} 总结</h2>
-        <p>综合来看，${item.name} 更适合${item.angle.replace(/^适合/, "").replace(/。$/, "")}。如果你刚好属于这个场景，可以从最低套餐或短周期套餐开始，先测试常用地区节点和晚高峰表现。最终建议很简单：先月付，后长付；先测试，后迁移；先看稳定性，再看最低价。</p>
+        <h2>${item.name}与${compare.name}哪个好？</h2>
+        <div class="table-wrap"><table class="compare-table"><thead><tr><th>对比项</th><th>${item.name}</th><th>${compare.name}</th></tr></thead><tbody>
+          <tr><td>最低公开套餐</td><td>${escapeHtml(item.cheap)}</td><td>${escapeHtml(compare.cheap)}</td></tr>
+          <tr><td>公开定位</td><td>${escapeHtml(item.tag)}</td><td>${escapeHtml(compare.tag)}</td></tr>
+          <tr><td>适合初筛的人群</td><td>${escapeHtml(excerpt(item.angle, 72))}</td><td>${escapeHtml(excerpt(compare.angle, 72))}</td></tr>
+        </tbody></table></div>
+        <p>${item.name} 与 ${compare.name} 的表格只比较公开信息，不能替代同一网络下的实测。二选一时先确定月流量和常用地区，再分别购买短周期测试，避免只因榜单顺序做决定。</p>
       </section>
+      <section><h2>${item.name}常见问题</h2>${faq.map(([question, answer]) => `<h3>${question}</h3><p>${answer}</p>`).join("")}</section>
       <aside class="notice"><strong>注册入口：</strong><a class="official-link" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></aside>
       <section><h2>相关推荐</h2><div class="post-grid compact">${related.map(airportCard).join("")}</div></section>
 ${relatedTopics.length ? `      <section><h2>按场景继续阅读</h2><div class="post-grid compact">${relatedTopics.map(keywordCard).join("")}</div></section>` : ""}
     </article>`;
-  return layout({ title, description, pathName: `/posts/${item.slug}.html`, content, extraHead: schema(title, description, `/posts/${item.slug}.html`) });
+  const wordCount = [...content.replace(/<[^>]+>/g, "")].length;
+  return layout({
+    title,
+    description,
+    pathName: `/posts/${item.slug}.html`,
+    content,
+    keywords: [item.name, ...brandQueries, item.tag],
+    extraHead: `${schema(title, description, `/posts/${item.slug}.html`, { wordCount, section: "机场测评", keywords: [item.name, ...brandQueries] })}\n  ${faqSchema}`,
+  });
 }
 
 function knowledgeArticle(item, index) {
   const title = item.title;
   const profile = knowledgeProfiles[item.slug];
   if (!profile) throw new Error(`Missing knowledge profile: ${item.slug}`);
+  const category = editorialCategories.find((entry) => entry.key === item.category) || editorialCategories.find((entry) => entry.key === "guides");
+  const aliases = [...new Set([...(item.aliases || []), ...(profile.aliases || [])])];
   const articleText = [item.intro, profile.answer, ...profile.sections.flatMap(([, paragraphs]) => paragraphs)].join("");
   const wordCount = [...articleText].length;
-  const description = `${item.title}：${excerpt(profile.answer, 108)} 本文约 ${wordCount} 字，整理机场订阅、线路、套餐和使用中的实用判断方法。`;
-  const next = knowledgeTopics[(index + 1) % knowledgeTopics.length];
+  const description = `${item.title}：${excerpt(profile.answer, 108)} 本文约 ${wordCount} 字，并覆盖${aliases.slice(0, 2).join("、") || "相关机场长尾问题"}。`;
+  const categoryTopics = knowledgeTopics.filter((entry) => entry.category === item.category);
+  const categoryIndex = categoryTopics.findIndex((entry) => entry.slug === item.slug);
+  const next = categoryTopics[(categoryIndex + 1) % categoryTopics.length] || knowledgeTopics[(index + 1) % knowledgeTopics.length];
+  const relatedArticles = categoryTopics.filter((entry) => entry.slug !== item.slug).slice(Math.max(0, categoryIndex - 1), Math.max(0, categoryIndex - 1) + 3);
   const relatedTopics = (profile.related || [])
     .map((slug) => keywordPages.find((page) => page.slug === slug))
     .filter(Boolean);
   const content = `    <article class="article">
       <div class="article-hero">
-        <p class="eyebrow">科普知识 · ${item.tag}</p>
+        <p class="eyebrow">${category.title} · ${item.tag}</p>
         <h1>${title}</h1>
         <p class="lead">${item.intro}</p>
         <p class="article-meta">本文约 ${wordCount} 字 · 更新于 ${TODAY} · 适合机场新手和准备更换订阅的用户</p>
@@ -2835,8 +3092,10 @@ function knowledgeArticle(item, index) {
         <h2>先说结论</h2>
         <p>${profile.answer}</p>
       </section>
+      ${aliases.length ? `<section class="query-box"><h2>本文同时回答这些问题</h2><ul>${aliases.map((alias) => `<li>${escapeHtml(alias)}</li>`).join("")}</ul></section>` : ""}
       ${profile.sections.map(([heading, paragraphs]) => `<section><h2>${heading}</h2>${paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</section>`).join("")}
       ${relatedTopics.length ? `<section><h2>相关机场专题</h2><div class="post-grid compact">${relatedTopics.map(keywordCard).join("")}</div></section>` : ""}
+      ${relatedArticles.length ? `<section><h2>同类文章</h2><div class="post-grid compact">${relatedArticles.map(knowledgeCard).join("")}</div></section>` : ""}
       <aside class="notice">下一篇：<a href="/knowledge/${next.slug}.html">${next.title}</a></aside>
     </article>`;
   return layout({
@@ -2844,8 +3103,14 @@ function knowledgeArticle(item, index) {
     description,
     pathName: `/knowledge/${item.slug}.html`,
     content,
-    keywords: [item.tag, item.title, ...(profile.related || []).map((slug) => keywordPages.find((page) => page.slug === slug)?.keyword)],
-    extraHead: schema(title, description, `/knowledge/${item.slug}.html`, { wordCount, section: item.tag }),
+    keywords: [item.tag, item.title, ...aliases, ...(profile.related || []).map((slug) => keywordPages.find((page) => page.slug === slug)?.keyword)],
+    extraHead: schema(title, description, `/knowledge/${item.slug}.html`, {
+      wordCount,
+      section: category.title,
+      aliases,
+      about: [item.tag, category.title, ...aliases],
+      publishedAt: additionalTopics.some((topic) => topic.slug === item.slug) ? TODAY : SITE_LAUNCH_DATE,
+    }),
   });
 }
 
@@ -2866,17 +3131,19 @@ function shingleSimilarity(left, right) {
 }
 
 function contentAudit() {
-  const entries = knowledgeTopics.map((item) => {
-    const profile = knowledgeProfiles[item.slug];
-    const paragraphs = profile.sections.flatMap(([, values]) => values);
-    return {
-      slug: item.slug,
-      title: item.title,
-      chars: [...[item.intro, profile.answer, ...paragraphs].join("")].length,
-      paragraphCount: paragraphs.length,
-      text: paragraphs.join(""),
-    };
-  });
+  const auditEntry = (type, slug, title, paragraphs) => {
+    const cleanParagraphs = paragraphs.map((value) => String(value || "").trim()).filter((value) => value.length > 20);
+    const text = cleanParagraphs.join("");
+    return { type, slug, title, chars: [...text].length, paragraphCount: cleanParagraphs.length, paragraphs: cleanParagraphs, text };
+  };
+  const entries = [
+    ...knowledgeTopics.map((item) => {
+      const profile = knowledgeProfiles[item.slug];
+      return auditEntry("article", `/knowledge/${item.slug}.html`, item.title, [item.intro, profile.answer, ...profile.sections.flatMap(([, values]) => values), ...(item.aliases || [])]);
+    }),
+    ...airports.map((item) => auditEntry("review", `/posts/${item.slug}.html`, `${item.name}机场怎么样？${item.cheap} 套餐、注册链接与测评`, [item.angle, item.cheap, item.tag, ...(item.plans || []).map((plan) => Object.values(plan).join("；"))])),
+    ...keywordPages.map((item) => auditEntry("topic", `/${item.slug}/`, item.title, [item.description, item.intro, item.focus, ...(item.aliases || [])])),
+  ];
   const duplicateTitles = [];
   const duplicateParagraphs = [];
   const titleMap = new Map();
@@ -2884,7 +3151,7 @@ function contentAudit() {
   for (const entry of entries) {
     if (titleMap.has(entry.title)) duplicateTitles.push([titleMap.get(entry.title), entry.slug]);
     else titleMap.set(entry.title, entry.slug);
-    for (const paragraph of entry.text.split(/(?<=[。！？])/u).filter((value) => value.length > 20)) {
+    for (const paragraph of entry.paragraphs) {
       if (paragraphMap.has(paragraph)) duplicateParagraphs.push([paragraphMap.get(paragraph), entry.slug]);
       else paragraphMap.set(paragraph, entry.slug);
     }
@@ -2904,7 +3171,7 @@ function contentAudit() {
     duplicateTitles,
     duplicateParagraphs,
     similarPairs,
-    articles: entries.map(({ text, ...entry }) => entry),
+    articles: entries.map(({ text, paragraphs, ...entry }) => entry),
   }, null, 2)}\n`;
 }
 
@@ -2914,6 +3181,7 @@ function publicUrlPaths() {
     ["/rank/", "0.9"],
     ["/reviews/", "0.9"],
     ["/knowledge/", "0.9"],
+    ...editorialCategories.map((item) => [`/${item.slug}/`, "0.9"]),
     ["/about/", "0.6"],
     ...keywordPages.map((item) => [`/${item.slug}/`, "0.85"]),
     ...airports.map((item) => [`/posts/${item.slug}.html`, "0.8"]),
@@ -2925,11 +3193,9 @@ function sitemap() {
   const urls = publicUrlPaths();
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(([loc, priority]) => `  <url>
+${urls.map(([loc]) => `  <url>
     <loc>${SITE_URL}${loc}</loc>
     <lastmod>${TODAY}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${priority}</priority>
   </url>`).join("\n")}
 </urlset>
 `;
@@ -3036,6 +3302,10 @@ ${SEO_KEYWORDS.map((keyword) => `- ${keyword}`).join("\n")}
 
 ${keywordPages.map((item) => `- ${item.title}: ${SITE_URL}/${item.slug}/`).join("\n")}
 
+## 编辑分类
+
+${editorialCategories.map((item) => `- ${item.title}: ${SITE_URL}/${item.slug}/`).join("\n")}
+
 ## 机场测评
 
 ${airports.map((item) => `- ${item.name}: ${SITE_URL}/posts/${item.slug}.html`).join("\n")}
@@ -3050,7 +3320,7 @@ ${knowledgeTopics.map((item) => `- ${item.title}: ${SITE_URL}/knowledge/${item.s
 `;
 }
 
-function style() {
+function legacyStyle() {
   return `:root {
   color-scheme: light;
   --bg: #f6f8fb;
@@ -3099,6 +3369,11 @@ main { min-height: 70vh; }
 .article-meta { margin: 0; color: var(--muted); font-size: 14px; }
 .answer-box { margin: 28px 0; padding: 20px 22px; border-left: 4px solid var(--primary); border-radius: 8px; background: #eefaf7; }
 .answer-box h2 { margin-top: 0; }
+.query-box { margin: 24px 0; padding: 18px 22px; border: 1px solid #cfe0ec; border-radius: 8px; background: #f8fbfd; }
+.query-box h2 { margin-top: 0; font-size: 22px; }
+.query-box ul { margin: 0; padding-left: 22px; columns: 2; column-gap: 30px; }
+.query-box li { margin: 7px 0; break-inside: avoid; }
+.affiliate-note { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
 .check-list { margin: 16px 0 0; padding-left: 22px; }
 .check-list li { margin: 10px 0; }
 .post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
@@ -3133,6 +3408,8 @@ tbody tr:last-child td { border-bottom: 0; }
 .official-link { color: var(--primary); font-weight: 900; white-space: nowrap; }
 .official-link:hover { color: var(--primary-dark); text-decoration: underline; text-underline-offset: 3px; }
 .price-table { min-width: 760px; }
+.compare-table { min-width: 680px; table-layout: fixed; }
+.compare-table th:first-child, .compare-table td:first-child { width: 150px; font-weight: 800; }
 .price-table th:first-child, .price-table td:first-child { font-weight: 800; color: #0f172a; }
 .price-table td { color: #334155; }
 .site-footer { margin-top: 46px; padding: 32px clamp(18px, 4vw, 56px); border-top: 1px solid var(--line); color: var(--muted); text-align: center; }
@@ -3142,8 +3419,179 @@ tbody tr:last-child td { border-bottom: 0; }
   .home-hero { grid-template-columns: 1fr; }
   .hero-visual { min-height: 300px; }
   .post-grid, .quick-card { grid-template-columns: 1fr; }
+  .query-box ul { columns: 1; }
   .hero-copy h1, .article-hero h1, .list-hero h1 { font-size: 34px; }
 }
+`;
+}
+
+function style() {
+  return `:root {
+  color-scheme: light;
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --surface-soft: #edf4fb;
+  --ink: #10213f;
+  --muted: #60718b;
+  --line: #d7e1ed;
+  --navy: #163865;
+  --teal: #167d74;
+  --teal-dark: #0d665f;
+  --amber: #c67b2a;
+  --blue-soft: #dfeaf8;
+  --shadow: 0 18px 48px rgba(28, 52, 84, .1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.75; }
+body:has(dialog[open]) { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button { color: inherit; }
+.icon { width: 20px; height: 20px; flex: 0 0 auto; }
+main { min-height: 70vh; }
+
+.site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(215, 225, 237, .85); background: rgba(255, 255, 255, .94); backdrop-filter: blur(18px); }
+.header-inner { width: min(1220px, calc(100% - 36px)); min-height: 70px; margin: 0 auto; display: flex; align-items: center; gap: 26px; }
+.brand { display: inline-flex; align-items: center; gap: 11px; margin-right: auto; color: var(--ink); }
+.brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--navy); color: #fff; font-weight: 900; box-shadow: 0 7px 18px rgba(22, 56, 101, .22); }
+.brand > span:last-child { display: flex; flex-direction: column; line-height: 1.08; }
+.brand strong { font-size: 17px; letter-spacing: .01em; }
+.brand small { margin-top: 4px; color: var(--muted); font-size: 11px; font-weight: 700; }
+.top-nav { display: flex; align-items: center; gap: 20px; color: #475a75; font-size: 14px; font-weight: 700; }
+.top-nav a { position: relative; padding: 24px 0 22px; white-space: nowrap; }
+.top-nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 15px; height: 2px; background: var(--teal); transition: right .2s ease; }
+.top-nav a:hover { color: var(--teal-dark); }
+.top-nav a:hover::after { right: 0; }
+.header-search, .nav-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; }
+.header-search { padding: 7px 12px; color: var(--navy); font-size: 13px; font-weight: 800; }
+.nav-toggle { display: none; width: 40px; padding: 0; }
+
+.home-hero { min-height: 760px; padding: 46px max(22px, calc((100vw - 1220px) / 2)) 54px; background: url("hero-mountain.png") center bottom / cover no-repeat; }
+.hero-panel { max-width: 1180px; margin: 0 auto; padding: 52px 44px 48px; border: 1px solid rgba(255, 255, 255, .8); border-radius: 24px; background: rgba(247, 251, 255, .88); text-align: center; box-shadow: 0 22px 64px rgba(34, 72, 108, .12); backdrop-filter: blur(16px); }
+.eyebrow, .section-kicker { margin: 0; color: var(--teal-dark); font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.hero-panel h1 { max-width: 960px; margin: 12px auto 14px; color: #10234a; font-size: clamp(40px, 5vw, 68px); line-height: 1.12; letter-spacing: 0; }
+.hero-lead { max-width: 760px; margin: 0 auto; color: #6680a0; font-size: clamp(17px, 2vw, 21px); }
+.hero-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 30px auto 24px; }
+.hero-chips a { padding: 8px 15px; border: 1px solid #cbd9e8; border-radius: 999px; background: rgba(255, 255, 255, .76); color: var(--navy); font-size: 13px; font-weight: 800; box-shadow: 0 3px 10px rgba(23, 57, 92, .05); }
+.hero-chips a:hover { border-color: var(--teal); color: var(--teal-dark); }
+.hero-search { display: flex; width: min(640px, 100%); margin: 0 auto; border: 1px solid #cbd8e7; border-radius: 12px; background: #fff; box-shadow: 0 12px 30px rgba(31, 62, 96, .08); overflow: hidden; }
+.hero-search label { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; padding: 0 16px; color: #6c83a0; }
+.hero-search input { width: 100%; min-width: 0; padding: 14px 0; border: 0; outline: 0; background: transparent; color: var(--ink); }
+.hero-search button { margin: 6px; padding: 0 22px; border: 0; border-radius: 8px; background: var(--navy); color: #fff; font-weight: 800; cursor: pointer; }
+.feature-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; max-width: 1200px; margin: 42px auto 0; }
+.feature-card { min-height: 184px; padding: 23px; border: 1px solid rgba(209, 222, 237, .95); border-radius: 8px; background: rgba(242, 247, 253, .92); box-shadow: 0 15px 34px rgba(28, 55, 86, .1); transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+.feature-card:hover { transform: translateY(-4px); border-color: #a7c4d8; background: #fff; }
+.feature-icon { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 16px; border-radius: 8px; background: #dce9f8; color: var(--navy); }
+.feature-card > strong { display: block; font-size: 19px; }
+.feature-card p { margin: 7px 0 14px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+.feature-link { display: inline-flex; align-items: center; gap: 6px; color: var(--teal-dark); font-size: 13px; font-weight: 900; }
+.feature-link .icon { width: 16px; height: 16px; }
+
+.section, .list-hero { width: min(1120px, calc(100% - 36px)); margin: 0 auto; }
+.section { padding: 62px 0; }
+.home-section + .home-section { border-top: 1px solid var(--line); }
+.alt-section { width: 100%; max-width: none; padding-left: max(18px, calc((100vw - 1120px) / 2)); padding-right: max(18px, calc((100vw - 1120px) / 2)); background: #eef4f9; }
+.list-hero { padding: 72px 0 36px; }
+.list-hero h1, .article-hero h1 { margin: 10px 0 15px; color: #10234a; font-size: clamp(36px, 5vw, 58px); line-height: 1.16; letter-spacing: 0; }
+.list-hero p, .lead { max-width: 780px; color: var(--muted); font-size: 18px; }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.section-head h2, .article h2 { margin: 5px 0 0; font-size: 28px; line-height: 1.25; }
+.section-head p { margin: 5px 0 0; color: var(--muted); }
+.section-more { display: inline-flex; align-items: center; gap: 7px; color: var(--teal-dark); font-size: 14px; font-weight: 900; white-space: nowrap; }
+.section-more .icon { width: 17px; height: 17px; }
+.post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.post-card { display: flex; flex-direction: column; min-height: 210px; padding: 23px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); box-shadow: 0 8px 28px rgba(26, 52, 83, .055); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.post-card:hover { transform: translateY(-3px); border-color: #a9c4d5; box-shadow: var(--shadow); }
+.post-card h3 { margin: 10px 0; font-size: 21px; line-height: 1.35; }
+.post-card p { margin: 0; color: var(--muted); font-size: 14px; }
+.tag { display: inline-flex; align-self: flex-start; color: var(--amber); font-size: 12px; font-weight: 900; letter-spacing: .04em; }
+
+.content-shell { display: grid; grid-template-columns: minmax(0, 820px) 270px; gap: 30px; align-items: start; width: min(1160px, calc(100% - 36px)); margin: 0 auto; padding: 34px 0 70px; }
+.article { min-width: 0; padding: 24px 32px 50px; border: 1px solid var(--line); border-radius: 8px; background: #fff; box-shadow: 0 12px 36px rgba(25, 52, 83, .055); }
+.article-hero { padding: 18px 0 28px; border-bottom: 1px solid var(--line); }
+.article-hero h1 { font-size: clamp(32px, 3.5vw, 46px); }
+.article h2 { margin-top: 38px; }
+.article h3 { margin: 24px 0 8px; font-size: 20px; }
+.article p { color: #35465f; }
+.article-meta, .affiliate-note { color: var(--muted) !important; font-size: 13px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 8px; font-weight: 800; }
+.button.primary { border-color: var(--teal); background: var(--teal); color: #fff; }
+.button.secondary { background: #fff; color: var(--ink); }
+.answer-box, .notice, .query-box { margin: 26px 0; padding: 20px 22px; border-radius: 8px; }
+.answer-box { border-left: 4px solid var(--teal); background: #eaf6f3; }
+.answer-box h2, .query-box h2 { margin-top: 0; }
+.query-box { border: 1px solid #cddceb; background: #f5f9fd; }
+.query-box ul { margin: 0; padding-left: 21px; columns: 2; column-gap: 30px; }
+.query-box li { margin: 7px 0; break-inside: avoid; }
+.notice { border-left: 4px solid var(--amber); background: #fff8ed; overflow-wrap: anywhere; }
+.check-list { padding-left: 22px; }
+.check-list li { margin: 9px 0; }
+.quick-card { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0; }
+.quick-card div { padding: 17px; border: 1px solid var(--line); border-radius: 8px; background: #f8fafc; }
+.quick-card span { display: block; color: var(--muted); font-size: 12px; }
+.quick-card strong { display: block; margin-top: 5px; overflow-wrap: anywhere; }
+.site-rail { position: sticky; top: 96px; display: grid; gap: 16px; }
+.rail-search { display: flex; align-items: center; gap: 9px; width: 100%; padding: 13px 15px; border: 1px solid #bed3df; border-radius: 8px; background: var(--teal); color: #fff; font-weight: 800; cursor: pointer; }
+.rail-panel, .rail-note { padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.rail-label { margin: 0 0 9px; color: var(--muted); font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.rail-panel a { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid #edf1f5; font-size: 14px; font-weight: 800; }
+.rail-panel a:last-child { border-bottom: 0; }
+.rail-panel a .icon { width: 15px; height: 15px; color: var(--teal); }
+.rail-panel small { color: var(--muted); font-size: 11px; font-weight: 600; text-align: right; }
+.rail-note { border-color: #efd9b9; background: #fff8ee; }
+.rail-note strong { color: #855019; }
+.rail-note p { margin: 7px 0 0; color: #725b43; font-size: 13px; line-height: 1.6; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+table { width: 100%; min-width: 760px; border-collapse: collapse; }
+th, td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { background: #edf3f9; color: #273d5d; font-size: 13px; white-space: nowrap; }
+tbody tr:nth-child(even) { background: #fafcfe; }
+tbody tr:hover { background: #eef8f5; }
+tbody tr:last-child td { border-bottom: 0; }
+.rank-table { min-width: 940px; table-layout: fixed; }
+.rank-table .col-index { width: 54px; }.rank-table .col-name { width: 130px; }.rank-table .col-price { width: 145px; }.rank-table .col-action { width: 118px; }
+.rank-index { color: var(--muted); }.rank-name a { font-weight: 900; }.rank-price { font-weight: 900; }.rank-intro { color: #40526b; }
+.rank-action { text-align: center; }
+.official-link { color: var(--teal-dark); font-weight: 900; white-space: nowrap; }
+.official-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.compare-table { min-width: 680px; table-layout: fixed; }.compare-table th:first-child, .compare-table td:first-child { width: 150px; font-weight: 900; }
+
+.site-dialog { width: min(700px, calc(100% - 30px)); max-height: min(82vh, 760px); padding: 0; border: 1px solid rgba(194, 208, 223, .9); border-radius: 16px; background: #f9fbfd; color: var(--ink); box-shadow: 0 30px 100px rgba(10, 24, 48, .3); overflow: hidden; }
+.site-dialog::backdrop { background: rgba(14, 27, 49, .55); backdrop-filter: blur(9px); }
+.dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 24px; border-bottom: 1px solid var(--line); background: #fff; }
+.dialog-head div { display: flex; flex-direction: column; }.dialog-head span { color: var(--teal-dark); font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }.dialog-head strong { margin-top: 3px; font-size: 22px; }
+.dialog-close { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; }
+.dialog-search { display: flex; align-items: center; gap: 10px; margin: 20px 24px 12px; padding: 0 14px; border: 1px solid #cbd8e7; border-radius: 8px; background: #fff; color: var(--muted); }
+.dialog-search input { width: 100%; padding: 13px 0; border: 0; outline: 0; background: transparent; }
+.search-results { max-height: 520px; padding: 6px 24px 24px; overflow: auto; }
+.search-result { display: grid; grid-template-columns: 100px 1fr; gap: 2px 12px; padding: 13px 4px; border-bottom: 1px solid var(--line); }
+.search-result span { grid-row: 1 / 3; align-self: center; color: var(--teal-dark); font-size: 11px; font-weight: 900; }.search-result strong { line-height: 1.35; }.search-result small { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-empty, .dialog-copy { color: var(--muted); }
+.dialog-copy { margin: 20px 24px 10px; }
+.dialog-link-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 10px 24px 24px; }
+.dialog-link-grid a { padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }.dialog-link-grid strong, .dialog-link-grid span { display: block; }.dialog-link-grid span { margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+
+.site-footer { display: flex; justify-content: space-between; gap: 34px; margin-top: 30px; padding: 42px max(20px, calc((100vw - 1120px) / 2)); border-top: 1px solid var(--line); background: #eaf0f6; color: var(--muted); }
+.footer-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); }.site-footer p { max-width: 650px; margin: 9px 0 0; font-size: 13px; }.footer-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 15px; font-size: 13px; font-weight: 800; }.footer-links button { padding: 0; border: 0; background: transparent; cursor: pointer; font-weight: 800; }
+
+@media (max-width: 1040px) {
+  .header-inner { gap: 14px; }.top-nav { gap: 13px; font-size: 13px; }.header-search span { display: none; }
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }.content-shell { grid-template-columns: minmax(0, 1fr); }.site-rail { position: static; grid-template-columns: repeat(3, 1fr); }.rail-search { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .header-inner { min-height: 62px; width: min(100% - 24px, 1220px); }.nav-toggle { display: inline-flex; }.header-search { width: 40px; padding: 0; }
+  .top-nav { position: absolute; top: 62px; left: 12px; right: 12px; display: none; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; box-shadow: var(--shadow); }.top-nav.is-open { display: grid; grid-template-columns: repeat(2, 1fr); }.top-nav a { padding: 10px; border-radius: 6px; background: #f6f9fc; }.top-nav a::after { display: none; }
+  .home-hero { min-height: 0; padding: 22px 14px 34px; background-position: 58% bottom; }.hero-panel { padding: 34px 18px 30px; border-radius: 18px; }.hero-panel h1 { font-size: 38px; }.hero-lead { font-size: 16px; }.hero-chips { gap: 7px; margin-top: 22px; }.hero-chips a { padding: 6px 10px; font-size: 12px; }
+  .hero-search button { padding: 0 14px; }.feature-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }.feature-card { min-height: 0; }
+  .section, .list-hero { width: min(100% - 28px, 1120px); }.section { padding: 44px 0; }.alt-section { width: 100%; padding-left: 14px; padding-right: 14px; }.section-head { align-items: flex-start; flex-direction: column; margin-bottom: 20px; }.section-head h2 { font-size: 25px; }
+  .post-grid, .quick-card, .site-rail, .dialog-link-grid { grid-template-columns: 1fr; }.post-card { min-height: 0; }.content-shell { width: min(100% - 22px, 1160px); padding-top: 20px; }.article { padding: 18px 17px 36px; }.article-hero h1, .list-hero h1 { font-size: 34px; }.query-box ul { columns: 1; }
+  .site-footer { flex-direction: column; padding: 34px 20px; }.footer-links { justify-content: flex-start; }
+  .search-result { grid-template-columns: 1fr; }.search-result span { grid-row: auto; }.search-result small { white-space: normal; }.dialog-head { padding: 18px; }.dialog-search { margin: 16px 18px 10px; }.search-results { padding: 4px 18px 18px; }.dialog-link-grid { padding: 8px 18px 18px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
 `;
 }
 
@@ -3155,11 +3603,14 @@ function build() {
   const root = process.cwd();
   write(path.join(root, "assets", "style.css"), style());
   write(path.join(root, "assets", "favicon.svg"), favicon());
+  write(path.join(root, "assets", "search-index.js"), searchIndexScript());
+  write(path.join(root, "assets", "site.js"), siteScript());
   write(path.join(root, "index.html"), homePage());
   write(path.join(root, "rank", "index.html"), rankPage("/rank/"));
   write(path.join(root, "airport", "index.html"), redirectPage("/airport/", "/rank/"));
   write(path.join(root, "reviews", "index.html"), reviewsPage());
   write(path.join(root, "knowledge", "index.html"), knowledgePage());
+  editorialCategories.forEach((item) => write(path.join(root, item.slug, "index.html"), categoryPage(item)));
   write(path.join(root, "about", "index.html"), aboutPage());
   keywordPages.forEach((item) => write(path.join(root, item.slug, "index.html"), keywordPage(item)));
   airports.forEach((item, index) => write(path.join(root, "posts", `${item.slug}.html`), airportArticle(item, index)));
