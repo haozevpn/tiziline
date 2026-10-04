@@ -5,7 +5,7 @@ const { editorialCategories, topicTaxonomy, additionalTopics } = require("./edit
 const SITE_URL = "https://tiziline.com";
 const SITE_NAME = "Tiziline 机场观察";
 const SITE_LAUNCH_DATE = "2026-09-14";
-const TODAY = "2026-09-25";
+const TODAY = "2026-10-04";
 const INDEXNOW_KEY = "tiziline-2026-indexnow-7f3c2a91";
 const INDEXNOW_KEY_FILE = `${INDEXNOW_KEY}.txt`;
 const SEO_KEYWORDS = [
@@ -2009,6 +2009,7 @@ for (const topic of additionalTopics) {
     intro: topic.intro,
     category: topic.category,
     aliases: topic.aliases || [],
+    updatedAt: topic.updatedAt || TODAY,
   });
   knowledgeProfiles[topic.slug] = {
     answer: topic.answer,
@@ -2410,8 +2411,9 @@ function itemListSchema(items, pathName, name) {
 
 function normalizeDescription(description) {
   const value = String(description || "").trim();
-  if (value.length >= 100) return value;
-  return `${value} 本页结合公开资料整理价格、流量、线路、客户端和购买前检查点，方便读者按自己的网络环境与使用场景进行比较；套餐、节点、入口和服务状态请以服务商官网实时页面为准。`;
+  if (value.length >= 150) return value;
+  const expanded = `${value} 本页整理公开套餐、价格、流量、线路、节点地区、客户端兼容、购买风险和测试方法，帮助你按自己的网络环境与使用场景比较机场方案；具体套餐、节点和入口请以服务商官网实时信息为准。`;
+  return expanded.length >= 150 ? expanded : `${expanded} 购买前请先短期测试，并核对官方页面的最新套餐、节点和服务说明后再决定长期订阅。`;
 }
 
 function commonSchema(title, description, pathName, keywords = SEO_KEYWORDS) {
@@ -2629,7 +2631,7 @@ function schema(title, description, pathName, metadata = {}) {
     description: finalDescription,
     url: `${SITE_URL}${pathName}`,
     datePublished: metadata.publishedAt || SITE_LAUNCH_DATE,
-    dateModified: TODAY,
+    dateModified: metadata.dateModified || TODAY,
     author: { "@type": "Organization", name: SITE_NAME },
     publisher: { "@type": "Organization", name: SITE_NAME, logo: { "@type": "ImageObject", url: `${SITE_URL}/assets/favicon.svg` } },
     keywords,
@@ -3101,7 +3103,7 @@ function knowledgeArticle(item, index) {
         <p class="eyebrow">${category.title} · ${item.tag}</p>
         <h1>${title}</h1>
         <p class="lead">${item.intro}</p>
-        <p class="article-meta">本文约 ${wordCount} 字 · 更新于 ${TODAY} · 适合机场新手和准备更换订阅的用户</p>
+        <p class="article-meta">本文约 ${wordCount} 字 · 更新于 ${item.updatedAt || TODAY} · 适合机场新手和准备更换订阅的用户</p>
       </div>
       <section class="answer-box">
         <h2>先说结论</h2>
@@ -3125,6 +3127,7 @@ function knowledgeArticle(item, index) {
       aliases,
       about: [item.tag, category.title, ...aliases],
       publishedAt: additionalTopics.some((topic) => topic.slug === item.slug) ? TODAY : SITE_LAUNCH_DATE,
+      dateModified: item.updatedAt || TODAY,
     }),
   });
 }

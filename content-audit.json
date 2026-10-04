@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-25",
-  "articleCount": 94,
+  "generatedAt": "2026-10-04",
+  "articleCount": 96,
   "longformCount": 10,
-  "titleCount": 94,
+  "titleCount": 96,
   "duplicateTitles": [],
   "duplicateParagraphs": [],
   "similarPairs": [],
@@ -209,6 +209,20 @@
       "title": "机场账号共享有哪些风险？设备、流量与订阅安全说明",
       "chars": 502,
       "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/airport-brand-keyword-trends.html",
+      "title": "机场品牌关键词热度怎么看？快狸、星岛梦、隐云与花云的选购方法",
+      "chars": 948,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/shadowrocket-keyword-guide.html",
+      "title": "小火箭节点最新选购指南：Shadowrocket关键词背后的机场判断方法",
+      "chars": 1029,
+      "paragraphCount": 10
     },
     {
       "type": "review",
