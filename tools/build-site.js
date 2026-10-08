@@ -2335,6 +2335,15 @@ const keywordTitleAliases = {
   "streaming-airport": ["原生IP机场推荐：哪些场景真的需要原生节点？"],
   "airport-avoid": ["小众机场推荐：人少速度快，但有哪些风险？"],
   "multi-device-airport": ["家庭多设备机场推荐：设备数量与流量怎么选？"],
+  "shadowrocket-node": [
+    "shadowrocket节点怎么购买？",
+    "shadowrocket节点购买需要注意什么？",
+    "小火箭订阅怎么导入？",
+    "小火箭vpn怎么用？",
+    "火箭节点和小火箭节点有什么区别？",
+    "shadowrocket节点免费能长期用吗？",
+    "免费机场节点安全吗？",
+  ],
 };
 
 for (const page of keywordPages) page.aliases = keywordTitleAliases[page.slug] || [];
@@ -3120,7 +3129,7 @@ function knowledgeArticle(item, index) {
     description,
     pathName: `/knowledge/${item.slug}.html`,
     content,
-    keywords: [item.tag, item.title, ...aliases, ...(profile.related || []).map((slug) => keywordPages.find((page) => page.slug === slug)?.keyword)],
+    keywords: [item.tag, item.title, ...aliases, ...(profile.related || []).map((slug) => keywordPages.find((page) => page.slug === slug)?.keyword).filter(Boolean)],
     extraHead: schema(title, description, `/knowledge/${item.slug}.html`, {
       wordCount,
       section: category.title,
@@ -3157,10 +3166,10 @@ function contentAudit() {
   const entries = [
     ...knowledgeTopics.map((item) => {
       const profile = knowledgeProfiles[item.slug];
-      return auditEntry("article", `/knowledge/${item.slug}.html`, item.title, [item.intro, profile.answer, ...profile.sections.flatMap(([, values]) => values), ...(item.aliases || [])]);
+      return auditEntry("article", `/knowledge/${item.slug}.html`, item.title, [item.intro, profile.answer, ...profile.sections.flatMap(([, values]) => values)]);
     }),
     ...airports.map((item) => auditEntry("review", `/posts/${item.slug}.html`, `${item.name}机场怎么样？${item.cheap} 套餐、注册链接与测评`, [item.angle, item.cheap, item.tag, ...(item.plans || []).map((plan) => Object.values(plan).join("；"))])),
-    ...keywordPages.map((item) => auditEntry("topic", `/${item.slug}/`, item.title, [item.description, item.intro, item.focus, ...(item.aliases || [])])),
+    ...keywordPages.map((item) => auditEntry("topic", `/${item.slug}/`, item.title, [item.description, item.intro, item.focus])),
   ];
   const duplicateTitles = [];
   const duplicateParagraphs = [];

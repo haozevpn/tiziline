@@ -1,8 +1,8 @@
 {
   "generatedAt": "2026-10-04",
-  "articleCount": 96,
-  "longformCount": 10,
-  "titleCount": 96,
+  "articleCount": 97,
+  "longformCount": 11,
+  "titleCount": 97,
   "duplicateTitles": [],
   "duplicateParagraphs": [],
   "similarPairs": [],
@@ -18,8 +18,8 @@
       "type": "article",
       "slug": "/knowledge/iepl-iplc-bgp.html",
       "title": "IEPL、IPLC、BGP 中转是什么意思？机场线路选择指南",
-      "chars": 1891,
-      "paragraphCount": 15
+      "chars": 1869,
+      "paragraphCount": 14
     },
     {
       "type": "article",
@@ -39,22 +39,22 @@
       "type": "article",
       "slug": "/knowledge/peak-hour-test.html",
       "title": "如何测试机场晚高峰稳定性？一套可复用的测速方法",
-      "chars": 1836,
-      "paragraphCount": 16
+      "chars": 1815,
+      "paragraphCount": 15
     },
     {
       "type": "article",
       "slug": "/knowledge/streaming-unlock.html",
       "title": "机场流媒体解锁为什么会失效？Netflix、Disney+节点排查",
-      "chars": 1863,
-      "paragraphCount": 15
+      "chars": 1842,
+      "paragraphCount": 14
     },
     {
       "type": "article",
       "slug": "/knowledge/ai-service-guide.html",
       "title": "ChatGPT、Claude 使用机场时要注意什么？AI节点选择指南",
-      "chars": 1856,
-      "paragraphCount": 15
+      "chars": 1830,
+      "paragraphCount": 14
     },
     {
       "type": "article",
@@ -144,8 +144,8 @@
       "type": "article",
       "slug": "/knowledge/low-price-vs-premium.html",
       "title": "低价机场和高价机场有什么区别？成本、线路与体验对比",
-      "chars": 645,
-      "paragraphCount": 9
+      "chars": 624,
+      "paragraphCount": 8
     },
     {
       "type": "article",
@@ -221,8 +221,15 @@
       "type": "article",
       "slug": "/knowledge/shadowrocket-keyword-guide.html",
       "title": "小火箭节点最新选购指南：Shadowrocket关键词背后的机场判断方法",
-      "chars": 1029,
-      "paragraphCount": 10
+      "chars": 983,
+      "paragraphCount": 8
+    },
+    {
+      "type": "article",
+      "slug": "/knowledge/shadowrocket-purchase-tutorial.html",
+      "title": "Shadowrocket节点购买与小火箭订阅导入教程：免费节点怎么判断",
+      "chars": 2072,
+      "paragraphCount": 14
     },
     {
       "type": "review",
@@ -578,8 +585,8 @@
       "type": "topic",
       "slug": "/streaming-airport/",
       "title": "流媒体机场推荐：Netflix、Disney+、YouTube解锁与测速方法",
-      "chars": 211,
-      "paragraphCount": 4
+      "chars": 189,
+      "paragraphCount": 3
     },
     {
       "type": "topic",
@@ -606,8 +613,8 @@
       "type": "topic",
       "slug": "/airport-multiplier/",
       "title": "机场倍率是什么意思？1倍、0.5倍和高倍率节点怎么选",
-      "chars": 201,
-      "paragraphCount": 4
+      "chars": 180,
+      "paragraphCount": 3
     },
     {
       "type": "topic",
@@ -655,8 +662,8 @@
       "type": "topic",
       "slug": "/multi-device-airport/",
       "title": "支持多设备的机场推荐：手机、电脑和平板同时使用指南",
-      "chars": 190,
-      "paragraphCount": 4
+      "chars": 169,
+      "paragraphCount": 3
     },
     {
       "type": "topic",

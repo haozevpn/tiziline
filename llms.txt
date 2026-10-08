@@ -157,6 +157,7 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 - 机场账号共享有哪些风险？设备、流量与订阅安全说明: https://tiziline.com/knowledge/account-sharing-risk.html
 - 机场品牌关键词热度怎么看？快狸、星岛梦、隐云与花云的选购方法: https://tiziline.com/knowledge/airport-brand-keyword-trends.html
 - 小火箭节点最新选购指南：Shadowrocket关键词背后的机场判断方法: https://tiziline.com/knowledge/shadowrocket-keyword-guide.html
+- Shadowrocket节点购买与小火箭订阅导入教程：免费节点怎么判断: https://tiziline.com/knowledge/shadowrocket-purchase-tutorial.html
 
 ## 内容说明
 
