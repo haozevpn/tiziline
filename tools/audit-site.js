@@ -110,7 +110,7 @@ for (const page of pages) {
   const description = page.html.match(/<meta name="description" content="([^"]+)"/i)?.[1] || "";
   const canonical = page.html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1] || "";
   if (!page.html.includes("<title>")) issues.push(`${rel}: missing title`);
-  if (!isNoindex && description.length < 80) issues.push(`${rel}: short description (${description.length})`);
+  if (!isNoindex && description.length < 150) issues.push(`${rel}: short description (${description.length})`);
   if (!canonical.startsWith(SITE_URL)) issues.push(`${rel}: invalid canonical`);
   if (!isNoindex && !page.html.includes("application/ld+json")) issues.push(`${rel}: missing JSON-LD`);
   if (canonical && !isNoindex) {

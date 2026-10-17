@@ -5,7 +5,7 @@ const { editorialCategories, topicTaxonomy, additionalTopics } = require("./edit
 const SITE_URL = "https://tiziline.com";
 const SITE_NAME = "Tiziline 机场观察";
 const SITE_LAUNCH_DATE = "2026-09-14";
-const TODAY = "2026-10-04";
+const TODAY = "2026-10-17";
 const INDEXNOW_KEY = "tiziline-2026-indexnow-7f3c2a91";
 const INDEXNOW_KEY_FILE = `${INDEXNOW_KEY}.txt`;
 const SEO_KEYWORDS = [
@@ -2336,6 +2336,15 @@ const keywordTitleAliases = {
   "airport-avoid": ["小众机场推荐：人少速度快，但有哪些风险？"],
   "multi-device-airport": ["家庭多设备机场推荐：设备数量与流量怎么选？"],
   "shadowrocket-node": [
+    "shadowrocket",
+    "shadowrockets",
+    "shadow rocket",
+    "shadowrocket节点",
+    "shadowrocket免费节点",
+    "shadowrocket节点购买",
+    "小火箭",
+    "小火箭节点",
+    "火箭节点",
     "shadowrocket节点怎么购买？",
     "shadowrocket节点购买需要注意什么？",
     "小火箭订阅怎么导入？",
@@ -2420,9 +2429,9 @@ function itemListSchema(items, pathName, name) {
 
 function normalizeDescription(description) {
   const value = String(description || "").trim();
-  if (value.length >= 150) return value;
-  const expanded = `${value} 本页整理公开套餐、价格、流量、线路、节点地区、客户端兼容、购买风险和测试方法，帮助你按自己的网络环境与使用场景比较机场方案；具体套餐、节点和入口请以服务商官网实时信息为准。`;
-  return expanded.length >= 150 ? expanded : `${expanded} 购买前请先短期测试，并核对官方页面的最新套餐、节点和服务说明后再决定长期订阅。`;
+  if (value.length >= 180) return value;
+  const expanded = `${value} 本页补充整理套餐价格、有效流量、节点地区、客户端兼容、晚高峰测试、购买风险和适用人群，帮助你按自己的网络环境与使用场景快速判断；具体套餐、节点、入口和服务状态请以官方实时页面为准。文章同时提供测试方法、内链专题和更新说明，方便继续核对相关机场信息。`;
+  return expanded.length >= 180 ? expanded : `${expanded} 购买前建议先用短周期验证常用任务，再决定是否长期订阅。`;
 }
 
 function commonSchema(title, description, pathName, keywords = SEO_KEYWORDS) {
@@ -2646,6 +2655,7 @@ function schema(title, description, pathName, metadata = {}) {
     keywords,
     wordCount: metadata.wordCount,
     articleSection: metadata.section,
+    abstract: metadata.abstract || finalDescription,
     about: (metadata.about || keywords.slice(0, 6)).map((name) => ({ "@type": "Thing", name })),
     mentions: (metadata.aliases || []).slice(0, 8).map((name) => ({ "@type": "Thing", name })),
     inLanguage: "zh-CN",
@@ -3107,6 +3117,28 @@ function knowledgeArticle(item, index) {
   const relatedTopics = (profile.related || [])
     .map((slug) => keywordPages.find((page) => page.slug === slug))
     .filter(Boolean);
+  const relatedReviews = (profile.related || [])
+    .map((slug) => airports.find((airport) => airport.slug === slug))
+    .filter(Boolean);
+  const relatedKnowledge = (profile.related || [])
+    .map((slug) => knowledgeTopics.find((topic) => topic.slug === slug))
+    .filter(Boolean);
+  const featuredSlugs = new Set(["airport-brand-keyword-trends", "shadowrocket-keyword-guide", "shadowrocket-purchase-tutorial"]);
+  const faqEntries = featuredSlugs.has(item.slug) ? aliases.slice(0, 6).map((question) => [question, profile.answer]) : [];
+  const faqSchema = faqEntries.length ? `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqEntries.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  })}</script>` : "";
+  const geoFacts = [
+    ["核心问题", aliases[0] || item.title],
+    ["适合人群", category.title === "使用教程" ? "需要解决机场配置、订阅或客户端问题的用户" : "准备比较机场套餐、节点和使用风险的用户"],
+    ["判断依据", "公开套餐、订阅兼容性、实际网络测试、晚高峰表现和售后公告"],
+  ];
   const content = `    <article class="article">
       <div class="article-hero">
         <p class="eyebrow">${category.title} · ${item.tag}</p>
@@ -3118,9 +3150,15 @@ function knowledgeArticle(item, index) {
         <h2>先说结论</h2>
         <p>${profile.answer}</p>
       </section>
+      <section class="quick-card article-facts" aria-label="文章关键信息">
+        ${geoFacts.map(([label, value]) => `<div><span>${label}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}
+      </section>
       ${aliases.length ? `<section class="query-box"><h2>本文同时回答这些问题</h2><ul>${aliases.map((alias) => `<li>${escapeHtml(alias)}</li>`).join("")}</ul></section>` : ""}
       ${profile.sections.map(([heading, paragraphs]) => `<section><h2>${heading}</h2>${paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</section>`).join("")}
+      ${faqEntries.length ? `<section><h2>常见问题</h2>${faqEntries.map(([question, answer]) => `<h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p>`).join("")}</section>` : ""}
       ${relatedTopics.length ? `<section><h2>相关机场专题</h2><div class="post-grid compact">${relatedTopics.map(keywordCard).join("")}</div></section>` : ""}
+      ${relatedReviews.length ? `<section><h2>相关机场测评</h2><div class="post-grid compact">${relatedReviews.map(airportCard).join("")}</div></section>` : ""}
+      ${relatedKnowledge.length ? `<section><h2>相关使用教程</h2><div class="post-grid compact">${relatedKnowledge.map(knowledgeCard).join("")}</div></section>` : ""}
       ${relatedArticles.length ? `<section><h2>同类文章</h2><div class="post-grid compact">${relatedArticles.map(knowledgeCard).join("")}</div></section>` : ""}
       <aside class="notice">下一篇：<a href="/knowledge/${next.slug}.html">${next.title}</a></aside>
     </article>`;
@@ -3133,11 +3171,12 @@ function knowledgeArticle(item, index) {
     extraHead: schema(title, description, `/knowledge/${item.slug}.html`, {
       wordCount,
       section: category.title,
+      abstract: profile.answer,
       aliases,
       about: [item.tag, category.title, ...aliases],
       publishedAt: additionalTopics.some((topic) => topic.slug === item.slug) ? TODAY : SITE_LAUNCH_DATE,
       dateModified: item.updatedAt || TODAY,
-    }),
+    }) + faqSchema,
   });
 }
 
