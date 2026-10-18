@@ -1,12 +1,19 @@
 {
-  "generatedAt": "2026-10-17",
-  "articleCount": 97,
-  "longformCount": 11,
-  "titleCount": 97,
+  "generatedAt": "2026-10-19",
+  "articleCount": 98,
+  "longformCount": 12,
+  "titleCount": 98,
   "duplicateTitles": [],
   "duplicateParagraphs": [],
   "similarPairs": [],
   "articles": [
+    {
+      "type": "faq",
+      "slug": "/knowledge/airport-faq-guide.html",
+      "title": "机场 FAQ 问题指南：机场推荐、选购与使用常见问题",
+      "chars": 33852,
+      "paragraphCount": 204
+    },
     {
       "type": "article",
       "slug": "/knowledge/airport-vs-vpn.html",

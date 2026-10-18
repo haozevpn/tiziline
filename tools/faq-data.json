@@ -1,0 +1,636 @@
+{
+  "source": "https://yifenjichang.net/faq/",
+  "sections": [
+    {
+      "id": "basics",
+      "title": "机场是什么？机场、科学上网与魔法上网基础概念",
+      "intro": "新手最常问的入门概念，先把「机场」「梯子」「科学上网」这几个词的关系搞清楚。",
+      "items": [
+        {
+          "question": "机场是什么？"
+        },
+        {
+          "question": "机场和 VPN 有什么区别？"
+        },
+        {
+          "question": "机场和梯子是一回事吗？"
+        },
+        {
+          "question": "为什么很多人把机场叫做梯子？"
+        },
+        {
+          "question": "科学上网工具是什么意思？"
+        },
+        {
+          "question": "魔法上网工具是什么意思？"
+        },
+        {
+          "question": "机场和代理有什么区别？"
+        },
+        {
+          "question": "机场和节点订阅有什么区别？"
+        },
+        {
+          "question": "机场订阅和代理软件是什么关系？"
+        },
+        {
+          "question": "机场需要自己搭建吗？"
+        },
+        {
+          "question": "自建节点和买机场哪个好？"
+        }
+      ]
+    },
+    {
+      "id": "getting-started",
+      "title": "新手怎么选机场？机场推荐避坑指南",
+      "intro": "第一次买机场容易被一堆参数绕晕，这里说说新手真正应该关注的几个点。",
+      "items": [
+        {
+          "question": "机场推荐应该看哪些因素？"
+        },
+        {
+          "question": "2026 年还有稳定机场推荐吗？"
+        },
+        {
+          "question": "新手怎么选择机场？"
+        },
+        {
+          "question": "机场适合新手使用吗？"
+        },
+        {
+          "question": "机场一般怎么使用？"
+        },
+        {
+          "question": "机场购买前要注意什么？"
+        },
+        {
+          "question": "机场推荐里常见的坑有哪些？"
+        },
+        {
+          "question": "机场新手最容易踩哪些坑？"
+        },
+        {
+          "question": "机场套餐名字怎么看？"
+        },
+        {
+          "question": "机场品牌页应该看哪些信息？"
+        },
+        {
+          "question": "机场推荐页面应该怎么对比套餐？"
+        }
+      ]
+    },
+    {
+      "id": "client-import",
+      "title": "机场订阅链接怎么导入？Clash / Shadowrocket / v2rayN 教程",
+      "intro": "拿到订阅链接后，不同客户端的导入方式略有差别，这里按平台整理了常见步骤。",
+      "items": [
+        {
+          "question": "机场订阅链接是什么？"
+        },
+        {
+          "question": "机场订阅链接怎么导入 Clash？"
+        },
+        {
+          "question": "机场订阅链接怎么导入 Shadowrocket？"
+        },
+        {
+          "question": "机场订阅链接怎么导入 v2rayN？"
+        },
+        {
+          "question": "机场订阅链接怎么导入 Stash？"
+        },
+        {
+          "question": "机场订阅链接怎么导入 Quantumult X？"
+        },
+        {
+          "question": "机场订阅链接怎么导入 sing-box？"
+        },
+        {
+          "question": "Clash 机场推荐怎么选？"
+        },
+        {
+          "question": "Shadowrocket 机场推荐怎么选？"
+        },
+        {
+          "question": "小火箭机场推荐怎么选？"
+        },
+        {
+          "question": "v2rayN 机场推荐怎么选？"
+        },
+        {
+          "question": "安卓手机用什么机场客户端？"
+        },
+        {
+          "question": "iPhone 用什么机场客户端？"
+        },
+        {
+          "question": "Windows 电脑怎么用机场？"
+        },
+        {
+          "question": "Mac 电脑怎么用机场？"
+        }
+      ]
+    },
+    {
+      "id": "client-compat",
+      "title": "机场支持哪些客户端？Clash Verge / Surge / sing-box 兼容性",
+      "intro": "不同客户端对订阅格式的要求不完全一样，这里按常见客户端逐个说明。另外，现在有不少机场改走专属客户端模式，不发订阅链接——那种情况下这些客户端都用不上，直接用机场自己的 App。",
+      "items": [
+        {
+          "question": "机场是否支持 Clash Verge？"
+        },
+        {
+          "question": "机场是否支持 Clash Meta？"
+        },
+        {
+          "question": "机场是否支持 Mihomo？"
+        },
+        {
+          "question": "机场是否支持 Shadowrocket？"
+        },
+        {
+          "question": "机场是否支持 Quantumult X？"
+        },
+        {
+          "question": "机场是否支持 Surge？"
+        },
+        {
+          "question": "机场是否支持 Stash？"
+        },
+        {
+          "question": "机场是否支持 v2rayN？"
+        },
+        {
+          "question": "机场是否支持 v2rayNG？"
+        },
+        {
+          "question": "机场是否支持 sing-box？"
+        },
+        {
+          "question": "机场是否支持 Hiddify？"
+        }
+      ]
+    },
+    {
+      "id": "nodes-regions",
+      "title": "机场节点怎么选？倍率、延迟与地区对比",
+      "intro": "节点相关的术语（倍率、延迟、地区）是机场里最容易让新手懵的部分，这里逐个拆开说。",
+      "items": [
+        {
+          "question": "机场节点是什么意思？"
+        },
+        {
+          "question": "机场节点倍率是什么意思？"
+        },
+        {
+          "question": "机场节点延迟怎么看？"
+        },
+        {
+          "question": "机场节点速度怎么看？"
+        },
+        {
+          "question": "机场节点越多越好吗？"
+        },
+        {
+          "question": "机场节点地区怎么选？"
+        },
+        {
+          "question": "香港节点适合什么场景？"
+        },
+        {
+          "question": "台湾节点适合什么场景？"
+        },
+        {
+          "question": "日本节点适合什么场景？"
+        },
+        {
+          "question": "新加坡节点适合什么场景？"
+        },
+        {
+          "question": "美国节点适合什么场景？"
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "title": "机场卡顿、连不上怎么办？速度与稳定性问题排查",
+      "intro": "机场用着用着突然变慢或者连不上，大概率是这几种原因，可以按顺序排查。",
+      "items": [
+        {
+          "question": "机场晚高峰卡顿正常吗？"
+        },
+        {
+          "question": "机场晚高峰卡怎么办？"
+        },
+        {
+          "question": "机场为什么白天快晚上慢？"
+        },
+        {
+          "question": "机场速度慢是什么原因？"
+        },
+        {
+          "question": "机场连不上是什么原因？"
+        },
+        {
+          "question": "机场订阅链接失效怎么办？"
+        },
+        {
+          "question": "机场节点全红怎么办？"
+        },
+        {
+          "question": "机场显示超时怎么办？"
+        },
+        {
+          "question": "Clash 导入订阅失败怎么办？"
+        },
+        {
+          "question": "Shadowrocket 导入订阅失败怎么办？"
+        },
+        {
+          "question": "v2rayN 连接失败怎么办？"
+        },
+        {
+          "question": "机场延迟低就一定快吗？"
+        },
+        {
+          "question": "机场速度快就一定稳定吗？"
+        },
+        {
+          "question": "机场节点丢包是什么意思？"
+        },
+        {
+          "question": "机场测速怎么看才准确？"
+        },
+        {
+          "question": "机场测速软件可信吗？"
+        },
+        {
+          "question": "机场测速结果和实际体验为什么不一样？"
+        }
+      ]
+    },
+    {
+      "id": "plans-traffic",
+      "title": "机场流量和套餐怎么选？按量计费、月付、年付对比",
+      "intro": "流量怎么算、套餐怎么挑，是买机场之前最容易纠结的部分。",
+      "items": [
+        {
+          "question": "机场流量用完了怎么办？"
+        },
+        {
+          "question": "机场流量每月会重置吗？"
+        },
+        {
+          "question": "机场流量倍率怎么计算？"
+        },
+        {
+          "question": "机场套餐里的 100G 够用吗？"
+        },
+        {
+          "question": "小流量用户适合买什么机场？"
+        },
+        {
+          "question": "大流量用户适合买什么机场？"
+        },
+        {
+          "question": "按量计费机场适合哪些人？"
+        },
+        {
+          "question": "不限时机场是什么意思？"
+        },
+        {
+          "question": "不限时机场和月付机场哪个好？"
+        },
+        {
+          "question": "月付机场适合哪些用户？"
+        },
+        {
+          "question": "季付机场划算吗？"
+        },
+        {
+          "question": "年付机场值得买吗？"
+        },
+        {
+          "question": "机场买月付还是年付？"
+        },
+        {
+          "question": "机场可以长期使用吗？"
+        }
+      ]
+    },
+    {
+      "id": "cheap-value",
+      "title": "便宜机场靠谱吗？性价比怎么判断",
+      "intro": "便宜不等于不好，但确实需要多留一个心眼，这里说说怎么判断性价比。",
+      "items": [
+        {
+          "question": "便宜机场靠谱吗？"
+        },
+        {
+          "question": "低价机场有什么风险？"
+        },
+        {
+          "question": "便宜机场推荐看哪些指标？"
+        },
+        {
+          "question": "高性价比机场怎么判断？"
+        },
+        {
+          "question": "稳定机场推荐看什么？"
+        }
+      ]
+    },
+    {
+      "id": "line-types",
+      "title": "专线、中转、直连有什么区别？IPLC / IEPL 详解",
+      "intro": "这几个术语是挑机场时最容易被绕晕的部分，其实理解了原理就不难。",
+      "items": [
+        {
+          "question": "专线机场是什么意思？"
+        },
+        {
+          "question": "IPLC 机场是什么意思？"
+        },
+        {
+          "question": "IEPL 机场是什么意思？"
+        },
+        {
+          "question": "中转机场是什么意思？"
+        },
+        {
+          "question": "直连机场是什么意思？"
+        },
+        {
+          "question": "专线机场和中转机场哪个好？"
+        },
+        {
+          "question": "IPLC 和 IEPL 有什么区别？"
+        },
+        {
+          "question": "直连机场和中转机场有什么区别？"
+        },
+        {
+          "question": "专线机场为什么更贵？"
+        },
+        {
+          "question": "普通用户有必要买专线机场吗？"
+        }
+      ]
+    },
+    {
+      "id": "streaming-ai",
+      "title": "机场能解锁 Netflix、ChatGPT 吗？流媒体与 AI 工具解锁指南",
+      "intro": "不是所有节点都能解锁流媒体和 AI 工具，这背后和 IP 类型有很大关系。",
+      "items": [
+        {
+          "question": "机场能解锁 Netflix 吗？"
+        },
+        {
+          "question": "机场能解锁 Disney+ 吗？"
+        },
+        {
+          "question": "机场能看 YouTube 吗？"
+        },
+        {
+          "question": "机场能用 TikTok 吗？"
+        },
+        {
+          "question": "机场能用 ChatGPT 吗？"
+        },
+        {
+          "question": "机场能用 Gemini 吗？"
+        },
+        {
+          "question": "机场能用 Claude 吗？"
+        },
+        {
+          "question": "ChatGPT 机场推荐怎么选？"
+        },
+        {
+          "question": "流媒体解锁机场怎么选？"
+        },
+        {
+          "question": "Netflix 机场推荐看什么？"
+        },
+        {
+          "question": "TikTok 机场推荐看什么？"
+        },
+        {
+          "question": "机场原生 IP 是什么意思？"
+        },
+        {
+          "question": "原生 IP 机场有什么用？"
+        },
+        {
+          "question": "机场住宅 IP 是什么意思？"
+        },
+        {
+          "question": "机场动态 IP 和静态 IP 有什么区别？"
+        },
+        {
+          "question": "机场为什么有些节点不能看流媒体？"
+        },
+        {
+          "question": "机场为什么有些节点不能用 AI 工具？"
+        }
+      ]
+    },
+    {
+      "id": "coupons-trial",
+      "title": "机场优惠码与免费试用靠谱吗？",
+      "intro": "优惠活动和试用套餐怎么用最划算，同时也要留意背后的风险。",
+      "items": [
+        {
+          "question": "机场优惠码在哪里找？"
+        },
+        {
+          "question": "机场折扣码怎么用？"
+        },
+        {
+          "question": "机场优惠活动靠谱吗？"
+        },
+        {
+          "question": "免费试用机场安全吗？"
+        },
+        {
+          "question": "一元试用机场值得买吗？"
+        },
+        {
+          "question": "机场试用应该测试什么？"
+        }
+      ]
+    },
+    {
+      "id": "shutdown-risk",
+      "title": "机场跑路怎么判断？售后与备用方案",
+      "intro": "机场这个行业确实存在「跑路」风险，提前了解预警信号能少踩不少坑。",
+      "items": [
+        {
+          "question": "机场跑路是什么意思？"
+        },
+        {
+          "question": "怎么判断机场会不会跑路？"
+        },
+        {
+          "question": "机场官网打不开怎么办？"
+        },
+        {
+          "question": "机场客服联系不上怎么办？"
+        },
+        {
+          "question": "机场订阅突然不能用了怎么办？"
+        },
+        {
+          "question": "机场被封了怎么办？"
+        },
+        {
+          "question": "机场换域名怎么办？"
+        },
+        {
+          "question": "机场公告在哪里看？"
+        },
+        {
+          "question": "机场备用官网有什么用？"
+        },
+        {
+          "question": "机场官网入口怎么辨别真假？"
+        },
+        {
+          "question": "机场备用地址怎么保存？"
+        },
+        {
+          "question": "机场替代推荐是什么意思？"
+        },
+        {
+          "question": "某个机场打不开时可以换什么？"
+        },
+        {
+          "question": "某个机场跑路后怎么处理？"
+        }
+      ]
+    },
+    {
+      "id": "rankings-trust",
+      "title": "机场排行榜、天梯榜靠谱吗？评测可信度怎么判断",
+      "intro": "网上的机场榜单和评测五花八门，怎么判断哪些内容值得参考。",
+      "items": [
+        {
+          "question": "机场导航是什么？"
+        },
+        {
+          "question": "梯子导航是什么？"
+        },
+        {
+          "question": "机场导航页应该收录哪些内容？"
+        },
+        {
+          "question": "机场排行榜靠谱吗？"
+        },
+        {
+          "question": "机场天梯榜靠谱吗？"
+        },
+        {
+          "question": "2026 机场天梯榜怎么排名？"
+        },
+        {
+          "question": "机场推荐榜单应该看哪些维度？"
+        },
+        {
+          "question": "机场评测文章可信吗？"
+        },
+        {
+          "question": "机场推荐知乎可信吗？"
+        },
+        {
+          "question": "机场推荐 GitHub 可信吗？"
+        },
+        {
+          "question": "机场推荐 Reddit 可信吗？"
+        },
+        {
+          "question": "机场评测应该看速度还是稳定性？"
+        },
+        {
+          "question": "机场评测应该看价格还是线路？"
+        },
+        {
+          "question": "机场推荐 2026 应该怎么更新？"
+        },
+        {
+          "question": "机场相关内容为什么需要经常更新？"
+        }
+      ]
+    },
+    {
+      "id": "account-safety",
+      "title": "机场账号能共享吗？设备数量与安全使用须知",
+      "intro": "订阅链接和账号安全直接关系到使用体验和风险，这几点值得留意。",
+      "items": [
+        {
+          "question": "机场在线设备数是什么意思？"
+        },
+        {
+          "question": "机场限制设备数量吗？"
+        },
+        {
+          "question": "机场可以多人共用吗？"
+        },
+        {
+          "question": "机场共享账号安全吗？"
+        },
+        {
+          "question": "机场账号被封是什么原因？"
+        },
+        {
+          "question": "机场订阅链接可以分享给别人吗？"
+        },
+        {
+          "question": "机场订阅链接泄露怎么办？"
+        },
+        {
+          "question": "机场购买后如何开始使用？"
+        },
+        {
+          "question": "机场使用过程中需要注意什么？"
+        },
+        {
+          "question": "机场长期使用怎么降低风险？"
+        }
+      ]
+    },
+    {
+      "id": "use-cases",
+      "title": "机场适合哪些人用？留学生、程序员、游戏玩家使用场景",
+      "intro": "不同身份、不同用途的用户，挑机场时该关注的重点也不太一样。",
+      "items": [
+        {
+          "question": "机场适合外贸用户吗？"
+        },
+        {
+          "question": "机场适合留学生吗？"
+        },
+        {
+          "question": "机场适合程序员吗？"
+        },
+        {
+          "question": "机场适合跨境电商吗？"
+        },
+        {
+          "question": "机场适合刷短视频吗？"
+        },
+        {
+          "question": "机场适合看流媒体吗？"
+        },
+        {
+          "question": "机场适合打游戏吗？"
+        },
+        {
+          "question": "游戏加速能用机场吗？"
+        }
+      ]
+    }
+  ],
+  "questionCount": 175
+}

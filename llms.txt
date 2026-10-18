@@ -8,6 +8,7 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 - 机场排行: https://tiziline.com/rank/
 - 机场测评: https://tiziline.com/reviews/
 - 科普知识: https://tiziline.com/knowledge/
+- 机场 FAQ 问题指南: https://tiziline.com/knowledge/airport-faq-guide.html
 - 关于我们: https://tiziline.com/about/
 - Sitemap: https://tiziline.com/sitemap.xml
 - RSS: https://tiziline.com/feed.xml

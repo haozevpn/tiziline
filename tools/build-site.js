@@ -1,11 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 const { editorialCategories, topicTaxonomy, additionalTopics } = require("./editorial-content");
+const faqData = require("./faq-data.json");
 
 const SITE_URL = "https://tiziline.com";
 const SITE_NAME = "Tiziline 机场观察";
 const SITE_LAUNCH_DATE = "2026-09-14";
-const TODAY = "2026-10-17";
+const TODAY = "2026-10-19";
+const FAQ_UPDATED_AT = "2026-10-19";
 const INDEXNOW_KEY = "tiziline-2026-indexnow-7f3c2a91";
 const INDEXNOW_KEY_FILE = `${INDEXNOW_KEY}.txt`;
 const SEO_KEYWORDS = [
@@ -2427,6 +2429,41 @@ function itemListSchema(items, pathName, name) {
   })}</script>`;
 }
 
+function faqAnchor(sectionIndex, itemIndex) {
+  return `faq-${sectionIndex + 1}-${itemIndex + 1}`;
+}
+
+const FAQ_GUIDANCE = {
+  basics: "先把机场、VPN、梯子和科学上网这些词的关系分清，再根据自己的设备和用途选择订阅服务。机场通常提供订阅链接，客户端负责导入和连接，具体服务质量取决于线路、节点和运营维护。",
+  "getting-started": "新手筛选机场时，建议同时比较月费、有效流量、倍率、节点地区、客户端兼容、退款规则和公告渠道。先用月付或短周期套餐完成真实任务测试，再决定是否长期购买。",
+  "client-import": "订阅导入的通用流程是登录服务商账户、复制专属订阅链接、在对应客户端添加订阅并更新节点，最后选择一个节点连接测试。订阅链接等同于账户凭证，不要发到公开群组。",
+  "client-compat": "客户端兼容性要看订阅格式和协议，而不是只看宣传名称。导入前确认客户端版本、系统平台、支持的协议和规则模式；遇到失败时先更新客户端，再用服务商提供的专用格式重试。",
+  "nodes-regions": "节点选择应结合延迟、丢包、持续速度、地区和流量倍率。距离近不一定最稳，节点数量多也不等于质量高；工作日晚高峰用网页、视频和下载分别测试更有参考价值。",
+  troubleshooting: "排查机场问题时先区分账号、订阅、客户端、节点和本地网络五个层级。建议依次更新订阅、切换节点、切换规则模式、重启客户端，并在 Wi-Fi 与蜂窝网络下重复验证。",
+  "plans-traffic": "套餐比较不能只看标称流量，还要看倍率、重置周期、过期规则、设备数量和退款条件。轻度浏览可选小流量月付，视频、下载或多设备使用应按实际消耗预留余量。",
+  "cheap-value": "便宜机场可以作为低成本测试选项，但要核对运营时间、公告更新、客服响应、流量倍率和退款说明。价格异常低且鼓励多年付的服务，应先用最小套餐验证。",
+  "line-types": "IPLC、IEPL、专线、中转和直连描述的是不同线路或转发方式，实际体验还受带宽、拥塞、节点位置和调度策略影响。不要把线路标签直接等同于全天候高速。",
+  "streaming-ai": "流媒体和 AI 服务会检查 IP 地区、IP 信誉、账号状态和线路稳定性。购买前确认目标平台是否有公开解锁说明，导入后用目标地区节点和自己的账号实测，不能只看测速数字。",
+  "coupons-trial": "优惠码和免费试用适合降低第一次测试成本，但活动期限、适用套餐和兑换规则可能变化。结算前核对官方公告与订单页，试用期间不要传输敏感资料或直接购买长期套餐。",
+  "shutdown-risk": "机场服务存在域名变更、维护和停止运营风险。建议保存官方公告、备用域名和客服渠道，首次使用从月付开始，并准备至少一个不同运营方的备用方案。",
+  "rankings-trust": "排行榜和评测只能作为初筛，可信度取决于测试方法、更新时间、缺点披露和利益关系说明。速度、稳定、解锁、价格和售后应分开评估，不能只看名次。",
+  "account-safety": "订阅链接和账号凭证应按敏感信息保护。共享前确认服务条款、设备上限和流量消耗，发现链接泄露时立即重置；重要账号和支付信息不要在不明节点环境中操作。",
+  "use-cases": "不同人群的重点不同：留学生关注地区覆盖，程序员关注延迟与稳定，跨境工作关注多地区节点，流媒体用户关注解锁，游戏玩家则必须先实测延迟和丢包。",
+};
+
+function faqAnswer(section, question, itemIndex) {
+  const base = FAQ_GUIDANCE[section.id] || "先确认自己的使用场景、设备和预算，再根据公开套餐、节点表现、客户端兼容和售后渠道做交叉验证。";
+  const q = String(question || "");
+  let detail = "建议把这个问题拆成价格、兼容性、稳定性和风险四项，分别记录测试结果，避免只凭单次体验下结论。";
+  if (/导入|订阅链接|更新失败|客户端/.test(q)) detail = "操作时先复制完整订阅链接，确认没有多余空格或换行；添加后执行更新并检查节点数量。若仍失败，分别尝试对应客户端的专用订阅格式，并核对链接是否过期。";
+  else if (/卡|慢|延迟|速度|丢包|超时|连不上|打不开/.test(q)) detail = "排查时先换两个不同地区节点，再分别测试网页、视频和下载；记录发生时间、网络类型、节点名称和错误提示。只有单个节点异常通常是节点问题，所有节点异常则要检查订阅、账号或本地网络。";
+  else if (/价格|套餐|流量|倍率|月付|年付|优惠|试用|便宜|性价比/.test(q)) detail = "比较时把总价换算成月成本，并同时记录可用流量、倍率、重置日、设备数和退款条件。首次购买优先月付或试用，确认晚高峰和常用任务表现后再考虑更长周期。";
+  else if (/Netflix|Disney|YouTube|TikTok|ChatGPT|AI|流媒体|解锁/.test(q)) detail = "这类服务会识别 IP 地区和信誉，建议使用目标地区节点登录测试，并同时检查账号、浏览器和客户端规则。机场写有“解锁”不代表所有节点都支持，最终以自己的账号实测为准。";
+  else if (/跑路|官网|客服|域名|公告|备用|封/.test(q)) detail = "先查看官方公告、备用域名和客服渠道，再判断是临时维护还是长期停止。无法联系且订阅长期失效时，不要继续追加费用，及时切换备用服务并保存付款记录。";
+  else if (/共享|设备|账号|泄露|安全/.test(q)) detail = "账号和订阅链接应只在信任范围内使用，并先看服务条款是否限制设备或多人共享。发现异常流量、设备数超限或链接泄露时，尽快重置订阅并修改账户密码。";
+  return `${base} 针对“${q}”，${detail} 本回答用于选购和排查参考，套餐、入口与服务状态以服务商最新页面为准。`;
+}
+
 function normalizeDescription(description) {
   const value = String(description || "").trim();
   if (value.length >= 180) return value;
@@ -2501,11 +2538,19 @@ function icon(name, className = "") {
 }
 
 function searchIndexScript() {
+  const faqSearchEntries = faqData.sections.flatMap((section, sectionIndex) => section.items.map((item, itemIndex) => ({
+    title: item.question,
+    url: `/knowledge/airport-faq-guide.html#${faqAnchor(sectionIndex, itemIndex)}`,
+    type: "FAQ指南",
+    description: faqAnswer(section, item.question, itemIndex),
+  })));
   const entries = [
     ...editorialCategories.map((item) => ({ title: item.title, url: `/${item.slug}/`, type: "内容分类", description: item.description })),
     ...keywordPages.map((item) => ({ title: item.title, url: `/${item.slug}/`, type: "推荐专题", description: item.description })),
     ...airports.map((item) => ({ title: `${item.name}机场测评`, url: `/posts/${item.slug}.html`, type: "机场测评", description: `${item.cheap} · ${item.tag} · ${item.angle}` })),
     ...knowledgeTopics.map((item) => ({ title: item.title, url: `/knowledge/${item.slug}.html`, type: item.tag, description: item.intro })),
+    { title: "机场常见问题 FAQ：机场推荐、选购与使用指南", url: "/knowledge/airport-faq-guide.html", type: "FAQ指南", description: "整理机场是什么、机场推荐、订阅导入、节点倍率、专线线路、流媒体解锁、跑路风险、账号安全和使用场景等 175 个常见问题。" },
+    ...faqSearchEntries,
   ];
   return `window.TIZI_SEARCH_INDEX=${JSON.stringify(entries)};\n`;
 }
@@ -2569,11 +2614,12 @@ function layout({ title, description, pathName, content, extraHead = "", keyword
   const ogType = pathName === "/" || pathName.endsWith("/") ? "website" : "article";
   const finalDescription = normalizeDescription(description);
   const finalKeywords = pageKeywords(title, finalDescription, keywords);
+  const isFaqPage = pathName === "/knowledge/airport-faq-guide.html";
   const isDetailPage = pathName.startsWith("/posts/") || (pathName.startsWith("/knowledge/") && pathName !== "/knowledge/") || keywordPages.some((page) => pathName === `/${page.slug}/`);
   const bodyClass = pathName === "/" ? "home-page" : isDetailPage ? "detail-page" : "listing-page";
   const sideRail = isDetailPage ? `<aside class="site-rail" aria-label="文章快捷导航">
       <button class="rail-search" type="button" data-open-search>${icon("search")}<span>搜索本站内容</span></button>
-      <section class="rail-panel"><p class="rail-label">快速入口</p><a href="/recommend/">机场推荐${icon("arrow")}</a><a href="/rank/">机场排行${icon("arrow")}</a><a href="/tutorials/">使用教程${icon("arrow")}</a><a href="/safety/">安全避坑${icon("arrow")}</a></section>
+      <section class="rail-panel"><p class="rail-label">快速入口</p><a href="/recommend/">机场推荐${icon("arrow")}</a><a href="/rank/">机场排行${icon("arrow")}</a><a href="/knowledge/airport-faq-guide.html">机场 FAQ${icon("arrow")}</a><a href="/tutorials/">使用教程${icon("arrow")}</a><a href="/safety/">安全避坑${icon("arrow")}</a></section>
       <section class="rail-panel"><p class="rail-label">热门机场</p>${airports.slice(0, 4).map((item) => `<a href="/posts/${item.slug}.html"><span>${item.name}</span><small>${item.cheap}</small></a>`).join("")}</section>
       <section class="rail-note"><strong>购买提醒</strong><p>先短期测试，再考虑长付；价格、入口与节点状态以官网实时页面为准。</p></section>
     </aside>` : "";
@@ -2618,13 +2664,13 @@ function layout({ title, description, pathName, content, extraHead = "", keyword
       <a class="brand" href="/" aria-label="${SITE_NAME}"><span class="brand-mark">T</span><span><strong>Tiziline</strong><small>机场观察</small></span></a>
       <button class="nav-toggle" type="button" data-nav-toggle aria-label="打开导航" aria-expanded="false">${icon("menu")}</button>
       <nav class="top-nav" aria-label="主导航" data-site-nav>
-        <a href="/recommend/">机场推荐</a><a href="/rank/">机场排行</a><a href="/reviews/">机场测评</a><a href="/guides/">选购科普</a><a href="/tutorials/">使用教程</a><a href="/safety/">安全避坑</a><a href="/about/">关于我们</a>
+        <a href="/recommend/">机场推荐</a><a href="/rank/">机场排行</a><a href="/reviews/">机场测评</a><a href="/guides/">选购科普</a><a href="/tutorials/">使用教程</a><a href="/knowledge/airport-faq-guide.html">机场 FAQ</a><a href="/safety/">安全避坑</a><a href="/about/">关于我们</a>
       </nav>
       <button class="header-search" type="button" data-open-search aria-label="搜索本站">${icon("search")}<span>搜索</span></button>
     </div>
   </header>
   <main>
-${isDetailPage ? `<div class="content-shell">${content}${sideRail}</div>` : content}
+${isFaqPage || !isDetailPage ? content : `<div class="content-shell">${content}${sideRail}</div>`}
   </main>
   <footer class="site-footer">
     <div><a class="footer-brand" href="/"><span class="brand-mark">T</span><strong>${SITE_NAME}</strong></a><p>只做公开信息整理与选购思路说明，套餐、节点和注册链接以服务商官网实时页面为准。</p></div>
@@ -2849,6 +2895,7 @@ function knowledgePage() {
       <h1>机场文章内容中心</h1>
       <p>这里按机场推荐、选购科普、测评对比、使用教程和安全避坑整理 ${knowledgeTopics.length} 篇主文章。相近搜索问题合并到同一篇内容，减少重复页面与关键词内耗。</p>
     </section>
+    <section class="section"><div class="section-head"><div><span class="section-kicker">FAQ Long-tail Guide</span><h2>机场 FAQ 问题指南</h2><p>按 15 个主题整理 175 个机场长尾问题，支持按问题跳转。</p></div><a class="section-more" href="/knowledge/airport-faq-guide.html">查看 FAQ ${icon("arrow")}</a></div></section>
     ${editorialCategories.map((category) => {
       const topics = knowledgeTopics.filter((item) => item.category === category.key);
       return `<section class="section"><div class="section-head"><h2>${category.title}</h2><a href="/${category.slug}/">查看分类</a></div><div class="post-grid">${topics.map(knowledgeCard).join("")}</div></section>`;
@@ -2937,6 +2984,73 @@ function keywordPage(page) {
     keywords: [page.keyword, page.title, ...page.aliases],
     extraHead: `${faqSchema}
   ${itemListSchema(list, `/${page.slug}/`, page.title)}`,
+  });
+}
+
+function faqPage() {
+  const title = "机场 FAQ 问题指南：机场推荐、选购与使用常见问题";
+  const description = "机场 FAQ 问题指南，按 15 个主题整理 175 个机场长尾问题，覆盖机场是什么、机场推荐、订阅链接导入、Clash、Shadowrocket、v2rayN、节点倍率、IPLC、IEPL、流媒体解锁、跑路风险和账号安全。";
+  const faqEntries = faqData.sections.flatMap((section, sectionIndex) => section.items.map((item, itemIndex) => ({
+    question: item.question,
+    answer: faqAnswer(section, item.question, itemIndex),
+    anchor: faqAnchor(sectionIndex, itemIndex),
+  })));
+  const faqSchema = `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    name: title,
+    url: `${SITE_URL}/knowledge/airport-faq-guide.html`,
+    inLanguage: "zh-CN",
+    mainEntity: faqEntries.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  })}</script>`;
+  const sidebar = faqData.sections.map((section, sectionIndex) => `<section class="faq-nav-group">
+      <a class="faq-nav-heading" href="#faq-topic-${escapeHtml(section.id)}">${escapeHtml(section.title)}</a>
+      <ul>${section.items.map((item, itemIndex) => `<li><a href="#${faqAnchor(sectionIndex, itemIndex)}">${escapeHtml(item.question)}</a></li>`).join("")}</ul>
+    </section>`).join("");
+  const sections = faqData.sections.map((section, sectionIndex) => `<section class="faq-topic" id="faq-topic-${escapeHtml(section.id)}">
+      <p class="eyebrow">机场 FAQ · ${escapeHtml(section.id)}</p>
+      <h2>${escapeHtml(section.title)}</h2>
+      <p class="faq-topic-intro">${escapeHtml(section.intro || FAQ_GUIDANCE[section.id] || "按问题逐项核对公开信息、客户端兼容和实际网络表现。")}</p>
+      <div class="faq-list">${section.items.map((item, itemIndex) => {
+        const answer = faqAnswer(section, item.question, itemIndex);
+        return `<details class="faq-item" id="${faqAnchor(sectionIndex, itemIndex)}" open><summary><h3>${escapeHtml(item.question)}</h3>${icon("arrow")}</summary><p>${escapeHtml(answer)}</p></details>`;
+      }).join("")}</div>
+    </section>`).join("");
+  const content = `<div class="faq-shell">
+    <article class="article faq-article">
+      <div class="article-hero">
+        <p class="eyebrow">FAQ 长尾问题库 · ${FAQ_UPDATED_AT}</p>
+        <h1>${escapeHtml(title)}</h1>
+        <p class="lead">从机场基础概念到订阅导入、节点选择、线路类型、流媒体解锁、跑路预警和账号安全，这里把常见搜索问题按主题整理。左侧目录可以按问题直接跳转，适合新手查错，也适合购买前快速核对。</p>
+        <p class="article-meta">共 ${faqData.sections.length} 个主题、${faqEntries.length} 个问题 · 更新于 ${FAQ_UPDATED_AT} · 价格、入口和服务状态以官网实时页面为准</p>
+      </div>
+      <section class="answer-box">
+        <h2>先说结论</h2>
+        <p>机场 FAQ 没有脱离场景的统一答案。选择机场要把价格、有效流量、倍率、线路、节点地区、客户端兼容、晚高峰表现和售后风险放在一起比较；遇到故障则先判断是账号、订阅、客户端、节点还是本地网络问题，再逐层排查。</p>
+      </section>
+      <section class="query-box"><h2>覆盖的机场长尾词</h2><ul>${faqEntries.slice(0, 24).map((item) => `<li><a href="#${item.anchor}">${escapeHtml(item.question)}</a></li>`).join("")}</ul><p>完整问题目录见右侧“按问题跳转”，移动端可在页面内使用浏览器查找。</p></section>
+      ${sections}
+      <section><h2>继续阅读</h2><div class="post-grid compact">
+        <a class="post-card" href="/knowledge/client-subscription-guide.html"><span class="tag">使用教程</span><h3>机场订阅怎么用？从购买到导入的完整教程</h3><p>了解订阅链接、客户端添加、更新失败和设备切换的排查方法。</p></a>
+        <a class="post-card" href="/knowledge/airport-risk-signals.html"><span class="tag">安全避坑</span><h3>如何判断一家机场是否靠谱？</h3><p>从公告、客服、套餐周期和服务连续性识别机场风险。</p></a>
+        <a class="post-card" href="/knowledge/shadowrocket-purchase-tutorial.html"><span class="tag">使用教程</span><h3>Shadowrocket 节点购买与小火箭订阅导入教程</h3><p>适合 iPhone 用户核对小火箭节点、订阅格式和购买前测试。</p></a>
+      </div></section>
+    </article>
+    <aside class="faq-sidebar" aria-label="FAQ 按问题跳转">
+      <div class="faq-sidebar-inner"><p class="rail-label">按问题跳转</p>${sidebar}</div>
+    </aside>
+  </div>`;
+  return layout({
+    title,
+    description,
+    pathName: "/knowledge/airport-faq-guide.html",
+    content,
+    keywords: ["机场 FAQ", "机场常见问题", "机场推荐", "机场订阅链接", "机场选购", "机场避坑", ...faqData.sections.map((section) => section.title)],
+    extraHead: faqSchema,
   });
 }
 
@@ -3203,6 +3317,7 @@ function contentAudit() {
     return { type, slug, title, chars: [...text].length, paragraphCount: cleanParagraphs.length, paragraphs: cleanParagraphs, text };
   };
   const entries = [
+    auditEntry("faq", "/knowledge/airport-faq-guide.html", "机场 FAQ 问题指南：机场推荐、选购与使用常见问题", faqData.sections.flatMap((section) => [section.title, section.intro, ...section.items.flatMap((item) => [item.question, faqAnswer(section, item.question, 0)])])),
     ...knowledgeTopics.map((item) => {
       const profile = knowledgeProfiles[item.slug];
       return auditEntry("article", `/knowledge/${item.slug}.html`, item.title, [item.intro, profile.answer, ...profile.sections.flatMap(([, values]) => values)]);
@@ -3249,6 +3364,7 @@ function publicUrlPaths() {
     ["/knowledge/", "0.9"],
     ...editorialCategories.map((item) => [`/${item.slug}/`, "0.9"]),
     ["/about/", "0.6"],
+    ["/knowledge/airport-faq-guide.html", "0.9"],
     ...keywordPages.map((item) => [`/${item.slug}/`, "0.85"]),
     ...airports.map((item) => [`/posts/${item.slug}.html`, "0.8"]),
     ...knowledgeTopics.map((item) => [`/knowledge/${item.slug}.html`, "0.8"]),
@@ -3308,6 +3424,11 @@ function redirectPage(fromPath, toPath) {
 
 function rssFeed() {
   const items = [
+    {
+      title: "机场 FAQ 问题指南：机场推荐、选购与使用常见问题",
+      url: `${SITE_URL}/knowledge/airport-faq-guide.html`,
+      description: "按 15 个主题整理 175 个机场长尾问题，覆盖机场推荐、订阅导入、节点选择、线路、流媒体、跑路风险和账号安全。",
+    },
     ...airports.map((item) => ({
       title: `${item.name}机场怎么样？${item.cheap} 套餐、注册链接与测评`,
       url: `${SITE_URL}/posts/${item.slug}.html`,
@@ -3356,6 +3477,7 @@ ${SITE_NAME} 是一个中文机场推荐、机场测评和机场科普知识站�
 - 机场排行: ${SITE_URL}/rank/
 - 机场测评: ${SITE_URL}/reviews/
 - 科普知识: ${SITE_URL}/knowledge/
+- 机场 FAQ 问题指南: ${SITE_URL}/knowledge/airport-faq-guide.html
 - 关于我们: ${SITE_URL}/about/
 - Sitemap: ${SITE_URL}/sitemap.xml
 - RSS: ${SITE_URL}/feed.xml
@@ -3620,6 +3742,31 @@ main { min-height: 70vh; }
 .rail-note strong { color: #855019; }
 .rail-note p { margin: 7px 0 0; color: #725b43; font-size: 13px; line-height: 1.6; }
 
+.faq-shell { display: grid; grid-template-columns: minmax(0, 820px) 300px; gap: 30px; align-items: start; width: min(1190px, calc(100% - 36px)); margin: 0 auto; padding: 34px 0 70px; }
+.faq-article { min-width: 0; }
+.faq-sidebar { position: sticky; top: 94px; max-height: calc(100vh - 112px); overflow: hidden; }
+.faq-sidebar-inner { max-height: calc(100vh - 112px); overflow-y: auto; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: #fff; box-shadow: 0 10px 28px rgba(25, 52, 83, .06); }
+.faq-nav-group { padding: 10px 0; border-top: 1px solid #edf1f5; }
+.faq-nav-group:first-of-type { border-top: 0; padding-top: 0; }
+.faq-nav-heading { display: block; color: var(--navy); font-size: 13px; font-weight: 900; line-height: 1.45; }
+.faq-nav-group ul { margin: 7px 0 0; padding: 0; list-style: none; }
+.faq-nav-group li + li { margin-top: 2px; }
+.faq-nav-group li a { display: block; padding: 4px 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.faq-nav-group li a:hover, .faq-nav-heading:hover { color: var(--teal-dark); text-decoration: underline; text-underline-offset: 3px; }
+.faq-topic { scroll-margin-top: 90px; padding-top: 18px; }
+.faq-topic + .faq-topic { margin-top: 34px; padding-top: 38px; border-top: 1px solid var(--line); }
+.faq-topic h2 { margin-top: 5px; }
+.faq-topic-intro { margin: 8px 0 18px; color: var(--muted) !important; }
+.faq-list { display: grid; gap: 10px; }
+.faq-item { scroll-margin-top: 90px; padding: 0 17px; border: 1px solid var(--line); border-radius: 8px; background: #fbfdff; }
+.faq-item[open] { border-color: #b9d8d2; background: #fff; box-shadow: 0 8px 22px rgba(27, 91, 84, .06); }
+.faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; list-style: none; padding: 15px 0; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary h3 { margin: 0; font-size: 16px; line-height: 1.45; }
+.faq-item summary .icon { width: 17px; height: 17px; flex: 0 0 auto; color: var(--teal); transition: transform .2s ease; }
+.faq-item[open] summary .icon { transform: rotate(90deg); }
+.faq-item p { margin: 0 0 17px; color: #40526b; font-size: 14px; }
+
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
 table { width: 100%; min-width: 760px; border-collapse: collapse; }
 th, td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
@@ -3658,7 +3805,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 @media (max-width: 1040px) {
   .header-inner { gap: 14px; }.top-nav { gap: 13px; font-size: 13px; }.header-search span { display: none; }
-  .feature-grid { grid-template-columns: repeat(2, 1fr); }.content-shell { grid-template-columns: minmax(0, 1fr); }.site-rail { position: static; grid-template-columns: repeat(3, 1fr); }.rail-search { grid-column: 1 / -1; }
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }.content-shell, .faq-shell { grid-template-columns: minmax(0, 1fr); }.site-rail { position: static; grid-template-columns: repeat(3, 1fr); }.rail-search { grid-column: 1 / -1; }.faq-sidebar { position: static; max-height: none; order: -1; }.faq-sidebar-inner { max-height: 360px; }
 }
 @media (max-width: 760px) {
   .header-inner { min-height: 62px; width: min(100% - 24px, 1220px); }.nav-toggle { display: inline-flex; }.header-search { width: 40px; padding: 0; }
@@ -3666,7 +3813,7 @@ tbody tr:last-child td { border-bottom: 0; }
   .home-hero { min-height: 0; padding: 22px 14px 34px; background-position: 58% bottom; }.hero-panel { padding: 34px 18px 30px; border-radius: 18px; }.hero-panel h1 { font-size: 38px; }.hero-lead { font-size: 16px; }.hero-chips { gap: 7px; margin-top: 22px; }.hero-chips a { padding: 6px 10px; font-size: 12px; }
   .hero-search button { padding: 0 14px; }.feature-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }.feature-card { min-height: 0; }
   .section, .list-hero { width: min(100% - 28px, 1120px); }.section { padding: 44px 0; }.alt-section { width: 100%; padding-left: 14px; padding-right: 14px; }.section-head { align-items: flex-start; flex-direction: column; margin-bottom: 20px; }.section-head h2 { font-size: 25px; }
-  .post-grid, .quick-card, .site-rail, .dialog-link-grid, .about-card-grid { grid-template-columns: 1fr; }.post-card { min-height: 0; }.content-shell { width: min(100% - 22px, 1160px); padding-top: 20px; }.article { padding: 18px 17px 36px; }.about-article { width: min(100% - 22px, 1120px); margin: 20px auto 54px; padding: 20px 16px; }.about-hero { padding: 12px 4px 26px; }.about-card-grid { gap: 14px; margin-top: 20px; }.about-card { padding: 23px 21px 22px; }.article-hero h1, .list-hero h1 { font-size: 34px; }.query-box ul { columns: 1; }
+  .post-grid, .quick-card, .site-rail, .dialog-link-grid, .about-card-grid { grid-template-columns: 1fr; }.post-card { min-height: 0; }.content-shell, .faq-shell { width: min(100% - 22px, 1160px); padding-top: 20px; }.article { padding: 18px 17px 36px; }.about-article { width: min(100% - 22px, 1120px); margin: 20px auto 54px; padding: 20px 16px; }.about-hero { padding: 12px 4px 26px; }.about-card-grid { gap: 14px; margin-top: 20px; }.about-card { padding: 23px 21px 22px; }.article-hero h1, .list-hero h1 { font-size: 34px; }.query-box ul { columns: 1; }.faq-sidebar-inner { max-height: 300px; }.faq-item { padding: 0 14px; }.faq-item summary h3 { font-size: 15px; }
   .site-footer { flex-direction: column; padding: 34px 20px; }.footer-links { justify-content: flex-start; }
   .floating-contact { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); min-height: 44px; padding: 9px 14px; }
   .search-result { grid-template-columns: 1fr; }.search-result span { grid-row: auto; }.search-result small { white-space: normal; }.dialog-head { padding: 18px; }.dialog-search { margin: 16px 18px 10px; }.search-results { padding: 4px 18px 18px; }.dialog-link-grid { padding: 8px 18px 18px; }
@@ -3690,6 +3837,7 @@ function build() {
   write(path.join(root, "airport", "index.html"), redirectPage("/airport/", "/rank/"));
   write(path.join(root, "reviews", "index.html"), reviewsPage());
   write(path.join(root, "knowledge", "index.html"), knowledgePage());
+  write(path.join(root, "knowledge", "airport-faq-guide.html"), faqPage());
   editorialCategories.forEach((item) => write(path.join(root, item.slug, "index.html"), categoryPage(item)));
   write(path.join(root, "about", "index.html"), aboutPage());
   keywordPages.forEach((item) => write(path.join(root, item.slug, "index.html"), keywordPage(item)));
