@@ -2605,6 +2605,22 @@ function siteScript() {
     const rect = dialog.getBoundingClientRect();
     if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
   }));
+  const faqItems = [...document.querySelectorAll('.faq-item')];
+  const faqNavGroups = [...document.querySelectorAll('.faq-nav-group')];
+  const revealFaqHash = () => {
+    if (!location.hash) return;
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (!target) return;
+    if (target.matches('.faq-item')) target.open = true;
+    target.closest('.faq-nav-group')?.setAttribute('open', '');
+    setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
+  };
+  document.querySelectorAll('[data-faq-nav]').forEach((button) => button.addEventListener('click', () => {
+    const open = button.dataset.faqNav === 'open';
+    faqNavGroups.forEach((group) => { group.open = open; });
+  }));
+  window.addEventListener('hashchange', revealFaqHash);
+  revealFaqHash();
 })();\n`;
 }
 
@@ -3007,17 +3023,17 @@ function faqPage() {
       acceptedAnswer: { "@type": "Answer", text: answer },
     })),
   })}</script>`;
-  const sidebar = faqData.sections.map((section, sectionIndex) => `<section class="faq-nav-group">
-      <a class="faq-nav-heading" href="#faq-topic-${escapeHtml(section.id)}">${escapeHtml(section.title)}</a>
+  const sidebar = faqData.sections.map((section, sectionIndex) => `<details class="faq-nav-group">
+      <summary class="faq-nav-heading"><span>${escapeHtml(section.title)}</span>${icon("arrow")}</summary>
       <ul>${section.items.map((item, itemIndex) => `<li><a href="#${faqAnchor(sectionIndex, itemIndex)}">${escapeHtml(item.question)}</a></li>`).join("")}</ul>
-    </section>`).join("");
+    </details>`).join("");
   const sections = faqData.sections.map((section, sectionIndex) => `<section class="faq-topic" id="faq-topic-${escapeHtml(section.id)}">
       <p class="eyebrow">机场 FAQ · ${escapeHtml(section.id)}</p>
       <h2>${escapeHtml(section.title)}</h2>
       <p class="faq-topic-intro">${escapeHtml(section.intro || FAQ_GUIDANCE[section.id] || "按问题逐项核对公开信息、客户端兼容和实际网络表现。")}</p>
       <div class="faq-list">${section.items.map((item, itemIndex) => {
         const answer = faqAnswer(section, item.question, itemIndex);
-        return `<details class="faq-item" id="${faqAnchor(sectionIndex, itemIndex)}" open><summary><h3>${escapeHtml(item.question)}</h3>${icon("arrow")}</summary><p>${escapeHtml(answer)}</p></details>`;
+        return `<details class="faq-item" id="${faqAnchor(sectionIndex, itemIndex)}"><summary><h3>${escapeHtml(item.question)}</h3>${icon("arrow")}</summary><p>${escapeHtml(answer)}</p></details>`;
       }).join("")}</div>
     </section>`).join("");
   const content = `<div class="faq-shell">
@@ -3041,7 +3057,7 @@ function faqPage() {
       </div></section>
     </article>
     <aside class="faq-sidebar" aria-label="FAQ 按问题跳转">
-      <div class="faq-sidebar-inner"><p class="rail-label">按问题跳转</p>${sidebar}</div>
+      <div class="faq-sidebar-inner"><div class="faq-sidebar-head"><p class="rail-label">按问题跳转</p><div class="faq-sidebar-actions"><button type="button" data-faq-nav="open">展开</button><button type="button" data-faq-nav="close">收起</button></div></div>${sidebar}</div>
     </aside>
   </div>`;
   return layout({
@@ -3746,9 +3762,17 @@ main { min-height: 70vh; }
 .faq-article { min-width: 0; }
 .faq-sidebar { position: sticky; top: 94px; max-height: calc(100vh - 112px); overflow: hidden; }
 .faq-sidebar-inner { max-height: calc(100vh - 112px); overflow-y: auto; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: #fff; box-shadow: 0 10px 28px rgba(25, 52, 83, .06); }
+.faq-sidebar-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.faq-sidebar-head .rail-label { margin: 0; }
+.faq-sidebar-actions { display: flex; gap: 5px; }
+.faq-sidebar-actions button { padding: 3px 6px; border: 1px solid var(--line); border-radius: 5px; background: #f8fbfd; color: var(--muted); font-size: 11px; cursor: pointer; }
+.faq-sidebar-actions button:hover { border-color: #b9d8d2; color: var(--teal-dark); }
 .faq-nav-group { padding: 10px 0; border-top: 1px solid #edf1f5; }
 .faq-nav-group:first-of-type { border-top: 0; padding-top: 0; }
-.faq-nav-heading { display: block; color: var(--navy); font-size: 13px; font-weight: 900; line-height: 1.45; }
+.faq-nav-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; list-style: none; color: var(--navy); font-size: 13px; font-weight: 900; line-height: 1.45; }
+.faq-nav-heading::-webkit-details-marker { display: none; }
+.faq-nav-heading .icon { width: 14px; height: 14px; flex: 0 0 auto; color: var(--teal); transition: transform .2s ease; }
+.faq-nav-group[open] .faq-nav-heading .icon { transform: rotate(90deg); }
 .faq-nav-group ul { margin: 7px 0 0; padding: 0; list-style: none; }
 .faq-nav-group li + li { margin-top: 2px; }
 .faq-nav-group li a { display: block; padding: 4px 0; color: var(--muted); font-size: 12px; line-height: 1.45; }

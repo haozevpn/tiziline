@@ -47,4 +47,20 @@
     const rect = dialog.getBoundingClientRect();
     if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
   }));
+  const faqItems = [...document.querySelectorAll('.faq-item')];
+  const faqNavGroups = [...document.querySelectorAll('.faq-nav-group')];
+  const revealFaqHash = () => {
+    if (!location.hash) return;
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (!target) return;
+    if (target.matches('.faq-item')) target.open = true;
+    target.closest('.faq-nav-group')?.setAttribute('open', '');
+    setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
+  };
+  document.querySelectorAll('[data-faq-nav]').forEach((button) => button.addEventListener('click', () => {
+    const open = button.dataset.faqNav === 'open';
+    faqNavGroups.forEach((group) => { group.open = open; });
+  }));
+  window.addEventListener('hashchange', revealFaqHash);
+  revealFaqHash();
 })();
