@@ -381,7 +381,7 @@ const airports = [
   {
     "name": "影子",
     "slug": "yingzi",
-    "url": "https://www.yingzi01.com/register?code=X7XPN1cS",
+    "url": "https://www.yingzi03.com/register?code=X7XPN1cS",
     "cheap": "18.80元 150GB/月",
     "tag": "机场推荐",
     "angle": "影子是一家专注于高端 IEPL 跨境专线的机场服务商。其采用企业级专线过境，具有极低延迟和极低丢包的表现，能完美绕过敏感时期的封锁，对 Netflix、Disney+、TikTok、ChatGPT 做到全线原生解锁。",
