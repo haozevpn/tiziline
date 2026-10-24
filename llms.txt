@@ -15,11 +15,19 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 
 ## 核心关键词
 
+- 机场观察
 - 机场推荐
+- 2026机场推荐
+- 机场排行榜
+- 机场推荐哪个好
 - 便宜机场
 - 稳定机场
 - 高速机场
 - 梯子推荐
+- 2026梯子推荐
+- VPN推荐
+- 2026 VPN推荐
+- 性价比VPN
 - 节点推荐
 - Clash机场
 - 小火箭节点
@@ -48,11 +56,12 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 
 ## 热门搜索专题
 
-- 机场推荐：2026年稳定、高速、便宜机场怎么选: https://tiziline.com/airport-recommend/
+- 机场推荐 2026：稳定、便宜、高速机场选购与测评清单: https://tiziline.com/airport-recommend/
 - 便宜机场推荐：低价套餐、流量和线路质量对比: https://tiziline.com/cheap-airport/
 - 稳定机场推荐：晚高峰、专线和售后如何判断: https://tiziline.com/stable-airport/
 - 高速机场推荐：4K视频、下载和大流量场景怎么选: https://tiziline.com/high-speed-airport/
-- 梯子推荐：新手机场订阅、客户端与套餐选择指南: https://tiziline.com/proxy-recommend/
+- 梯子推荐 2026：稳定好用的机场订阅与VPN选择指南: https://tiziline.com/proxy-recommend/
+- VPN推荐 2026：稳定、安全、性价比高的VPN怎么选: https://tiziline.com/vpn-recommend/
 - 节点推荐：香港、日本、新加坡、美国节点怎么选: https://tiziline.com/node-recommend/
 - Clash机场推荐：适合Clash、Mihomo和Clash Verge的订阅: https://tiziline.com/clash-airport/
 - 小火箭节点推荐：Shadowrocket机场订阅选择指南: https://tiziline.com/shadowrocket-node/

@@ -11,11 +11,19 @@ const FAQ_UPDATED_AT = "2026-10-19";
 const INDEXNOW_KEY = "tiziline-2026-indexnow-7f3c2a91";
 const INDEXNOW_KEY_FILE = `${INDEXNOW_KEY}.txt`;
 const SEO_KEYWORDS = [
+  "机场观察",
   "机场推荐",
+  "2026机场推荐",
+  "机场排行榜",
+  "机场推荐哪个好",
   "便宜机场",
   "稳定机场",
   "高速机场",
   "梯子推荐",
+  "2026梯子推荐",
+  "VPN推荐",
+  "2026 VPN推荐",
+  "性价比VPN",
   "节点推荐",
   "Clash机场",
   "小火箭节点",
@@ -43,10 +51,14 @@ const SEO_KEYWORDS = [
   "机场备用方案",
 ];
 const PRIMARY_KEYWORDS = [
+  "机场观察",
   "机场推荐",
+  "机场推荐2026",
   "便宜机场",
   "稳定机场",
   "梯子推荐",
+  "梯子推荐2026",
+  "VPN推荐",
   "节点推荐",
   "机场测评",
   "机场订阅",
@@ -2032,9 +2044,9 @@ for (const topic of additionalTopics) {
 const keywordPages = [
   {
     slug: "airport-recommend",
-    title: "机场推荐：2026年稳定、高速、便宜机场怎么选",
+    title: "机场推荐 2026：稳定、便宜、高速机场选购与测评清单",
     keyword: "机场推荐",
-    description: `机场推荐专题汇总 ${airports.length} 家机场的最低套餐、月流量、线路特点、适用人群、价格列表和官网注册入口，帮助新手先比较再购买。`,
+    description: `机场推荐 2026 专题汇总 ${airports.length} 家机场的最低套餐、月流量、线路特点、适用人群、价格列表和官网注册入口，覆盖稳定机场、便宜机场、高速机场与性价比机场的选购对比。`,
     intro: "机场推荐不能只看某一家服务商的宣传语。这里按价格、流量、倍率、专线类型、节点地区、客户端兼容和晚高峰体验整理选择逻辑，并把公开套餐放在同一张表里，方便从需求出发筛选。",
     focus: "适合第一次购买机场、想更换主力订阅，或希望把便宜机场与稳定机场放在一起比较的读者。",
     names: ["飞猫云", "极连云", "微风网络", "光年梯", "可信云", "速界", "影子", "星岛梦", "全球云", "山海机场"],
@@ -2072,13 +2084,23 @@ const keywordPages = [
   },
   {
     slug: "proxy-recommend",
-    title: "梯子推荐：新手机场订阅、客户端与套餐选择指南",
+    title: "梯子推荐 2026：稳定好用的机场订阅与VPN选择指南",
     keyword: "梯子推荐",
-    description: "梯子推荐专题面向新手解释机场、VPN、代理订阅和客户端的区别，整理购买前检查清单、短期测试方法与常见风险。",
+    description: "梯子推荐 2026 专题面向新手解释机场、VPN、代理订阅和客户端的区别，整理稳定性、价格、节点、兼容性、短期测试方法与常见风险。",
     intro: "很多人搜索梯子推荐，实际想解决的是如何找到能用、好配、价格透明的网络订阅。选择时先明确用途，再看机场入口、套餐周期、客户端兼容、节点地区和售后方式，能够减少盲目购买。",
     focus: "适合第一次接触机场、不会配置订阅，或希望在多个设备上保持简单使用的读者。",
     names: ["极连云", "可信云", "光速云", "瞬云机场", "哆啦A梦", "可达加速器", "奈云", "青云梯"],
     related: ["airport-vs-vpn", "client-subscription-guide", "first-buy-checklist"],
+  },
+  {
+    slug: "vpn-recommend",
+    title: "VPN推荐 2026：稳定、安全、性价比高的VPN怎么选",
+    keyword: "VPN推荐",
+    description: "VPN推荐 2026 专题比较传统 VPN 与机场订阅在价格、客户端、节点地区、隐私边界和使用场景上的差异，帮助用户筛选稳定、好用且预算匹配的方案。",
+    intro: "搜索 VPN推荐 的用户，通常关心的是稳定连接、设备兼容、隐私边界和长期成本。实际选择时，应把传统 VPN、机场订阅和自建方案分开比较，再用自己的设备和常用任务验证。",
+    focus: "适合在 VPN、梯子和机场订阅之间犹豫，或希望找到稳定好用、价格透明且适合多设备使用方案的读者。",
+    names: ["奈云", "隐云", "极连云", "可信云", "可达加速器", "全球云", "光年梯", "飞猫云"],
+    related: ["airport-vs-vpn", "client-subscription-guide", "subscription-security", "stable-airport"],
   },
   {
     slug: "node-recommend",
@@ -2333,7 +2355,18 @@ const keywordPages = [
 ];
 
 const keywordTitleAliases = {
-  "airport-recommend": ["2026年稳定机场推荐：不同预算怎么选？"],
+  "airport-recommend": [
+    "2026机场推荐",
+    "2026年稳定机场推荐：不同预算怎么选？",
+    "机场推荐哪个好？稳定、便宜、高速机场怎么选？",
+    "2026机场推荐排行榜：稳定机场套餐与线路对比",
+    "优质机场节点推荐",
+    "google机场推荐",
+    "国内机场排名",
+    "最便宜好用的机场",
+    "不限时机场推荐",
+    "2026便宜好用机场",
+  ],
   "cheap-airport": ["高性价比机场推荐：价格、流量与线路对比", "便宜好用的机场有哪些？低预算选择指南", "学生党机场推荐：低预算套餐选择指南"],
   "stable-airport": ["稳定机场怎么选？购买前重点关注这几个指标", "老牌机场推荐：运营时间长是否更可靠？"],
   "airport-plan": ["月付机场推荐：适合短期使用的灵活套餐", "不限时流量机场推荐：低频用户如何选择？", "按量付费机场推荐：偶尔使用怎么买更划算？"],
@@ -2344,6 +2377,22 @@ const keywordTitleAliases = {
   "streaming-airport": ["原生IP机场推荐：哪些场景真的需要原生节点？"],
   "airport-avoid": ["小众机场推荐：人少速度快，但有哪些风险？"],
   "multi-device-airport": ["家庭多设备机场推荐：设备数量与流量怎么选？"],
+  "proxy-recommend": [
+    "2026梯子推荐",
+    "机场梯子推荐",
+    "梯子推荐哪个好用？",
+    "Clash机场推荐",
+    "翻墙机场推荐",
+    "稳定好用的梯子推荐",
+  ],
+  "vpn-recommend": [
+    "2026 VPN推荐",
+    "性价比最高的VPN推荐",
+    "VPN推荐哪个好？",
+    "稳定好用的VPN推荐",
+    "科学上网VPN推荐",
+    "翻墙VPN推荐",
+  ],
   "shadowrocket-node": [
     "shadowrocket",
     "shadowrockets",
@@ -2486,7 +2535,7 @@ function commonSchema(title, description, pathName, keywords = SEO_KEYWORDS) {
       name: SITE_NAME,
       url: SITE_URL,
       logo: `${SITE_URL}/assets/favicon.svg`,
-      description: "整理机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、套餐和客户端科普。",
+      description: "Tiziline 机场观察整理机场推荐、便宜机场、稳定机场、梯子推荐、VPN推荐、节点推荐、套餐和客户端科普。",
       areaServed: "中文互联网用户",
       knowsAbout: SEO_KEYWORDS,
     },
@@ -2495,7 +2544,7 @@ function commonSchema(title, description, pathName, keywords = SEO_KEYWORDS) {
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
       name: SITE_NAME,
-      description: "机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、机场测评与机场科普知识博客。",
+      description: "机场观察、机场推荐、便宜机场、稳定机场、梯子推荐、VPN推荐、节点推荐、机场测评与机场科普知识博客。",
       publisher: { "@id": `${SITE_URL}/#organization` },
       inLanguage: "zh-CN",
       keywords,
@@ -2642,7 +2691,7 @@ function layout({ title, description, pathName, content, extraHead = "", keyword
   const bodyClass = pathName === "/" ? "home-page" : isDetailPage ? "detail-page" : "listing-page";
   const sideRail = isDetailPage ? `<aside class="site-rail" aria-label="文章快捷导航">
       <button class="rail-search" type="button" data-open-search>${icon("search")}<span>搜索本站内容</span></button>
-      <section class="rail-panel"><p class="rail-label">快速入口</p><a href="/recommend/">机场推荐${icon("arrow")}</a><a href="/rank/">机场排行${icon("arrow")}</a><a href="/knowledge/airport-faq-guide.html">机场 FAQ${icon("arrow")}</a><a href="/tutorials/">使用教程${icon("arrow")}</a><a href="/safety/">安全避坑${icon("arrow")}</a></section>
+      <section class="rail-panel"><p class="rail-label">快速入口</p><a href="/recommend/">机场推荐${icon("arrow")}</a><a href="/rank/">机场排行${icon("arrow")}</a><a href="/proxy-recommend/">梯子推荐${icon("arrow")}</a><a href="/vpn-recommend/">VPN推荐${icon("arrow")}</a><a href="/knowledge/airport-faq-guide.html">机场 FAQ${icon("arrow")}</a><a href="/tutorials/">使用教程${icon("arrow")}</a><a href="/safety/">安全避坑${icon("arrow")}</a></section>
       <section class="rail-panel"><p class="rail-label">热门机场</p>${airports.slice(0, 4).map((item) => `<a href="/posts/${item.slug}.html"><span>${item.name}</span><small>${item.cheap}</small></a>`).join("")}</section>
       <section class="rail-note"><strong>购买提醒</strong><p>先短期测试，再考虑长付；价格、入口与节点状态以官网实时页面为准。</p></section>
     </aside>` : "";
@@ -2785,6 +2834,7 @@ const recommendationTopicSlugs = new Set([
   "stable-airport",
   "high-speed-airport",
   "proxy-recommend",
+  "vpn-recommend",
   "node-recommend",
   "ipcl-airport",
   "iepl-airport",
@@ -2798,13 +2848,14 @@ const recommendationTopicSlugs = new Set([
 ]);
 
 function categoryPage(category) {
+  const heading = category.seoTitle || category.title;
   const topics = knowledgeTopics.filter((item) => item.category === category.key);
   const recommendationPages = category.key === "recommend"
     ? keywordPages.filter((item) => recommendationTopicSlugs.has(item.slug))
     : [];
   const content = `    <section class="list-hero">
       <p class="eyebrow">${category.eyebrow}</p>
-      <h1>${category.title}</h1>
+      <h1>${heading}</h1>
       <p>${category.description}</p>
     </section>
     ${recommendationPages.length ? `<section class="section">
@@ -2816,21 +2867,21 @@ function categoryPage(category) {
       <div class="post-grid">${topics.map(knowledgeCard).join("")}</div>
     </section>`;
   return layout({
-    title: category.title,
+    title: heading,
     description: category.description,
     pathName: `/${category.slug}/`,
     content,
-    keywords: [category.title, "机场推荐", "机场订阅", "机场长尾词"],
+    keywords: [category.title, heading, "机场推荐", "机场订阅", "机场长尾词", "梯子推荐", "VPN推荐"],
   });
 }
 
 function homePage() {
   const content = `    <section class="home-hero">
       <div class="hero-panel">
-        <p class="eyebrow">${TODAY.slice(0, 4)} 机场选择与使用指南</p>
-        <h1>找到更稳定、透明、适合你的机场方案</h1>
-        <p class="hero-lead">从套餐价格到晚高峰表现，从订阅导入到风险判断，用清晰的测评和教程减少试错。</p>
-        <div class="hero-chips"><a href="/stable-airport/">稳定可靠</a><a href="/cheap-airport/">低价套餐</a><a href="/dedicated-airport/">专线体验</a><a href="/streaming-airport/">流媒体解锁</a><a href="/chatgpt-airport/">AI 工具</a><a href="/multi-device-airport/">多设备</a></div>
+        <p class="eyebrow">${TODAY.slice(0, 4)} 机场观察 · 机场选择与使用指南</p>
+        <h1>机场推荐、梯子推荐与 VPN 选购指南</h1>
+        <p class="hero-lead">从套餐价格到晚高峰表现，从订阅导入到风险判断，用清晰的机场测评、梯子推荐和 VPN 对比减少试错。</p>
+        <div class="hero-chips"><a href="/stable-airport/">稳定机场</a><a href="/cheap-airport/">便宜机场</a><a href="/proxy-recommend/">梯子推荐</a><a href="/vpn-recommend/">VPN推荐</a><a href="/streaming-airport/">流媒体解锁</a><a href="/multi-device-airport/">多设备</a></div>
         <form class="hero-search" data-search-form><label>${icon("search")}<input type="search" aria-label="搜索本站" placeholder="搜索机场、测评和教程，例如：飞猫云、便宜机场、测速"></label><button type="submit">搜索</button></form>
       </div>
       <div class="feature-grid" aria-label="核心内容入口">
@@ -2853,11 +2904,11 @@ function homePage() {
       <div class="post-grid">${knowledgeTopics.slice(-6).reverse().map(knowledgeCard).join("")}</div>
     </section>`;
   return layout({
-    title: "机场排行、机场测评与科普知识",
-    description: "整理机场推荐、便宜机场、稳定机场、梯子推荐、节点推荐、机场排行、机场测评、套餐价格、订阅教程和购买避坑知识，帮助新手按用途比较机场服务。",
+    title: "机场推荐、梯子推荐、VPN推荐与机场测评",
+    description: "Tiziline 机场观察整理 2026 机场推荐、梯子推荐、VPN推荐、便宜机场、稳定机场、节点推荐、机场排行、机场测评、套餐价格、订阅教程和购买避坑知识，帮助新手按用途比较机场与 VPN 服务。",
     pathName: "/",
     content,
-    keywords: ["机场推荐", "机场排行", "便宜机场", "稳定机场", "Clash机场", "小火箭节点"],
+    keywords: ["机场观察", "机场推荐", "2026机场推荐", "梯子推荐", "VPN推荐", "机场排行", "便宜机场", "稳定机场", "Clash机场", "小火箭节点"],
     extraHead: itemListSchema(rankedAirports.slice(0, 10), "/", "热门机场推荐"),
   });
 }
@@ -2872,7 +2923,7 @@ function rankPage(pathName = "/rank/") {
   </tr>`).join("");
   const content = `    <section class="list-hero">
       <p class="eyebrow">Airport Ranking</p>
-      <h1>机场排行</h1>
+      <h1>机场排行 2026：稳定、便宜、高速机场推荐与测评</h1>
       <p>这里放去重后的机场列表，按低价、流量和适用场景综合整理。排行不等于绝对优劣，建议结合自己的运营商、地区、客户端和晚高峰表现做最终判断。</p>
     </section>
     <section class="section">
@@ -2891,11 +2942,11 @@ function rankPage(pathName = "/rank/") {
       </div>
     </section>`;
   return layout({
-    title: "机场排行",
-    description: `${rankedAirports.length} 家去重机场排行列表，包含最低套餐、定位、适合人群和注册链接。`,
+    title: "机场排行 2026：稳定、便宜、高速机场推荐与测评",
+    description: `${rankedAirports.length} 家去重机场排行列表，包含最低套餐、定位、适合人群和注册链接，覆盖 2026 机场推荐、稳定机场、便宜机场与高速机场筛选。`,
     pathName,
     content,
-    keywords: ["机场排行", "机场推荐", "便宜机场", "稳定机场"],
+    keywords: ["机场排行", "机场排行榜", "机场推荐", "2026机场推荐", "便宜机场", "稳定机场", "高速机场"],
     extraHead: itemListSchema(rankedAirports, pathName, "机场排行"),
   });
 }

@@ -3,8 +3,9 @@ const editorialCategories = [
     key: "recommend",
     slug: "recommend",
     title: "机场推荐",
+    seoTitle: "机场推荐 2026：稳定、便宜、高速机场测评与排行",
     eyebrow: "Airport Recommendations",
-    description: "按预算、流量、线路、付款周期和使用场景整理机场推荐内容，帮助读者从排行进入更具体的选购决策。",
+    description: "按预算、流量、线路、付款周期和使用场景整理机场推荐内容，覆盖稳定机场、便宜机场、高速机场与性价比机场，帮助读者从排行进入更具体的选购决策。",
   },
   {
     key: "guides",

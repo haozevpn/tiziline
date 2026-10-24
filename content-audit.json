@@ -1,8 +1,8 @@
 {
   "generatedAt": "2026-10-19",
-  "articleCount": 98,
+  "articleCount": 99,
   "longformCount": 13,
-  "titleCount": 98,
+  "titleCount": 99,
   "duplicateTitles": [],
   "duplicateParagraphs": [],
   "similarPairs": [],
@@ -486,8 +486,8 @@
     {
       "type": "topic",
       "slug": "/airport-recommend/",
-      "title": "机场推荐：2026年稳定、高速、便宜机场怎么选",
-      "chars": 182,
+      "title": "机场推荐 2026：稳定、便宜、高速机场选购与测评清单",
+      "chars": 205,
       "paragraphCount": 3
     },
     {
@@ -514,8 +514,15 @@
     {
       "type": "topic",
       "slug": "/proxy-recommend/",
-      "title": "梯子推荐：新手机场订阅、客户端与套餐选择指南",
-      "chars": 172,
+      "title": "梯子推荐 2026：稳定好用的机场订阅与VPN选择指南",
+      "chars": 184,
+      "paragraphCount": 3
+    },
+    {
+      "type": "topic",
+      "slug": "/vpn-recommend/",
+      "title": "VPN推荐 2026：稳定、安全、性价比高的VPN怎么选",
+      "chars": 205,
       "paragraphCount": 3
     },
     {
