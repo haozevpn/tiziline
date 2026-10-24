@@ -130,7 +130,7 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 - 机场和 VPN 有什么区别？新手选机场前先看这份对比: https://tiziline.com/knowledge/airport-vs-vpn.html
 - IEPL、IPLC、BGP 中转是什么意思？机场线路选择指南: https://tiziline.com/knowledge/iepl-iplc-bgp.html
 - 机场套餐里的倍率、流量和设备数怎么看？: https://tiziline.com/knowledge/traffic-rate-device.html
-- Clash、Mihomo、Shadowrocket 订阅导入指南: https://tiziline.com/knowledge/client-subscription-guide.html
+- Shadowrocket官网下载与订阅导入：iOS、小火箭节点和 Windows 替代客户端: https://tiziline.com/knowledge/client-subscription-guide.html
 - 如何测试机场晚高峰稳定性？一套可复用的测速方法: https://tiziline.com/knowledge/peak-hour-test.html
 - 机场流媒体解锁为什么会失效？Netflix、Disney+节点排查: https://tiziline.com/knowledge/streaming-unlock.html
 - ChatGPT、Claude 使用机场时要注意什么？AI节点选择指南: https://tiziline.com/knowledge/ai-service-guide.html

@@ -315,10 +315,14 @@ const additionalTopics = [
     slug: "shadowrocket-keyword-guide",
     tag: "客户端选购",
     category: "guides",
-    updatedAt: "2026-10-17",
-    intro: "Bing 关键词里 `shadowrocket`、`shadowrockets`、`shadowrocket节点`、`小火箭节点`和`火箭节点`的搜索意图并不相同。iPhone 用户选择 Shadowrocket 机场订阅时，除了确认能否导入，还要核对移动网络表现、订阅安全、节点地区和长期维护方式。",
+    updatedAt: "2026-10-24",
+    intro: "Bing 关键词里 `shadowrocket`、`shadowrockets`、`shadow rocket`、`shadowrocket节点`、`小火箭节点`和`火箭节点`对应的需求并不相同。本篇聚焦节点和机场订阅的选购判断，帮助 iPhone 用户区分客户端、免费分享链接与可长期维护的服务。",
     aliases: [
       "shadowrocket 免费节点安全吗？",
+      "shadowrocket节点",
+      "shadow rocket",
+      "小火箭节点分享",
+      "免费机场节点",
       "小火箭节点怎么选？",
       "小火箭VPN和小火箭机场有什么区别？",
       "shadowrocket机场订阅怎么判断是否可用？",
@@ -328,7 +332,7 @@ const additionalTopics = [
       "shadowrocket节点购买后怎么测试？",
       "小火箭节点推荐看哪些指标？",
     ],
-    answer: "Shadowrocket 只是 iPhone 客户端，`shadowrocket`、`shadowrockets`、小火箭节点和火箭节点通常都在寻找可导入的机场订阅。选购核心是订阅格式兼容、移动网络稳定、节点地区适合任务、流量倍率透明和订阅凭证安全；免费节点只能做低风险连通性测试，主力使用应选择来源清楚且支持短周期验证的服务。",
+    answer: "Shadowrocket 是 iPhone 和 iPad 上的客户端，不等于机场，也不会自动提供节点。搜索 `shadowrocket`、`shadowrockets`、`shadow rocket`、小火箭节点或火箭节点时，先判断自己是在找软件、机场订阅还是临时分享链接。真正值得比较的是订阅格式、移动网络稳定性、节点地区、倍率、设备限制和凭证安全；免费节点最多用于低风险连通性测试。",
     related: ["shadowrocket-node", "airport-recommend", "cheap-airport", "client-subscription-guide", "shadowrocket-purchase-tutorial"],
     sections: [
       ["不同关键词代表不同购买意图", [
@@ -349,6 +353,10 @@ const additionalTopics = [
         "如果只想临时使用，可以选择低流量月付或备用机场；如果需要多设备、视频和 AI 工具，则要同时核对流量倍率、设备限制、地区覆盖和重置方式。任何长期套餐都应建立在已经完成测试的基础上，不能只因为“免费节点”或“无限节点”字样下单。",
         "复测时还要记录订阅更新后的节点变化，避免把某一天的偶然可用当成长期能力。建议保留一个近距离节点、一个目标地区节点和一个备用入口，并在 Wi-Fi、蜂窝网络和晚高峰分别验证。这样既能帮助自己快速切换，也能为后续续费、换机场或联系客服提供清晰依据。",
       ]],
+      ["小火箭节点分享、免费机场节点和付费订阅怎么区分", [
+        "“小火箭节点分享”通常指别人公开的单节点、二维码或临时订阅；“免费机场节点”可能是试用入口，也可能是来源不明的长期链接。它们的共同问题是有效期、运营者、流量统计和隐私边界不透明。即使链接能导入 Shadowrocket，也不能据此证明它来自官方、不会突然失效，或适合登录重要账号。",
+        "如果只是学习 Shadowrocket 的导入流程，可以用不含个人资料的测试页面验证连接，然后删除分享配置。需要稳定使用时，应选择能说明套餐周期、流量倍率、节点地区、退款规则和公告渠道的机场，先月付验证，再决定是否长期订阅。把“免费”当成测试条件，而不是服务质量承诺，能减少重复换节点和泄露订阅的风险。",
+      ]],
     ],
   },
   {
@@ -356,8 +364,8 @@ const additionalTopics = [
     slug: "shadowrocket-purchase-tutorial",
     tag: "小火箭教程",
     category: "tutorials",
-    updatedAt: "2026-10-17",
-    intro: "Bing 关键词里的 shadowrocket、shadowrockets、shadowrocket节点、火箭节点和小火箭节点，通常对应购买、订阅导入和连接排查三类问题。本教程把机场订阅、Shadowrocket 客户端和节点使用拆开说明，帮助 iPhone 用户用短周期、可验证的方式完成配置。",
+    updatedAt: "2026-10-24",
+    intro: "Bing 关键词里的 `shadowrocket节点购买`、`小火箭订阅`、`小火箭vpn节点`、`火箭节点`和`免费机场节点`，分别对应购买、导入和安全排查。本教程把机场订阅、Shadowrocket 客户端与实际节点测试拆开说明，帮助 iPhone 用户用短周期、可验证的方式完成配置。",
     aliases: [
       "shadowrocket节点怎么购买？",
       "shadowrocket节点购买需要注意什么？",
@@ -369,8 +377,12 @@ const additionalTopics = [
       "shadowrockets怎么用？",
       "shadowrocket节点购买后怎么导入？",
       "火箭节点免费分享安全吗？",
+      "小火箭vpn节点",
+      "小火箭节点购买",
+      "小火箭订阅",
+      "免费机场节点",
     ],
-    answer: "Shadowrocket 只是 iPhone 客户端，不会自动提供可用节点；节点通常来自机场服务商的订阅。购买前应确认官方入口、订阅格式、流量倍率和退款条件，导入后再用 Wi-Fi 与蜂窝网络测试。免费节点适合低风险连通性测试，不适合登录重要账号或长期使用。",
+    answer: "Shadowrocket 只是 iPhone 客户端，不会自动提供可用节点；节点通常来自机场服务商的订阅。购买前应核对官方入口、套餐周期、订阅格式、流量倍率、设备限制和退款条件，导入后再用 Wi-Fi 与蜂窝网络测试。免费节点适合低风险连通性测试，不适合登录重要账号或长期使用。",
     related: ["shadowrocket-node", "client-subscription-guide", "subscription-security", "mobile-airport-guide"],
     sections: [
       ["先分清小火箭、机场和节点是什么", [
@@ -396,6 +408,10 @@ const additionalTopics = [
       ["用短周期维护小火箭订阅的安全性", [
         "订阅稳定后也要定期检查流量、到期日和最近一次更新记录。不要把自动更新设置得过于频繁，服务商更换域名或节点时再按照公告手动确认。更换 iPhone、出售旧设备或退出家庭共享时，应删除旧设备中的订阅并在面板重置链接，避免仍能访问的旧配置继续消耗流量。",
         "最后，把主力机场和备用机场分开记录，但只保存官网入口、套餐名称和客户端步骤，不在笔记中明文保存完整订阅令牌。对于需要长期使用 Shadowrocket 的用户，月付测试、独立密码、不同入口的备用方案和固定的晚高峰复测，比追逐“免费节点”或一次购买多年套餐更能降低中断与泄露风险。",
+      ]],
+      ["shadowrocket节点购买后的验收清单", [
+        "付款完成后不要只看面板显示“已开通”。先确认订阅链接能在 Shadowrocket 中更新，节点数量和地区与套餐说明基本一致；再用一个近距离节点测试普通网页，用一个目标地区节点测试视频或 AI 服务，最后在蜂窝网络下重复一次。每一步都记录时间、节点名称和结果，后续出现问题时更容易判断是账号、客户端还是线路异常。",
+        "验收通过后，再决定是否续费或升级。若只在单个节点上成功，说明服务仍需要继续观察；若订阅更新、网页、视频和移动网络都稳定，并且公告与客服能正常响应，才适合作为主力。购买记录、套餐规则和重置日期应保存，但完整订阅令牌不要放入公开笔记、截图或在线文档。",
       ]],
     ],
   },

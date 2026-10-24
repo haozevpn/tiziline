@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-10-19",
   "articleCount": 98,
-  "longformCount": 12,
+  "longformCount": 13,
   "titleCount": 98,
   "duplicateTitles": [],
   "duplicateParagraphs": [],
@@ -38,9 +38,9 @@
     {
       "type": "article",
       "slug": "/knowledge/client-subscription-guide.html",
-      "title": "Clash、Mihomo、Shadowrocket 订阅导入指南",
-      "chars": 1801,
-      "paragraphCount": 14
+      "title": "Shadowrocket官网下载与订阅导入：iOS、小火箭节点和 Windows 替代客户端",
+      "chars": 2294,
+      "paragraphCount": 16
     },
     {
       "type": "article",
@@ -228,15 +228,15 @@
       "type": "article",
       "slug": "/knowledge/shadowrocket-keyword-guide.html",
       "title": "小火箭节点最新选购指南：Shadowrocket关键词背后的机场判断方法",
-      "chars": 1580,
-      "paragraphCount": 12
+      "chars": 1899,
+      "paragraphCount": 14
     },
     {
       "type": "article",
       "slug": "/knowledge/shadowrocket-purchase-tutorial.html",
       "title": "Shadowrocket节点购买与小火箭订阅导入教程：免费节点怎么判断",
-      "chars": 2096,
-      "paragraphCount": 14
+      "chars": 2382,
+      "paragraphCount": 16
     },
     {
       "type": "review",

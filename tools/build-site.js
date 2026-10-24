@@ -1552,7 +1552,7 @@ const knowledgeTopics = [
   ["机场和 VPN 有什么区别？新手选机场前先看这份对比", "airport-vs-vpn", "区别选择", "机场和 VPN 都能提供跨地区网络连接，但产品形态、客户端、套餐计费和节点管理方式不同。理解这些差异，才能按自己的设备、预算和使用场景选择。"],
   ["IEPL、IPLC、BGP 中转是什么意思？机场线路选择指南", "iepl-iplc-bgp", "线路科普", "机场页面经常出现 IEPL、IPLC、BGP 中转和专线入口。它们对应不同的线路描述，理解延迟、拥塞、倍率和维护边界，才能看懂套餐差异。"],
   ["机场套餐里的倍率、流量和设备数怎么看？", "traffic-rate-device", "套餐选择", "机场套餐不能只看月费。倍率、月流量、重置周期、设备数量和常用任务共同决定真实使用成本，先学会换算再比较价格更准确。"],
-  ["Clash、Mihomo、Shadowrocket 订阅导入指南", "client-subscription-guide", "客户端", "订阅链接是机场使用的核心入口。确认客户端、订阅格式、规则模式和自动更新设置，能减少导入失败、节点不显示和系统代理冲突。"],
+  ["Shadowrocket官网下载与订阅导入：iOS、小火箭节点和 Windows 替代客户端", "client-subscription-guide", "客户端", "围绕 shadowrocket 官网、shadowrocket 下载、shadowrocket iOS、shadowrocket Windows 和小火箭订阅，说明如何识别官方客户端、选择系统匹配的工具并安全导入机场节点。"],
   ["如何测试机场晚高峰稳定性？一套可复用的测速方法", "peak-hour-test", "测速方法", "机场是否稳定，不能只看白天测速。通过固定时间、固定节点和固定任务记录晚高峰表现，才更接近真实使用体验。"],
   ["机场流媒体解锁为什么会失效？Netflix、Disney+节点排查", "streaming-unlock", "流媒体", "Netflix、Disney+、TikTok 等服务会识别节点 IP。了解地区库、IP 风控、倍率和替换节点的关系，能更准确地判断解锁失败原因。"],
   ["ChatGPT、Claude 使用机场时要注意什么？AI节点选择指南", "ai-service-guide", "AI 工具", "AI 服务对 IP 地区、信誉、登录状态和访问连续性比较敏感。选择节点时要兼顾稳定性和账号安全，减少频繁切换带来的验证。"],
@@ -1565,6 +1565,8 @@ const knowledgeTopics = [
   ["便宜机场为什么有时不便宜", "cheap-airport-cost", "低价避坑", "便宜机场的真实成本不只在月费，还包括排查问题、重复购买和不稳定带来的时间损耗。"],
   ["第一次买机场的完整检查清单", "first-buy-checklist", "购买清单", "第一次买机场不用追求一步到位，按清单逐项验证能避开大部分新手坑。"],
 ].map(([title, slug, tag, intro]) => ({ title, slug, tag, intro }));
+
+knowledgeTopics.find((item) => item.slug === "client-subscription-guide").updatedAt = "2026-10-24";
 
 const knowledgeProfiles = {};
 Object.assign(knowledgeProfiles, {
@@ -1660,9 +1662,14 @@ Object.assign(knowledgeProfiles, {
     ],
   },
   "client-subscription-guide": {
-    answer: `机场订阅导入的核心流程是：确认服务商提供的订阅格式，选择与设备匹配的客户端，粘贴订阅地址并更新节点，最后用规则或全局模式测试。导入失败时，应依次检查链接完整性、账号有效期、客户端支持、网络权限和订阅是否需要转换，不要反复复制同一个错误地址。`,
+    answer: `Shadowrocket 是面向 iPhone 和 iPad 的客户端，搜索 shadowrocket 官网、shadowrocket 下载或 shadowrocket iOS 时，首先要确认下载来源和系统兼容性；Windows 用户通常应选择 Clash、Mihomo 或其他桌面客户端。机场订阅导入还要匹配格式、检查链接有效期、完成系统代理授权并用真实任务测试，不能把“下载成功”误认为“节点可用”。`,
+    aliases: ["shadowrocket 官网", "shadowrocket官网", "shadow rocket", "shadowrocket下载", "shadowrocket 下载", "shadowrocket download", "shadowrocket vpn", "shadowrocket windows", "shadowrocket ios", "小火箭"],
     related: ["clash-airport", "shadowrocket-node", "airport-client"],
     sections: [
+      ["Shadowrocket官网、下载和系统版本怎么判断", [
+        `搜索“shadowrocket 官网”“shadowrocket下载”或“shadow rocket”时，先看页面是否明确说明 iOS/iPadOS 支持、版本要求和开发者信息。Shadowrocket 主要面向 Apple 移动设备，搜索结果中声称提供“Windows版 Shadowrocket”或“永久免费安装包”的页面需要特别谨慎；不要从破解站、陌生网盘或弹窗跳转下载配置文件，更不要输入机场账号和支付信息。`,
+        `“shadowrocket vpn”是常见搜索写法，但它仍然只是客户端名称，软件本身不会赠送机场节点。下载或安装后，用户还需要从机场服务商取得订阅链接。Windows 用户应改用支持订阅格式的桌面客户端，并按系统代理、规则模式和 DNS 需求选择工具；不要为了追求同一个品牌名，安装来源不明的伪装程序。`,
+      ]],
       ["先分清订阅链接、节点链接和配置文件", [
         `机场面板里可能出现订阅链接、Clash订阅、通用订阅、单节点链接和配置文件下载等多个入口。订阅链接通常用于一次性获取一组节点，服务商更新节点后，客户端可以再次拉取；单节点链接只包含某个节点，适合临时使用。不同客户端需要不同格式，复制之前先看入口旁边的说明和二维码用途。`,
         `订阅地址本质上是账号的使用凭证，不能公开发布。不要把完整链接贴进截图、论坛、代码仓库或公共网盘，也不要为了测试随意交给陌生的转换网站。需要在多台设备使用时，优先使用客户端的官方同步或安全复制方式；如果怀疑泄露，及时在面板重置订阅并更新所有设备。`,
