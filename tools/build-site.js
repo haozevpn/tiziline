@@ -2046,10 +2046,21 @@ const keywordPages = [
     slug: "airport-recommend",
     title: "机场推荐 2026：稳定、便宜、高速机场选购与测评清单",
     keyword: "机场推荐",
-    description: `机场推荐 2026 专题汇总 ${airports.length} 家机场的最低套餐、月流量、线路特点、适用人群、价格列表和官网注册入口，覆盖稳定机场、便宜机场、高速机场与性价比机场的选购对比。`,
+    description: "机场推荐 2026 专题按价格、月流量、线路特点、适用人群和公开注册链接整理机场清单，方便按自己的设备、预算与使用场景筛选；套餐信息请以官网为准。",
     intro: "机场推荐不能只看某一家服务商的宣传语。这里按价格、流量、倍率、专线类型、节点地区、客户端兼容和晚高峰体验整理选择逻辑，并把公开套餐放在同一张表里，方便从需求出发筛选。",
     focus: "适合第一次购买机场、想更换主力订阅，或希望把便宜机场与稳定机场放在一起比较的读者。",
-    names: ["飞猫云", "极连云", "微风网络", "光年梯", "可信云", "速界", "影子", "星岛梦", "全球云", "山海机场"],
+    names: ["极连云", "光年梯", "可信云", "速界", "快狸", "边缘节点"],
+    includeAllAirports: true,
+    insertExtraAfter: 3,
+    extraEntries: [{
+      name: "大佬云",
+      url: "https://haozevpn01.dalaoyunaff.com/#/?code=xA9jCleY",
+      cheap: "待核实",
+      angle: "本页登记用户提供的注册链接；套餐价格、流量、线路和节点等信息待核实，请以官网实时页面为准。",
+      nameUrl: "https://haozevpn01.dalaoyunaff.com/#/?code=xA9jCleY",
+      nameRel: "nofollow sponsored noopener",
+      schemaUrl: "https://haozevpn01.dalaoyunaff.com/#/?code=xA9jCleY",
+    }],
     related: ["first-buy-checklist", "airport-risk-signals", "backup-airport"],
   },
   {
@@ -2479,7 +2490,7 @@ function itemListSchema(items, pathName, name) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      url: `${SITE_URL}/posts/${item.slug}.html`,
+      url: item.schemaUrl || `${SITE_URL}/posts/${item.slug}.html`,
       description: item.angle,
     })),
   })}</script>`;
@@ -2979,14 +2990,19 @@ function knowledgePage() {
 
 function keywordPage(page) {
   const picked = page.names.map((name) => airports.find((airport) => airport.name === name)).filter(Boolean);
-  const fallback = airports.filter((airport) => !picked.includes(airport)).slice(0, Math.max(0, 8 - picked.length));
-  const list = [...picked, ...fallback].slice(0, 10);
+  const remaining = airports.filter((airport) => !picked.includes(airport));
+  const fallback = remaining.slice(0, Math.max(0, 8 - picked.length));
+  const extras = page.extraEntries || [];
+  const insertAfter = Math.min(page.insertExtraAfter ?? picked.length, picked.length);
+  const list = page.includeAllAirports
+    ? [...picked.slice(0, insertAfter), ...extras, ...picked.slice(insertAfter), ...remaining]
+    : [...picked, ...fallback].slice(0, 10);
   const relatedKnowledge = (page.related || [])
     .map((slug) => knowledgeTopics.find((item) => item.slug === slug))
     .filter(Boolean);
   const rows = list.map((item, index) => `<tr>
     <td class="rank-index">${index + 1}</td>
-    <td class="rank-name"><a href="/posts/${item.slug}.html">${item.name}</a></td>
+    <td class="rank-name"><a href="${escapeHtml(item.nameUrl || `/posts/${item.slug}.html`)}"${item.nameRel ? ` target="_blank" rel="${escapeHtml(item.nameRel)}"` : ""}>${escapeHtml(item.name)}</a></td>
     <td class="rank-price">${item.cheap}</td>
     <td class="rank-intro">${escapeHtml(excerpt(item.angle, 96))}</td>
     <td class="rank-action"><a class="official-link" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>
