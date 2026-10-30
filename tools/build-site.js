@@ -276,7 +276,7 @@ const airports = [
   {
     "name": "快狸",
     "slug": "kuaili",
-    "url": "https://varnexa.kuailitttt.homes/#/register?code=G56QwHto",
+    "url": "https://yyo649929.kuailiaff.com/#/register?code=G56QwHto",
     "cheap": "10元 30GB/月",
     "tag": "机场推荐",
     "angle": "快狸是一家致力于提供极高性价比与专属一键客户端的专线机场，拥有丰富的全球节点与良好的解锁能力。支持自研客户端，能够帮助新手用户一键跨越繁琐配置，并在敏感时期依然保持出色的连通率。",
