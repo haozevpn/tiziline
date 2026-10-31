@@ -2816,6 +2816,19 @@ function keywordCard(item) {
   </a>`;
 }
 
+const PROMOTED_AIRPORT_SLUGS = ["jilianyun", "guangnianti"];
+
+function promotedAirportLinks(excludeSlug = "") {
+  const items = PROMOTED_AIRPORT_SLUGS
+    .map((slug) => airports.find((airport) => airport.slug === slug))
+    .filter((airport) => airport && airport.slug !== excludeSlug);
+  if (!items.length) return "";
+  const links = items
+    .map((item) => `<a href="/posts/${item.slug}.html">${escapeHtml(item.name)}机场测评</a>`)
+    .join(" 与 ");
+  return `<section class="internal-links"><h2>主推机场测评</h2><p>如果你正在比较机场的稳定性、专线线路与套餐性价比，可以继续查看 ${links}，再结合自己的网络环境、预算和晚高峰测试结果做选择。</p></section>`;
+}
+
 function excerpt(text, max = 118) {
   const value = String(text || "").trim();
   return value.length > max ? `${value.slice(0, max)}...` : value;
@@ -3034,6 +3047,7 @@ function keywordPage(page) {
         <p>筛选${page.keyword}时先把使用场景写下来，再逐项比较价格、流量、倍率、节点地区、协议兼容、客户端导入和售后渠道。公开套餐和官网公告可以作为购买前的事实依据，宣传中的“高速”“稳定”“全解锁”等描述则需要通过自己的常用任务验证。</p>
         <p>选择${page.keyword}且预算较紧或第一次购买时，先用月付或短周期套餐测试；已经确认晚高峰、视频、AI 工具和移动端都符合预期，再考虑季付或年付。套餐、节点和入口会变化，页面信息应以服务商官网实时页面为准。</p>
       </section>
+      ${promotedAirportLinks()}
       <section>
         <h2>筛选${page.keyword}时重点看什么</h2>
         <ul class="check-list">
@@ -3122,6 +3136,7 @@ function faqPage() {
         <h2>先说结论</h2>
         <p>机场 FAQ 没有脱离场景的统一答案。选择机场要把价格、有效流量、倍率、线路、节点地区、客户端兼容、晚高峰表现和售后风险放在一起比较；遇到故障则先判断是账号、订阅、客户端、节点还是本地网络问题，再逐层排查。</p>
       </section>
+      ${promotedAirportLinks()}
       <section class="query-box"><h2>覆盖的机场长尾词</h2><ul>${faqEntries.slice(0, 24).map((item) => `<li><a href="#${item.anchor}">${escapeHtml(item.question)}</a></li>`).join("")}</ul><p>完整问题目录见右侧“按问题跳转”，移动端可在页面内使用浏览器查找。</p></section>
       ${sections}
       <section><h2>继续阅读</h2><div class="post-grid compact">
@@ -3251,6 +3266,7 @@ function airportArticle(item, index) {
         <p>${item.angle}</p>
         <p>从公开信息看，${item.name} 当前用 <strong>${item.tag}</strong> 作为主要定位，最低公开门槛是 <strong>${item.cheap}</strong>。它适不适合你，取决于常用地区、月流量、设备数量和固定使用时段，不应只按价格或节点数量判断。</p>
       </section>
+      ${promotedAirportLinks(item.slug)}
       <section>
         <h2>${item.name} 套餐与价格列表</h2>
         ${planTable(item)}
@@ -3354,6 +3370,7 @@ function knowledgeArticle(item, index) {
         <h2>先说结论</h2>
         <p>${profile.answer}</p>
       </section>
+      ${promotedAirportLinks()}
       <section class="quick-card article-facts" aria-label="文章关键信息">
         ${geoFacts.map(([label, value]) => `<div><span>${label}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}
       </section>
