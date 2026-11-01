@@ -1543,6 +1543,41 @@ const airports = [
         "购买链接": "购买链接"
       }
     ]
+  },
+  {
+    "name": "二猫云",
+    "slug": "ermaoyun",
+    "url": "https://august.ermaoaff.com/#/register?code=EDo6hBTI",
+    "cheap": "¥20/月 · 130GB/月",
+    "tag": "IEPL专线",
+    "angle": "二猫云套餐截图列出白猫、橘猫畅玩版和牛奶猫尊享版三档，分别为130GB/月、230GB/月和430GB/月，月费分别为20元、40元和80元。页面标注全节点x1、每30天自动刷新流量、不限设备、60+节点、全 IEPL 专线及单节点峰值2.5Gbps，并介绍原生 IP、Netflix、Disney+、ChatGPT、TikTok 支持、智能路由和年付8折/两年付7折/三年付6折。以上为用户提供的套餐页面截图信息，线路、解锁和速率表现未由本站独立实测，购买前请以官网当前说明为准。",
+    "sourcePath": "/airport/ermaoyun.html",
+    "plans": [
+      {
+        "套餐名称": "白猫套餐",
+        "价格": "¥20/月",
+        "流量": "130GB/月",
+        "设备数": "不限",
+        "节点": "60+",
+        "特性": "全节点x1；每30天自动刷新；全 IEPL 专线；截图标注香港×20、台湾×5、日本×10、新加坡×10、美国×10"
+      },
+      {
+        "套餐名称": "橘猫畅玩版",
+        "价格": "¥40/月",
+        "流量": "230GB/月",
+        "设备数": "不限",
+        "节点": "60+",
+        "特性": "全节点x1；每30天自动刷新；全 IEPL 专线；截图标注香港×20、台湾×10、日本×10、新加坡×10、美国×10"
+      },
+      {
+        "套餐名称": "牛奶猫尊享版",
+        "价格": "¥80/月",
+        "流量": "430GB/月",
+        "设备数": "不限",
+        "节点": "60+",
+        "特性": "全节点x1；每30天自动刷新；全 IEPL 专线；截图标注香港×20、台湾×10、日本×10、新加坡×10、美国×10"
+      }
+    ]
   }
 ];
 
@@ -1559,6 +1594,8 @@ const rankedAirports = [...airports].sort((a, b) => {
   const bRank = rankingPriority.indexOf(b.slug);
   return (aRank === -1 ? Number.MAX_SAFE_INTEGER : aRank) - (bRank === -1 ? Number.MAX_SAFE_INTEGER : bRank);
 });
+const ermaoRankIndex = rankedAirports.findIndex((item) => item.slug === "ermaoyun");
+if (ermaoRankIndex !== -1) rankedAirports.splice(11, 0, rankedAirports.splice(ermaoRankIndex, 1)[0]);
 
 const knowledgeTopics = [
   ["机场和 VPN 有什么区别？新手选机场前先看这份对比", "airport-vs-vpn", "区别选择", "机场和 VPN 都能提供跨地区网络连接，但产品形态、客户端、套餐计费和节点管理方式不同。理解这些差异，才能按自己的设备、预算和使用场景选择。"],
