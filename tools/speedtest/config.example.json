@@ -1,0 +1,29 @@
+{
+  "_说明": "复制本文件为 config.json 后填入你自己订阅里的真实节点。measure.js 只会测这里列出的 host:port。不要填虚构地址——这套框架的意义就是产出真实可复现的数据。",
+  "_采集参数说明": {
+    "attempts": "对每个节点重复建立 TCP 连接的次数，用于统计延迟分布和丢包率，建议 20",
+    "connectTimeoutMs": "单次连接超时毫秒，超时记为一次丢包，建议 2000",
+    "intervalMs": "两次连接之间的间隔毫秒，避免瞬时拥塞，建议 200"
+  },
+  "attempts": 20,
+  "connectTimeoutMs": 2000,
+  "intervalMs": 200,
+  "airports": [
+    {
+      "name": "极连云",
+      "slug": "jilianyun",
+      "nodes": [
+        { "region": "香港 01", "host": "填入真实节点域名或IP", "port": 443 },
+        { "region": "日本 01", "host": "填入真实节点域名或IP", "port": 443 },
+        { "region": "美国 01", "host": "填入真实节点域名或IP", "port": 443 }
+      ]
+    },
+    {
+      "name": "光年梯",
+      "slug": "guangnianti",
+      "nodes": [
+        { "region": "香港 01", "host": "填入真实节点域名或IP", "port": 443 }
+      ]
+    }
+  ]
+}
