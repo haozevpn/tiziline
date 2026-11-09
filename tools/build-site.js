@@ -7,6 +7,7 @@ const SITE_URL = "https://tiziline.com";
 const SITE_NAME = "Tiziline 机场观察";
 const SITE_LAUNCH_DATE = "2026-09-14";
 const TODAY = "2026-10-19";
+const AIRPORT_RECOMMEND_UPDATED_AT = "2026-11-09";
 const FAQ_UPDATED_AT = "2026-10-19";
 const INDEXNOW_KEY = "tiziline-2026-indexnow-7f3c2a91";
 const INDEXNOW_KEY_FILE = `${INDEXNOW_KEY}.txt`;
@@ -1594,6 +1595,7 @@ const rankedAirports = [...airports].sort((a, b) => {
   const bRank = rankingPriority.indexOf(b.slug);
   return (aRank === -1 ? Number.MAX_SAFE_INTEGER : aRank) - (bRank === -1 ? Number.MAX_SAFE_INTEGER : bRank);
 });
+const directoryAirports = [...airports].sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
 const ermaoRankIndex = rankedAirports.findIndex((item) => item.slug === "ermaoyun");
 if (ermaoRankIndex !== -1) rankedAirports.splice(11, 0, rankedAirports.splice(ermaoRankIndex, 1)[0]);
 
@@ -2081,11 +2083,11 @@ for (const topic of additionalTopics) {
 const keywordPages = [
   {
     slug: "airport-recommend",
-    title: "机场推荐 2026：稳定、便宜、高速机场选购与测评清单",
+    title: "机场推荐 2026：按预算、稳定性与使用场景筛选",
     keyword: "机场推荐",
-    description: "机场推荐 2026 专题按价格、月流量、线路特点、适用人群和公开注册链接整理机场清单，方便按自己的设备、预算与使用场景筛选；套餐信息请以官网为准。",
-    intro: "机场推荐不能只看某一家服务商的宣传语。这里按价格、流量、倍率、专线类型、节点地区、客户端兼容和晚高峰体验整理选择逻辑，并把公开套餐放在同一张表里，方便从需求出发筛选。",
-    focus: "适合第一次购买机场、想更换主力订阅，或希望把便宜机场与稳定机场放在一起比较的读者。",
+    description: "机场推荐先按预算、常用地区和设备场景筛选。本文汇总服务商公开套餐资料，说明价格核验边界、非实测排名原则、推广关系与可复现的试用步骤。",
+    intro: "第一次购买先选短周期套餐，按自己的设备、常用地区和预算筛出少量候选，再在白天与晚高峰测试日常任务。本站目前整理公开资料，没有统一网络环境下的实测排名。",
+    focus: "这份清单用于建立候选名单；服务商宣传、价格和节点情况都需要回到官网核验，并用自己的网络环境验证。",
     names: ["极连云", "光年梯", "可信云", "速界", "快狸", "边缘节点"],
     includeAllAirports: true,
     insertExtraAfter: 3,
@@ -2093,12 +2095,13 @@ const keywordPages = [
       name: "大佬云",
       url: "https://haozevpn01.dalaoyunaff.com/#/?code=xA9jCleY",
       cheap: "待核实",
-      angle: "本页登记用户提供的注册链接；套餐价格、流量、线路和节点等信息待核实，请以官网实时页面为准。",
+      angle: "本页登记用户提供的注册链接；套餐价格、流量、线路和节点信息尚待核实，不作为已验证推荐，请以官网实时页面为准。",
       nameUrl: "https://haozevpn01.dalaoyunaff.com/#/?code=xA9jCleY",
       nameRel: "nofollow sponsored noopener",
       schemaUrl: "https://haozevpn01.dalaoyunaff.com/#/?code=xA9jCleY",
     }],
-    related: ["first-buy-checklist", "airport-risk-signals", "backup-airport"],
+    updatedAt: AIRPORT_RECOMMEND_UPDATED_AT,
+    related: ["first-buy-checklist", "peak-hour-test", "airport-risk-signals", "backup-airport"],
   },
   {
     slug: "cheap-airport",
@@ -2403,18 +2406,7 @@ const keywordPages = [
 ];
 
 const keywordTitleAliases = {
-  "airport-recommend": [
-    "2026机场推荐",
-    "2026年稳定机场推荐：不同预算怎么选？",
-    "机场推荐哪个好？稳定、便宜、高速机场怎么选？",
-    "2026机场推荐排行榜：稳定机场套餐与线路对比",
-    "优质机场节点推荐",
-    "google机场推荐",
-    "国内机场排名",
-    "最便宜好用的机场",
-    "不限时机场推荐",
-    "2026便宜好用机场",
-  ],
+  "airport-recommend": [],
   "cheap-airport": ["高性价比机场推荐：价格、流量与线路对比", "便宜好用的机场有哪些？低预算选择指南", "学生党机场推荐：低预算套餐选择指南"],
   "stable-airport": ["稳定机场怎么选？购买前重点关注这几个指标", "老牌机场推荐：运营时间长是否更可靠？"],
   "airport-plan": ["月付机场推荐：适合短期使用的灵活套餐", "不限时流量机场推荐：低频用户如何选择？", "按量付费机场推荐：偶尔使用怎么买更划算？"],
@@ -2500,7 +2492,7 @@ function pageLabel(pathName, title) {
   if (category) return category.title;
   const keywordPage = keywordPages.find((page) => pathName === `/${page.slug}/`);
   if (keywordPage) return keywordPage.title;
-  if (pathName.startsWith("/rank")) return "机场排行";
+  if (pathName.startsWith("/rank")) return "服务商资料目录";
   if (pathName.startsWith("/reviews")) return "机场测评";
   if (pathName.startsWith("/knowledge/") && pathName !== "/knowledge/") return title;
   if (pathName.startsWith("/knowledge")) return "科普知识";
@@ -2509,11 +2501,11 @@ function pageLabel(pathName, title) {
   return title;
 }
 
-function pageKeywords(title, description, extra = []) {
+function pageKeywords(title, description, extra = [], includeSiteKeywords = true) {
   const candidates = [...extra, ...SEO_KEYWORDS].filter(Boolean);
   const source = `${title} ${description}`;
   const matched = candidates.filter((keyword) => source.includes(keyword));
-  return [...new Set([...extra, ...matched, ...PRIMARY_KEYWORDS])].slice(0, 18);
+  return [...new Set([...extra, ...matched, ...(includeSiteKeywords ? PRIMARY_KEYWORDS : [])])].slice(0, 18);
 }
 
 function itemListSchema(items, pathName, name) {
@@ -2523,6 +2515,8 @@ function itemListSchema(items, pathName, name) {
     name,
     url: `${SITE_URL}${pathName}`,
     inLanguage: "zh-CN",
+    itemListOrder: "https://schema.org/ItemListUnordered",
+    numberOfItems: items.length,
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -2773,13 +2767,10 @@ function faqAnswer(section, question, itemIndex) {
 }
 
 function normalizeDescription(description) {
-  const value = String(description || "").trim();
-  if (value.length >= 180) return value;
-  const expanded = `${value} 本页补充整理套餐价格、有效流量、节点地区、客户端兼容、晚高峰测试、购买风险和适用人群，帮助你按自己的网络环境与使用场景快速判断；具体套餐、节点、入口和服务状态请以官方实时页面为准。文章同时提供测试方法、内链专题和更新说明，方便继续核对相关机场信息。`;
-  return expanded.length >= 180 ? expanded : `${expanded} 购买前建议先用短周期验证常用任务，再决定是否长期订阅。`;
+  return String(description || "").trim();
 }
 
-function commonSchema(title, description, pathName, keywords = SEO_KEYWORDS) {
+function commonSchema(title, description, pathName, keywords = SEO_KEYWORDS, metadata = {}) {
   const graph = [
     {
       "@type": "Organization",
@@ -2824,6 +2815,8 @@ function commonSchema(title, description, pathName, keywords = SEO_KEYWORDS) {
     about: { "@type": "Thing", name: "机场订阅与跨地区网络连接选择" },
     audience: { "@type": "Audience", audienceType: "需要机场推荐和机场使用知识的中文用户" },
     inLanguage: "zh-CN",
+    ...(metadata.datePublished ? { datePublished: metadata.datePublished } : {}),
+    ...(metadata.dateModified ? { dateModified: metadata.dateModified } : {}),
   });
 
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
@@ -2932,19 +2925,19 @@ function siteScript() {
 })();\n`;
 }
 
-function layout({ title, description, pathName, content, extraHead = "", keywords = [] }) {
+function layout({ title, description, pathName, content, extraHead = "", keywords = [], metadata = {}, exactDescription = false, includeSiteKeywords = true }) {
   const prefix = prefixFor(pathName);
   const canonical = `${SITE_URL}${pathName}`;
   const ogType = pathName === "/" || pathName.endsWith("/") ? "website" : "article";
-  const finalDescription = normalizeDescription(description);
-  const finalKeywords = pageKeywords(title, finalDescription, keywords);
+  const finalDescription = exactDescription ? String(description || "").trim() : normalizeDescription(description);
+  const finalKeywords = pageKeywords(title, finalDescription, keywords, includeSiteKeywords);
   const isFaqPage = pathName === "/knowledge/airport-faq-guide.html";
   const isDetailPage = pathName.startsWith("/posts/") || (pathName.startsWith("/knowledge/") && pathName !== "/knowledge/") || keywordPages.some((page) => pathName === `/${page.slug}/`);
   const bodyClass = pathName === "/" ? "home-page" : isDetailPage ? "detail-page" : "listing-page";
   const sideRail = isDetailPage ? `<aside class="site-rail" aria-label="文章快捷导航">
       <button class="rail-search" type="button" data-open-search>${icon("search")}<span>搜索本站内容</span></button>
-      <section class="rail-panel"><p class="rail-label">快速入口</p><a href="/recommend/">机场推荐${icon("arrow")}</a><a href="/rank/">机场排行${icon("arrow")}</a><a href="/proxy-recommend/">梯子推荐${icon("arrow")}</a><a href="/vpn-recommend/">VPN推荐${icon("arrow")}</a><a href="/knowledge/airport-faq-guide.html">机场 FAQ${icon("arrow")}</a><a href="/tutorials/">使用教程${icon("arrow")}</a><a href="/safety/">安全避坑${icon("arrow")}</a></section>
-      <section class="rail-panel"><p class="rail-label">热门机场</p>${airports.slice(0, 4).map((item) => `<a href="/posts/${item.slug}.html"><span>${item.name}</span><small>${item.cheap}</small></a>`).join("")}</section>
+      <section class="rail-panel"><p class="rail-label">快速入口</p><a href="/airport-recommend/">机场推荐${icon("arrow")}</a><a href="/rank/">服务商目录${icon("arrow")}</a><a href="/recommend/">专题指南${icon("arrow")}</a><a href="/proxy-recommend/">梯子推荐${icon("arrow")}</a><a href="/vpn-recommend/">VPN推荐${icon("arrow")}</a><a href="/knowledge/airport-faq-guide.html">机场 FAQ${icon("arrow")}</a><a href="/tutorials/">使用教程${icon("arrow")}</a><a href="/safety/">安全避坑${icon("arrow")}</a></section>
+      <section class="rail-panel"><p class="rail-label">热门机场</p>${airports.slice(0, 4).map((item) => `<a href="/posts/${item.slug}.html"><span>${item.name}</span><small>${publicPlanPrice(item)}</small></a>`).join("")}</section>
       <section class="rail-note"><strong>购买提醒</strong><p>先短期测试，再考虑长付；价格、入口与节点状态以官网实时页面为准。</p></section>
     </aside>` : "";
   const html = `<!doctype html>
@@ -2979,7 +2972,7 @@ function layout({ title, description, pathName, content, extraHead = "", keyword
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(finalDescription)}">
   <meta name="twitter:image" content="${SITE_URL}/assets/og-cover.png">
-  ${commonSchema(title, finalDescription, pathName, finalKeywords)}
+  ${commonSchema(title, finalDescription, pathName, finalKeywords, metadata)}
   ${extraHead}
 </head>
 <body class="${bodyClass}">
@@ -2988,7 +2981,7 @@ function layout({ title, description, pathName, content, extraHead = "", keyword
       <a class="brand" href="/" aria-label="${SITE_NAME}"><span class="brand-mark">T</span><span><strong>Tiziline</strong><small>机场观察</small></span></a>
       <button class="nav-toggle" type="button" data-nav-toggle aria-label="打开导航" aria-expanded="false">${icon("menu")}</button>
       <nav class="top-nav" aria-label="主导航" data-site-nav>
-        <a href="/recommend/">机场推荐</a><a href="/rank/">机场排行</a><a href="/reviews/">机场测评</a><a href="/guides/">选购科普</a><a href="/tutorials/">使用教程</a><a href="/knowledge/airport-faq-guide.html">机场 FAQ</a><a href="/safety/">安全避坑</a><a href="/about/">关于我们</a>
+        <a href="/airport-recommend/">机场推荐</a><a href="/rank/">服务商目录</a><a href="/reviews/">测评文章</a><a href="/guides/">选购科普</a><a href="/tutorials/">使用教程</a><a href="/knowledge/airport-faq-guide.html">机场 FAQ</a><a href="/safety/">安全避坑</a><a href="/about/">关于我们</a>
       </nav>
       <button class="header-search" type="button" data-open-search aria-label="搜索本站">${icon("search")}<span>搜索</span></button>
     </div>
@@ -3059,7 +3052,7 @@ function keywordCard(item) {
 
 const PROMOTED_AIRPORT_SLUGS = ["jilianyun", "guangnianti"];
 
-function promotedAirportLinks(excludeSlug = "") {
+function promotedAirportLinks(excludeSlug = "", { disclose = false } = {}) {
   const items = PROMOTED_AIRPORT_SLUGS
     .map((slug) => airports.find((airport) => airport.slug === slug))
     .filter((airport) => airport && airport.slug !== excludeSlug);
@@ -3067,12 +3060,29 @@ function promotedAirportLinks(excludeSlug = "") {
   const links = items
     .map((item) => `<a href="/posts/${item.slug}.html">${escapeHtml(item.name)}机场测评</a>`)
     .join(" 与 ");
-  return `<section class="internal-links"><h2>主推机场测评</h2><p>如果你正在比较机场的稳定性、专线线路与套餐性价比，可以继续查看 ${links}，再结合自己的网络环境、预算和晚高峰测试结果做选择。</p></section>`;
+  const heading = "主推机场测评";
+  const disclosure = disclose
+    ? "本栏为本站主推入口；部分注册链接可能带来佣金。推广关系不代表质量保证，比较时仍应核对服务商公开信息并自行测试。"
+    : "再结合自己的网络环境、预算和晚高峰测试结果做选择。";
+  return `<section class="internal-links"><h2>${heading}</h2><p>如果你正在比较机场的稳定性、专线线路与套餐性价比，可以继续查看 ${links}。${disclosure}</p></section>`;
 }
 
 function excerpt(text, max = 118) {
   const value = String(text || "").trim();
   return value.length > max ? `${value.slice(0, max)}...` : value;
+}
+
+function publicPlanSummary(item) {
+  if (!item.plans?.length) return item.angle;
+  return item.plans.slice(0, 2).map((plan) => Object.entries(plan)
+    .filter(([key]) => /套餐|价格|月费|流量|费用/.test(key) && !/特性|特点|购买/.test(key))
+    .map(([, value]) => value).join(" · ")).filter(Boolean).join("；");
+}
+
+function publicPlanPrice(item) {
+  const firstPlan = item.plans?.[0];
+  const price = firstPlan && Object.entries(firstPlan).find(([key]) => /^(价格|月费|费用|售价)$/.test(key))?.[1];
+  return price || item.cheap;
 }
 
 function planTable(item) {
@@ -3124,11 +3134,11 @@ function categoryPage(category) {
       <p>${category.description}</p>
     </section>
     ${recommendationPages.length ? `<section class="section">
-      <div class="section-head"><h2>按需求找机场</h2><a href="/rank/">查看完整排行</a></div>
+      <div class="section-head"><h2>按需求查找专题</h2><a href="/airport-recommend/">查看机场推荐主清单</a><a href="/rank/">查看服务商目录</a></div>
       <div class="post-grid">${recommendationPages.map(keywordCard).join("")}</div>
     </section>` : ""}
     <section class="section">
-      <div class="section-head"><h2>${category.key === "recommend" ? "推荐方法与场景" : `${category.title}文章`}</h2><a href="/knowledge/">全部文章</a></div>
+      <div class="section-head"><h2>${category.key === "recommend" ? "选购方法与场景" : `${category.title}文章`}</h2><a href="/knowledge/">全部文章</a></div>
       <div class="post-grid">${topics.map(knowledgeCard).join("")}</div>
     </section>`;
   return layout({
@@ -3136,32 +3146,37 @@ function categoryPage(category) {
     description: category.description,
     pathName: `/${category.slug}/`,
     content,
-    keywords: [category.title, heading, "机场推荐", "机场订阅", "机场长尾词", "梯子推荐", "VPN推荐"],
+    keywords: category.key === "recommend"
+      ? ["机场选购专题", "机场套餐比较", "机场线路选择", "机场购买方法"]
+      : [category.title, heading],
+    exactDescription: category.key === "recommend",
+    includeSiteKeywords: category.key !== "recommend",
+    metadata: category.key === "recommend" ? { dateModified: AIRPORT_RECOMMEND_UPDATED_AT } : {},
   });
 }
 
 function homePage() {
   const content = `    <section class="home-hero">
       <div class="hero-panel">
-        <p class="eyebrow">${TODAY.slice(0, 4)} 机场观察 · 机场选择与使用指南</p>
-        <h1>机场推荐、梯子推荐与 VPN 选购指南</h1>
-        <p class="hero-lead">从套餐价格到晚高峰表现，从订阅导入到风险判断，用清晰的机场测评、梯子推荐和 VPN 对比减少试错。</p>
+        <p class="eyebrow">${TODAY.slice(0, 4)} · 公开资料与使用指南</p>
+        <h1>Tiziline 机场观察</h1>
+        <p class="hero-lead">整理服务商公开资料、机场与 VPN 选购方法、客户端教程和风险提示，帮助读者核对信息并按自己的网络环境做决定。</p>
         <div class="hero-chips"><a href="/stable-airport/">稳定机场</a><a href="/cheap-airport/">便宜机场</a><a href="/proxy-recommend/">梯子推荐</a><a href="/vpn-recommend/">VPN推荐</a><a href="/streaming-airport/">流媒体解锁</a><a href="/multi-device-airport/">多设备</a></div>
         <form class="hero-search" data-search-form><label>${icon("search")}<input type="search" aria-label="搜索本站" placeholder="搜索机场、测评和教程，例如：飞猫云、便宜机场、测速"></label><button type="submit">搜索</button></form>
       </div>
       <div class="feature-grid" aria-label="核心内容入口">
-        <a class="feature-card" href="/recommend/"><span class="feature-icon">${icon("plane")}</span><strong>机场推荐</strong><p>按预算、流量和用途筛选适合的机场方案。</p><span class="feature-link">开始筛选 ${icon("arrow")}</span></a>
+        <a class="feature-card" href="/airport-recommend/"><span class="feature-icon">${icon("plane")}</span><strong>机场推荐</strong><p>查看选购结论、公开资料边界和候选服务商。</p><span class="feature-link">查看主清单 ${icon("arrow")}</span></a>
         <a class="feature-card" href="/reviews/"><span class="feature-icon">${icon("book")}</span><strong>机场测评</strong><p>查看套餐、价格、优缺点和品牌长尾问答。</p><span class="feature-link">查看测评 ${icon("arrow")}</span></a>
         <a class="feature-card" href="/safety/"><span class="feature-icon">${icon("shield")}</span><strong>安全避坑</strong><p>识别年付、订阅泄露、失联与退款风险。</p><span class="feature-link">阅读指南 ${icon("arrow")}</span></a>
         <a class="feature-card" href="/comparisons/"><span class="feature-icon">${icon("chart")}</span><strong>测速对比</strong><p>理解延迟、丢包、速度和晚高峰表现。</p><span class="feature-link">学习测试 ${icon("arrow")}</span></a>
       </div>
     </section>
     <section class="section home-section">
-      <div class="section-head"><div><span class="section-kicker">Ranking</span><h2>热门机场排行</h2><p>先看公开套餐，再进入独立测评核对适合人群和风险。</p></div><a class="section-more" href="/rank/">查看全部 ${icon("arrow")}</a></div>
-      <div class="post-grid">${rankedAirports.slice(0, 6).map(airportCard).join("")}</div>
+      <div class="section-head"><div><span class="section-kicker">Directory</span><h2>机场服务商资料目录</h2><p>按名称浏览公开资料；列表不代表统一条件下的速度或稳定性排名。</p></div><a class="section-more" href="/rank/">浏览目录 ${icon("arrow")}</a></div>
+      <div class="post-grid">${directoryAirports.slice(0, 6).map((item) => airportCard({ ...item, tag: "公开资料", cheap: publicPlanPrice(item), angle: publicPlanSummary(item) })).join("")}</div>
     </section>
     <section class="section home-section alt-section">
-      <div class="section-head"><div><span class="section-kicker">Topics</span><h2>按使用需求选择</h2><p>相近搜索问题合并到规范专题页，减少重复内容。</p></div><a class="section-more" href="/recommend/">全部专题 ${icon("arrow")}</a></div>
+      <div class="section-head"><div><span class="section-kicker">Topics</span><h2>按使用需求查找专题</h2><p>预算、线路和设备问题分别进入对应指南。</p></div><a class="section-more" href="/recommend/">全部专题 ${icon("arrow")}</a></div>
       <div class="post-grid">${keywordPages.filter((item) => recommendationTopicSlugs.has(item.slug)).slice(0, 6).map(keywordCard).join("")}</div>
     </section>
     <section class="section home-section">
@@ -3169,50 +3184,55 @@ function homePage() {
       <div class="post-grid">${knowledgeTopics.slice(-6).reverse().map(knowledgeCard).join("")}</div>
     </section>`;
   return layout({
-    title: "机场推荐、梯子推荐、VPN推荐与机场测评",
-    description: "Tiziline 机场观察整理 2026 机场推荐、梯子推荐、VPN推荐、便宜机场、稳定机场、节点推荐、机场排行、机场测评、套餐价格、订阅教程和购买避坑知识，帮助新手按用途比较机场与 VPN 服务。",
+    title: "Tiziline 机场观察：公开资料、选购指南与使用教程",
+    description: "Tiziline 机场观察整理服务商公开资料、机场与 VPN 选购方法、客户端教程和风险提示，帮助读者核对套餐信息并按自己的网络环境做决定。",
     pathName: "/",
     content,
-    keywords: ["机场观察", "机场推荐", "2026机场推荐", "梯子推荐", "VPN推荐", "机场排行", "便宜机场", "稳定机场", "Clash机场", "小火箭节点"],
-    extraHead: itemListSchema(rankedAirports.slice(0, 10), "/", "热门机场推荐"),
+    keywords: ["Tiziline机场观察", "机场服务商资料", "机场选购指南", "VPN选购", "客户端使用教程"],
+    exactDescription: true,
+    includeSiteKeywords: false,
+    metadata: { dateModified: AIRPORT_RECOMMEND_UPDATED_AT },
   });
 }
 
 function rankPage(pathName = "/rank/") {
-  const rows = rankedAirports.map((item, index) => `<tr>
-    <td class="rank-index">${index + 1}</td>
+  const rows = directoryAirports.map((item) => `<tr>
     <td class="rank-name"><a href="/posts/${item.slug}.html">${item.name}</a></td>
-    <td class="rank-price">${item.cheap}</td>
-    <td class="rank-intro">${escapeHtml(excerpt(item.angle))}</td>
+    <td class="rank-price">${escapeHtml(publicPlanPrice(item))}</td>
+    <td class="rank-intro">${escapeHtml(publicPlanSummary(item))}</td>
     <td class="rank-action"><a class="official-link" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>
   </tr>`).join("");
   const content = `    <section class="list-hero">
-      <p class="eyebrow">Airport Ranking</p>
-      <h1>机场排行 2026：稳定、便宜、高速机场推荐与测评</h1>
-      <p>这里放去重后的机场列表，按低价、流量和适用场景综合整理。排行不等于绝对优劣，建议结合自己的运营商、地区、客户端和晚高峰表现做最终判断。</p>
+      <p class="eyebrow">Airport Directory</p>
+      <h1>机场服务商资料目录</h1>
+      <p>按名称浏览服务商公开资料、套餐摘要和站内说明。本站没有在相同设备、运营商和时段下完成全量统一测试，因此本页不提供速度或稳定性名次；下单前请核对官网当前信息。</p>
+      <p>需要从预算和用途开始筛选，可先阅读 <a href="/airport-recommend/">机场推荐主清单</a>。部分官网入口含推广参数，本站可能获得佣金，详见 <a href="/about/">编辑政策</a>。</p>
     </section>
     <section class="section">
-      <div class="table-wrap">
+      <p class="answer-note">表格较宽，可左右滑动查看完整套餐摘要和官网入口。</p>
+      <div class="table-wrap" role="region" aria-label="服务商资料目录表格，可左右滚动" tabindex="0">
         <table class="rank-table">
           <colgroup>
-            <col class="col-index">
             <col class="col-name">
             <col class="col-price">
             <col class="col-intro">
             <col class="col-action">
           </colgroup>
-          <thead><tr><th>#</th><th>机场</th><th>最低套餐</th><th>机场简介</th><th>官网</th></tr></thead>
+          <thead><tr><th>服务商</th><th>资料库所列套餐</th><th>公开资料摘要</th><th>官网入口</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
     </section>`;
   return layout({
-    title: "机场排行 2026：稳定、便宜、高速机场推荐与测评",
-    description: `${rankedAirports.length} 家去重机场排行列表，包含最低套餐、定位、适合人群和注册链接，覆盖 2026 机场推荐、稳定机场、便宜机场与高速机场筛选。`,
+    title: "机场服务商资料目录：套餐摘要与官网入口",
+    description: `按名称浏览 ${directoryAirports.length} 家服务商的套餐摘要、公开介绍和站内资料。列表不代表统一实测排名，套餐与入口请以官网当前信息为准。`,
     pathName,
     content,
-    keywords: ["机场排行", "机场排行榜", "机场推荐", "2026机场推荐", "便宜机场", "稳定机场", "高速机场"],
-    extraHead: itemListSchema(rankedAirports, pathName, "机场排行"),
+    keywords: ["机场服务商资料目录", "机场套餐资料", "官网入口", "公开资料"],
+    exactDescription: true,
+    includeSiteKeywords: false,
+    metadata: { dateModified: AIRPORT_RECOMMEND_UPDATED_AT },
+    extraHead: itemListSchema(directoryAirports.map((item) => ({ ...item, angle: publicPlanSummary(item) })), pathName, "按名称浏览服务商资料（非实测排名）"),
   });
 }
 
@@ -3243,6 +3263,7 @@ function knowledgePage() {
 }
 
 function keywordPage(page) {
+  const isPrimaryRecommendation = page.slug === "airport-recommend";
   const picked = page.names.map((name) => airports.find((airport) => airport.name === name)).filter(Boolean);
   const remaining = airports.filter((airport) => !picked.includes(airport));
   const fallback = remaining.slice(0, Math.max(0, 8 - picked.length));
@@ -3255,13 +3276,19 @@ function keywordPage(page) {
     .map((slug) => knowledgeTopics.find((item) => item.slug === slug))
     .filter(Boolean);
   const rows = list.map((item, index) => `<tr>
-    <td class="rank-index">${index + 1}</td>
+    ${isPrimaryRecommendation ? "" : `<td class="rank-index">${index + 1}</td>`}
     <td class="rank-name"><a href="${escapeHtml(item.nameUrl || `/posts/${item.slug}.html`)}"${item.nameRel ? ` target="_blank" rel="${escapeHtml(item.nameRel)}"` : ""}>${escapeHtml(item.name)}</a></td>
-    <td class="rank-price">${item.cheap}</td>
-    <td class="rank-intro">${escapeHtml(excerpt(item.angle, 96))}</td>
+    <td class="rank-price">${escapeHtml(isPrimaryRecommendation ? publicPlanPrice(item) : item.cheap)}</td>
+    <td class="rank-intro">${escapeHtml(isPrimaryRecommendation ? publicPlanSummary(item) : excerpt(item.angle, 112))}</td>
     <td class="rank-action"><a class="official-link" href="${escapeHtml(item.url)}" target="_blank" rel="nofollow sponsored noopener">官网注册</a></td>
   </tr>`).join("");
-  const faq = [
+  const faq = isPrimaryRecommendation ? [
+    ["机场推荐新手怎么选？", "先明确设备、常用地区、预算和主要任务，从月付或短周期套餐开始；实际验证常用节点和晚高峰后，再考虑续费周期。"],
+    ["清单中的价格和套餐是实时信息吗？", "不是实时保证。本页所列价格与服务摘要来自站内资料库，可能未同步服务商最新调整；下单前请以服务商官网当前套餐页为准。"],
+    ["这份机场推荐清单按速度排名吗？", "不是。本站没有完成同一设备、运营商、时段和任务下的全量对照测试；清单保留编辑展示顺序，主推入口另有标注，不代表速度、稳定性或质量名次。"],
+    ["如何公平比较两家机场？", "固定设备、客户端、网络运营商、节点地区和测试任务，在白天与晚高峰重复连接；记录连接失败、延迟、丢包、持续播放或下载结果，并注明日期。"],
+    ["官网链接是否包含推广关系？", "部分服务商注册链接可能包含跟踪参数，本站可能因此获得佣金。主推测评入口单独标明，不能作为服务质量或排名依据。"],
+  ] : [
     [`${page.keyword}怎么选？`, `先看自己的用途，再比较最低套餐、月流量、节点地区、倍率、客户端兼容性和售后公告。${page.keyword}不建议只按最低价格排序。`],
     [`${page.keyword}适合新手吗？`, `${page.keyword}可以作为新手的筛选方向，但应优先月付或短周期测试，确认常用节点、AI 工具、流媒体和移动端都稳定后，再考虑长期套餐。`],
     [`${page.keyword}和普通机场排行有什么区别？`, `机场排行是全量列表，${page.keyword}专题会围绕特定搜索需求筛选更匹配的机场和使用建议。`],
@@ -3277,19 +3304,40 @@ function keywordPage(page) {
   })}</script>`;
   const content = `    <article class="article">
       <div class="article-hero">
-        <p class="eyebrow">热门专题 · ${page.keyword}</p>
+        <p class="eyebrow">${isPrimaryRecommendation ? "机场选购主清单" : `热门专题 · ${page.keyword}`}${page.updatedAt ? ` · 更新于 ${page.updatedAt}` : ""}</p>
         <h1>${page.title}</h1>
         <p class="lead">${page.intro}</p>
       </div>
-      ${page.aliases.length ? `<section class="query-box"><h2>本专题覆盖的搜索问题</h2><ul>${page.aliases.map((alias) => `<li>${escapeHtml(alias)}</li>`).join("")}</ul></section>` : ""}
+      ${page.aliases.length && !isPrimaryRecommendation ? `<section class="query-box"><h2>本专题覆盖的搜索问题</h2><ul>${page.aliases.map((alias) => `<li>${escapeHtml(alias)}</li>`).join("")}</ul></section>` : ""}
+      ${isPrimaryRecommendation ? `<section class="answer-box">
+        <h2>快速结论：机场推荐怎么选</h2>
+        <p><strong>先短期验证，再决定是否续费。</strong>先按预算、设备和常用地区筛出少量候选，用自己的网络在白天与晚高峰测试网页、视频或工作任务；不要把服务商的线路标签或宣传速度当成实测结论。</p>
+        <p>本页汇总的是公开套餐与服务商资料，未完成统一条件的全量实测。价格、线路、节点和入口可能变化，表格作为候选资料目录使用，购买前请核对官网。</p>
+        <p class="answer-note">页面结构更新于 <time datetime="${page.updatedAt}">${page.updatedAt}</time>；本次更新未逐家复核套餐。条目顺序为编辑展示顺序，主推入口另行标注，不构成质量排名。</p>
+      </section>` : ""}
+      ${isPrimaryRecommendation ? `<nav class="query-box" aria-label="本文目录"><h2>本文目录</h2><ul><li><a href="#scenarios">按用途筛选</a></li><li><a href="#comparison">预算与套餐比较</a></li><li><a href="#directory">服务商资料清单</a></li><li><a href="#test-method">试用记录方法</a></li><li><a href="#questions">常见问题</a></li></ul></nav>` : ""}
       <section>
         <h2>${page.keyword}怎么选？</h2>
         <p>${page.focus}</p>
-        <p>筛选${page.keyword}时先把使用场景写下来，再逐项比较价格、流量、倍率、节点地区、协议兼容、客户端导入和售后渠道。公开套餐和官网公告可以作为购买前的事实依据，宣传中的“高速”“稳定”“全解锁”等描述则需要通过自己的常用任务验证。</p>
-        <p>选择${page.keyword}且预算较紧或第一次购买时，先用月付或短周期套餐测试；已经确认晚高峰、视频、AI 工具和移动端都符合预期，再考虑季付或年付。套餐、节点和入口会变化，页面信息应以服务商官网实时页面为准。</p>
+        <p>筛选${page.keyword}时先把使用场景写下来，再逐项比较价格、流量、倍率、节点地区、协议兼容、客户端导入和售后渠道。宣传中的“高速”“稳定”“全解锁”等描述，需要通过自己的常用任务验证。</p>
+        <p>第一次购买或尚未验证晚高峰表现时，优先选月付或短周期套餐；确认自己的设备、网络和常用任务符合预期后，再考虑更长周期。套餐、节点和入口以服务商官网实时页面为准。</p>
       </section>
-      ${promotedAirportLinks()}
-      <section>
+      ${isPrimaryRecommendation ? `<section class="internal-links" id="scenarios">
+        <h2>按场景继续筛选</h2>
+        <ul class="scene-links">
+          <li><strong>预算与月成本：</strong><a href="/cheap-airport/">便宜机场专题</a></li>
+          <li><strong>高峰使用与连接稳定：</strong><a href="/stable-airport/">稳定机场专题</a>、<a href="/airport-peak-hour/">晚高峰排查方法</a></li>
+          <li><strong>视频与大流量：</strong><a href="/high-speed-airport/">高速机场专题</a>、<a href="/streaming-airport/">流媒体机场专题</a></li>
+          <li><strong>线路：</strong><a href="/iepl-airport/">IEPL 线路</a>、<a href="/ipcl-airport/">IPLC 线路</a>、<a href="/dedicated-airport/">专线机场说明</a></li>
+          <li><strong>设备与客户端：</strong><a href="/clash-airport/">Clash 与 Mihomo</a>、<a href="/shadowrocket-node/">Shadowrocket</a>、<a href="/multi-device-airport/">多设备方案</a></li>
+          <li><strong>目标服务：</strong><a href="/netflix-airport/">Netflix</a>、<a href="/chatgpt-airport/">AI 工具</a>、<a href="/game-airport/">游戏</a></li>
+          <li><strong>节点与入门：</strong><a href="/node-recommend/">节点地区</a>、<a href="/science-airport/">机场基础概念</a></li>
+          <li><strong>第一次购买：</strong><a href="/knowledge/first-buy-checklist.html">购买前检查清单</a></li>
+          <li><strong>完整资料目录：</strong><a href="/rank/">按名称浏览服务商资料</a></li>
+        </ul>
+      </section>` : ""}
+      ${promotedAirportLinks("", { disclose: isPrimaryRecommendation })}
+      <section${isPrimaryRecommendation ? ' id="comparison"' : ""}>
         <h2>筛选${page.keyword}时重点看什么</h2>
         <ul class="check-list">
           <li><strong>价格和流量：</strong>同时换算月成本、月流量和每 GB 成本，确认重置日以及未用流量规则。</li>
@@ -3297,38 +3345,58 @@ function keywordPage(page) {
           <li><strong>客户端和协议：</strong>确认订阅格式能否导入自己的 Clash、Mihomo、Shadowrocket 或其他客户端。</li>
           <li><strong>售后和风险：</strong>查看公告、工单、退款、域名变更和账号安全说明，首次购买避免直接长付。</li>
         </ul>
+        ${isPrimaryRecommendation ? `<h3>把标价换算成可比较的成本</h3><p>月均成本＝周期总价÷月数；可用流量约为套餐流量÷节点倍率（以服务商计费规则为准）。例如年付 120 元、每月 100GB 的套餐月均为 10 元，但首次需支付 120 元；常用 2 倍率节点时，100GB 额度约对应 50GB 传输量。不要把年付折算月价误认成可单月购买。</p><p>轻量浏览先核对月成本、最小付款金额和流量有效期；视频与下载核对倍率、持续带宽和晚高峰；工作与多设备优先核对客户端兼容、在线设备限制、故障公告和替代节点。<a href="/airport-plan/">查看套餐周期选择方法</a>。</p>` : ""}
       </section>
-      <section>
-        <h2>${page.title}列表</h2>
-        <div class="table-wrap">
+      <section${isPrimaryRecommendation ? ' id="directory"' : ""}>
+        <h2>${isPrimaryRecommendation ? `机场服务商资料清单（${list.length} 项）` : `${page.title}列表`}</h2>
+        ${isPrimaryRecommendation ? `<p class="answer-note">套餐金额与摘要为站内已收录的公开资料，未在本次页面更新中逐项核验；“待核实”条目仅登记用户提供的入口，不作为已验证推荐。有站内资料的名称链接进入说明页；官网及待核实条目的入口可能包含推广参数。</p>` : ""}
+        ${isPrimaryRecommendation ? `<p class="answer-note">表格较宽，可左右滑动查看完整套餐摘要和官网入口。</p>` : ""}
+        <div class="table-wrap"${isPrimaryRecommendation ? ' role="region" aria-label="机场服务商资料表格，可左右滚动" tabindex="0"' : ""}>
           <table class="rank-table">
             <colgroup>
-              <col class="col-index">
+              ${isPrimaryRecommendation ? "" : `<col class="col-index">`}
               <col class="col-name">
               <col class="col-price">
               <col class="col-intro">
               <col class="col-action">
             </colgroup>
-            <thead><tr><th>#</th><th>机场</th><th>最低套餐</th><th>推荐理由</th><th>官网</th></tr></thead>
+            <thead><tr>${isPrimaryRecommendation ? "" : "<th>#</th>"}<th>机场</th><th>${isPrimaryRecommendation ? "资料库所列套餐" : "最低套餐"}</th><th>${isPrimaryRecommendation ? "公开资料摘要（非本站实测）" : "推荐理由"}</th><th>官网</th></tr></thead>
             <tbody>${rows}</tbody>
           </table>
         </div>
       </section>
-      <section>
+      ${isPrimaryRecommendation ? `<section id="test-method">
+        <h2>可复核的试用方法</h2>
+        <ol>
+          <li>记录设备型号、系统、客户端版本、运营商和大致地区。</li>
+          <li>选相同地区节点，在相近时段完成相同任务；分别覆盖白天和晚高峰。</li>
+          <li>重复测试并记录连接成功率、延迟、丢包、视频缓冲或下载连续性，不只抄单次峰值。</li>
+          <li>保存测试日期和套餐规则；遇到差异时再核对公告、倍率、设备限制与退款条款。</li>
+        </ol>
+        <p>建议保留一份记录：测试日期与时段、运营商、地区、客户端版本、节点、倍率、重复次数、失败次数、延迟与丢包、任务完成结果。白天和晚高峰各做多次对照；单次峰值不代表长期体验。<a href="/knowledge/peak-hour-test.html">查看完整测试方法</a>。</p>
+      </section>` : ""}
+      <section${isPrimaryRecommendation ? ' id="questions"' : ""}>
         <h2>${page.keyword}常见问题</h2>
         ${faq.map(([question, answer]) => `<h3>${question}</h3><p>${answer}</p>`).join("")}
       </section>
       ${relatedKnowledge.length ? `<section><h2>相关机场科普</h2><div class="post-grid compact">${relatedKnowledge.map(knowledgeCard).join("")}</div></section>` : ""}
-      <aside class="notice">更多完整对比可查看 <a class="official-link" href="/rank/">机场排行</a> 和 <a class="official-link" href="/reviews/">机场测评</a>。</aside>
+      <aside class="notice">继续查看 <a class="official-link" href="/rank/">服务商资料目录</a>、<a class="official-link" href="/recommend/">选购专题指南</a> 和 <a class="official-link" href="/reviews/">机场测评文章</a>。公开资料不等同于统一实测，信息来源与推广关系见 <a href="/about/">编辑政策</a>。</aside>
     </article>`;
   return layout({
     title: page.title,
     description: page.description,
     pathName: `/${page.slug}/`,
     content,
-    keywords: [page.keyword, page.title, ...page.aliases],
+    keywords: isPrimaryRecommendation
+      ? [page.keyword, "2026机场推荐", "机场推荐怎么选", "机场选购方法", "机场套餐对比"]
+      : [page.keyword, page.title, ...page.aliases],
+    metadata: isPrimaryRecommendation
+      ? { datePublished: "2026-07-13", dateModified: page.updatedAt }
+      : {},
+    exactDescription: isPrimaryRecommendation,
+    includeSiteKeywords: !isPrimaryRecommendation,
     extraHead: `${faqSchema}
-  ${itemListSchema(list, `/${page.slug}/`, page.title)}`,
+  ${itemListSchema(isPrimaryRecommendation ? list.map((item) => ({ ...item, angle: publicPlanSummary(item) })) : list, `/${page.slug}/`, isPrimaryRecommendation ? "服务商公开资料清单（编辑展示顺序，非实测排名）" : page.title)}`,
   });
 }
 
@@ -3721,11 +3789,16 @@ function publicUrlPaths() {
 
 function sitemap() {
   const urls = publicUrlPaths();
+  const sitemapPath = path.join(process.cwd(), "sitemap.xml");
+  const previous = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, "utf8") : "";
+  const previousDates = new Map([...previous.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)]
+    .map(([, url, modified]) => [url, modified]));
+  const revisedPaths = new Set(["/", "/rank/", "/recommend/", "/airport-recommend/"]);
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map(([loc]) => `  <url>
     <loc>${SITE_URL}${loc}</loc>
-    <lastmod>${TODAY}</lastmod>
+    <lastmod>${revisedPaths.has(loc) ? AIRPORT_RECOMMEND_UPDATED_AT : previousDates.get(`${SITE_URL}${loc}`) || TODAY}</lastmod>
   </url>`).join("\n")}
 </urlset>
 `;
@@ -3763,7 +3836,7 @@ function redirectPage(fromPath, toPath) {
   <title>正在跳转 | ${SITE_NAME}</title>
 </head>
 <body>
-  <p>正在跳转到 <a href="${toPath}">机场排行</a>。</p>
+  <p>正在跳转到 <a href="${toPath}">服务商资料目录</a>。</p>
 </body>
 </html>
 `;
@@ -3822,7 +3895,9 @@ ${SITE_NAME} 是一个中文机场推荐、机场测评和机场科普知识站�
 ## 主要页面
 
 - 首页: ${SITE_URL}/
-- 机场排行: ${SITE_URL}/rank/
+- 机场推荐主清单: ${SITE_URL}/airport-recommend/
+- 选购专题指南: ${SITE_URL}/recommend/
+- 服务商资料目录: ${SITE_URL}/rank/
 - 机场测评: ${SITE_URL}/reviews/
 - 科普知识: ${SITE_URL}/knowledge/
 - 机场 FAQ 问题指南: ${SITE_URL}/knowledge/airport-faq-guide.html
@@ -3830,9 +3905,9 @@ ${SITE_NAME} 是一个中文机场推荐、机场测评和机场科普知识站�
 - Sitemap: ${SITE_URL}/sitemap.xml
 - RSS: ${SITE_URL}/feed.xml
 
-## 核心关键词
+## 资料边界
 
-${SEO_KEYWORDS.map((keyword) => `- ${keyword}`).join("\n")}
+服务商资料、套餐摘录与选购方法分别维护。本站没有完成所有服务商在同一设备、网络和时段下的统一测试，不提供统一实测名次；部分入口含推广参数，主推测评单独标明。请以正文的信息来源与日期为准，套餐及入口以服务商当前官网为准。
 
 ## 热门搜索专题
 
@@ -3979,6 +4054,7 @@ function style() {
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+.article section[id] { scroll-margin-top: 90px; }
 body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.75; }
 body:has(dialog[open]) { overflow: hidden; }
 a { color: inherit; text-decoration: none; }
@@ -4184,6 +4260,41 @@ function favicon() {
 
 function build() {
   const root = process.cwd();
+  if (process.argv.includes("--recommendation-only")) {
+    // Older HTML contains editorial changes that have not all been ported back
+    // to these templates. Refresh only the pages owned by this change.
+    const primary = keywordPages.find((item) => item.slug === "airport-recommend");
+    const category = editorialCategories.find((item) => item.key === "recommend");
+    write(path.join(root, "index.html"), homePage());
+    write(path.join(root, "rank", "index.html"), rankPage());
+    write(path.join(root, "recommend", "index.html"), categoryPage(category));
+    write(path.join(root, "airport-recommend", "index.html"), keywordPage(primary));
+    const searchPath = path.join(root, "assets", "search-index.js");
+    const previousSearch = fs.readFileSync(searchPath, "utf8").trim();
+    const searchEntries = JSON.parse(previousSearch.replace(/^window\.TIZI_SEARCH_INDEX\s*=\s*/, "").replace(/;$/, ""));
+    const searchUpdates = [
+      { title: primary.title, url: "/airport-recommend/", type: "选购主清单", description: primary.description },
+      { title: category.seoTitle, url: "/recommend/", type: "专题目录", description: category.description },
+      { title: "机场服务商资料目录", url: "/rank/", type: "服务商目录", description: "按名称浏览服务商套餐资料与官网入口，非统一实测排名。" },
+    ];
+    for (const entry of searchUpdates) {
+      const index = searchEntries.findIndex((item) => item.url === entry.url);
+      if (index === -1) searchEntries.push(entry);
+      else searchEntries[index] = entry;
+    }
+    write(searchPath, `window.TIZI_SEARCH_INDEX=${JSON.stringify(searchEntries)};\n`);
+    const feedPath = path.join(root, "feed.xml");
+    const feed = fs.readFileSync(feedPath, "utf8").replace(/<item>[\s\S]*?<\/item>/g, (item) => {
+      if (!item.includes(`<guid>${SITE_URL}/airport-recommend/</guid>`)) return item;
+      return item.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(primary.title)}</title>`)
+        .replace(/<description>[\s\S]*?<\/description>/, `<description>${escapeHtml(primary.description)}</description>`);
+    }).replace(/<lastBuildDate>[^<]+<\/lastBuildDate>/, `<lastBuildDate>${new Date(`${AIRPORT_RECOMMEND_UPDATED_AT}T00:00:00Z`).toUTCString()}</lastBuildDate>`);
+    write(feedPath, feed);
+    write(path.join(root, "sitemap.xml"), sitemap());
+    write(path.join(root, "llms.txt"), llmsTxt());
+    console.log("Refreshed /, /airport-recommend/, /recommend/, /rank/ and their discovery files. Other HTML was preserved.");
+    return;
+  }
   write(path.join(root, "assets", "style.css"), style());
   write(path.join(root, "assets", "favicon.svg"), favicon());
   write(path.join(root, "assets", "search-index.js"), searchIndexScript());

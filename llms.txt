@@ -5,7 +5,9 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 ## 主要页面
 
 - 首页: https://tiziline.com/
-- 机场排行: https://tiziline.com/rank/
+- 机场推荐主清单: https://tiziline.com/airport-recommend/
+- 选购专题指南: https://tiziline.com/recommend/
+- 服务商资料目录: https://tiziline.com/rank/
 - 机场测评: https://tiziline.com/reviews/
 - 科普知识: https://tiziline.com/knowledge/
 - 机场 FAQ 问题指南: https://tiziline.com/knowledge/airport-faq-guide.html
@@ -13,50 +15,13 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 - Sitemap: https://tiziline.com/sitemap.xml
 - RSS: https://tiziline.com/feed.xml
 
-## 核心关键词
+## 资料边界
 
-- 机场观察
-- 机场推荐
-- 2026机场推荐
-- 机场排行榜
-- 机场推荐哪个好
-- 便宜机场
-- 稳定机场
-- 高速机场
-- 梯子推荐
-- 2026梯子推荐
-- VPN推荐
-- 2026 VPN推荐
-- 性价比VPN
-- 节点推荐
-- Clash机场
-- 小火箭节点
-- 科学上网机场
-- VPN和机场区别
-- IPLC机场
-- IEPL机场
-- 专线机场
-- Netflix机场
-- ChatGPT机场
-- 流媒体机场
-- 游戏加速机场
-- 机场测速
-- 机场晚高峰
-- 机场倍率
-- 机场流量
-- 机场套餐
-- 机场注册
-- 机场订阅链接
-- 机场跑路
-- 机场避坑
-- 机场多设备
-- 机场协议
-- 机场客户端
-- 机场备用方案
+服务商资料、套餐摘录与选购方法分别维护。本站没有完成所有服务商在同一设备、网络和时段下的统一测试，不提供统一实测名次；部分入口含推广参数，主推测评单独标明。请以正文的信息来源与日期为准，套餐及入口以服务商当前官网为准。
 
 ## 热门搜索专题
 
-- 机场推荐 2026：稳定、便宜、高速机场选购与测评清单: https://tiziline.com/airport-recommend/
+- 机场推荐 2026：按预算、稳定性与使用场景筛选: https://tiziline.com/airport-recommend/
 - 便宜机场推荐：低价套餐、流量和线路质量对比: https://tiziline.com/cheap-airport/
 - 稳定机场推荐：晚高峰、专线和售后如何判断: https://tiziline.com/stable-airport/
 - 高速机场推荐：4K视频、下载和大流量场景怎么选: https://tiziline.com/high-speed-airport/
@@ -90,7 +55,7 @@ Tiziline 机场观察 是一个中文机场推荐、机场测评和机场科普�
 
 ## 编辑分类
 
-- 机场推荐: https://tiziline.com/recommend/
+- 专题指南: https://tiziline.com/recommend/
 - 选购科普: https://tiziline.com/guides/
 - 测评对比: https://tiziline.com/comparisons/
 - 使用教程: https://tiziline.com/tutorials/

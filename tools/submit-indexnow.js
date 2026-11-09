@@ -15,26 +15,12 @@ const path = require("path");
 const manifestPath = path.join(__dirname, "..", "indexnow-urls.json");
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 
-// 本次 keyword cannibalization + GEO + hub-spoke 改动直接涉及的页面。
-// 变动最大、最该优先重抓的放在这里。
+// 本轮主清单与目录调整涉及的四页。发布后再提交，以便抓到新版本。
 const PRIORITY_URLS = [
-  "https://tiziline.com/airport-recommend/", // 主页：消重 + 直接答案块 + 方法论 + FAQ 扩充 + hub 内链
-  "https://tiziline.com/recommend/", // canonical 已指向 airport-recommend，需让 Bing 重新识别合并
-  "https://tiziline.com/", // 首页导航已改向
-  "https://tiziline.com/cheap-airport/",
-  "https://tiziline.com/stable-airport/",
-  "https://tiziline.com/high-speed-airport/",
-  "https://tiziline.com/iepl-airport/",
-  "https://tiziline.com/ipcl-airport/",
-  "https://tiziline.com/dedicated-airport/",
-  "https://tiziline.com/clash-airport/",
-  "https://tiziline.com/multi-device-airport/",
-  "https://tiziline.com/netflix-airport/",
-  "https://tiziline.com/streaming-airport/",
-  "https://tiziline.com/chatgpt-airport/",
-  "https://tiziline.com/game-airport/",
-  "https://tiziline.com/node-recommend/",
-  "https://tiziline.com/science-airport/",
+  "https://tiziline.com/airport-recommend/",
+  "https://tiziline.com/recommend/", // 独立专题目录，使用自身 canonical
+  "https://tiziline.com/rank/", // 按名称浏览的服务商资料目录
+  "https://tiziline.com/",
 ];
 
 // 多个 IndexNow 端点；提交任一即可，这里按顺序尝试直到成功一个。
@@ -62,7 +48,7 @@ function parseArgs(argv) {
 function pickUrls(opts) {
   if (opts.urls.length) return opts.urls;
   if (opts.priority) {
-    // 只保留确实在 manifest 里登记过的，避免提交未收录的孤立 URL
+    // 只保留站点清单登记过的 URL；登记不代表已被搜索引擎收录。
     const known = new Set(manifest.urls);
     const picked = PRIORITY_URLS.filter((u) => known.has(u));
     const missing = PRIORITY_URLS.filter((u) => !known.has(u));
@@ -80,6 +66,7 @@ async function submitTo(endpoint, urlList) {
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { "content-type": "application/json; charset=utf-8" },
+    signal: AbortSignal.timeout(20000),
     body: JSON.stringify({
       host: manifest.host,
       key: manifest.key,
@@ -131,9 +118,9 @@ async function main() {
   for (const endpoint of ENDPOINTS) {
     try {
       const r = await submitTo(endpoint, urlList);
-      console.log(`[${endpoint}] ${r.status}: ${r.body || "accepted"}`);
-      // IndexNow 规范里 200/202 都算成功
-      if (r.ok || r.status === 202) {
+      const message = r.status === 200 ? "已收到提交" : r.status === 202 ? "已收到，key 校验待完成" : "提交未确认";
+      console.log(`[${endpoint}] HTTP ${r.status}: ${r.body || message}`);
+      if (r.status === 200 || r.status === 202) {
         succeeded = true;
         break;
       }
@@ -146,7 +133,7 @@ async function main() {
     console.error("所有端点均未成功，请检查网络或 key 文件是否可公开访问。");
     process.exitCode = 1;
   } else {
-    console.log("提交成功。搜索引擎通常在数分钟到数小时内开始重新抓取。");
+    console.log("已收到提交；是否抓取、收录及排名由搜索引擎决定，不能据此确认已收录。");
   }
 }
 

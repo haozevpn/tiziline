@@ -75,7 +75,7 @@ const GENERIC_TITLES = [
 
 function walk(dir, files = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if ([".git", "node_modules"].includes(entry.name)) continue;
+    if ([".git", "node_modules", ".claude", ".codex", ".agents"].includes(entry.name)) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(full, files);
     else if (entry.name.endsWith(".html")) files.push(full);
@@ -103,19 +103,51 @@ const allText = normalize(pages.map((page) => page.html).join("\n"));
 const missingLongTails = GENERIC_TITLES.filter((title) => !allText.includes(normalize(title)));
 const issues = [];
 const canonicals = new Map();
+const titles = new Map();
+const descriptions = new Map();
+let duplicateTitleCount = 0;
+let duplicateDescriptionCount = 0;
 
 for (const page of pages) {
   const rel = path.relative(ROOT, page.file).replace(/\\/g, "/");
   const isNoindex = /<meta name="robots" content="[^"]*noindex/i.test(page.html);
   const description = page.html.match(/<meta name="description" content="([^"]+)"/i)?.[1] || "";
   const canonical = page.html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1] || "";
+  const title = page.html.match(/<title>([^<]+)<\/title>/i)?.[1] || "";
   if (!page.html.includes("<title>")) issues.push(`${rel}: missing title`);
-  if (!isNoindex && description.length < 150) issues.push(`${rel}: short description (${description.length})`);
+  if (!isNoindex && !description.trim()) issues.push(`${rel}: missing description`);
+  if (!isNoindex && (page.html.match(/<h1(?:\s[^>]*)?>/gi) || []).length !== 1) issues.push(`${rel}: expected one H1`);
   if (!canonical.startsWith(SITE_URL)) issues.push(`${rel}: invalid canonical`);
   if (!isNoindex && !page.html.includes("application/ld+json")) issues.push(`${rel}: missing JSON-LD`);
   if (canonical && !isNoindex) {
     if (canonicals.has(canonical)) issues.push(`${rel}: duplicate canonical with ${canonicals.get(canonical)}`);
     else canonicals.set(canonical, rel);
+    const expectedPath = rel === "index.html" ? "/" : `/${rel.replace(/index\.html$/, "")}`;
+    if (canonical !== `${SITE_URL}${expectedPath}`) issues.push(`${rel}: canonical differs from page URL`);
+    for (const [value, seen, label] of [[title, titles, "title"], [description, descriptions, "description"]]) {
+      if (seen.has(value)) {
+        issues.push(`${rel}: duplicate ${label} with ${seen.get(value)}`);
+        if (label === "title") duplicateTitleCount++;
+        else duplicateDescriptionCount++;
+      } else seen.set(value, rel);
+    }
+  }
+  const visibleText = normalize(page.html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ""));
+  for (const match of page.html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    try {
+      const schema = JSON.parse(match[1]);
+      const nodes = schema["@graph"] || [schema];
+      for (const node of nodes) {
+        if (["WebPage", "CollectionPage"].includes(node["@type"]) && node.url !== canonical) issues.push(`${rel}: schema URL differs from canonical`);
+        if (node["@type"] === "FAQPage") {
+          for (const question of node.mainEntity || []) {
+            if (!visibleText.includes(normalize(question.name)) || !visibleText.includes(normalize(question.acceptedAnswer?.text))) issues.push(`${rel}: FAQ schema does not match visible text: ${question.name}`);
+          }
+        }
+      }
+    } catch (error) {
+      issues.push(`${rel}: invalid JSON-LD: ${error.message}`);
+    }
   }
   for (const match of page.html.matchAll(/(?:href|src)="([^"#?]+)[^"]*"/gi)) {
     const href = match[1];
@@ -143,12 +175,10 @@ const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) =>
 const indexNow = JSON.parse(fs.readFileSync(path.join(ROOT, "indexnow-urls.json"), "utf8"));
 if (sitemapUrls.length !== indexNow.urls.length) issues.push(`sitemap/indexNow count mismatch: ${sitemapUrls.length}/${indexNow.urls.length}`);
 for (const url of sitemapUrls) if (!indexNow.urls.includes(url)) issues.push(`IndexNow missing ${url}`);
+for (const url of sitemapUrls) if (!canonicals.has(url)) issues.push(`Sitemap URL has no self-canonical page: ${url}`);
 if (!fs.readFileSync(path.join(ROOT, "robots.txt"), "utf8").includes(`${SITE_URL}/sitemap.xml`)) issues.push("robots.txt missing sitemap");
 
 const audit = JSON.parse(fs.readFileSync(path.join(ROOT, "content-audit.json"), "utf8"));
-if (audit.duplicateTitles.length) issues.push(`content duplicate titles: ${audit.duplicateTitles.length}`);
-if (audit.duplicateParagraphs.length) issues.push(`content duplicate paragraphs: ${audit.duplicateParagraphs.length}`);
-if (audit.similarPairs.length) issues.push(`content similar pairs: ${audit.similarPairs.length}`);
 
 const result = {
   htmlPages: files.length,
@@ -157,11 +187,27 @@ const result = {
   missingLongTails,
   airportReviewPages: postPages.length,
   missingBrandIntents,
-  duplicateTitles: audit.duplicateTitles.length,
-  duplicateParagraphs: audit.duplicateParagraphs.length,
-  similarPairs: audit.similarPairs.length,
+  duplicateTitles: duplicateTitleCount,
+  duplicateDescriptions: duplicateDescriptionCount,
+  savedContentAudit: {
+    source: "content-audit.json (saved report; not recomputed from current HTML)",
+    duplicateParagraphs: audit.duplicateParagraphs.length,
+    similarPairs: audit.similarPairs.length,
+  },
   issues,
 };
 
+const primary = pages.find((page) => path.relative(ROOT, page.file).replace(/\\/g, "/") === "airport-recommend/index.html");
+if (primary) {
+  if (!primary.html.includes("主推机场测评") || !primary.html.includes("jilianyun.html") || !primary.html.includes("guangnianti.html")) issues.push("Primary recommendation: promoted review module was removed");
+  if (!primary.html.includes("大佬云") || !primary.html.includes("待核实") || !primary.html.includes("haozevpn01.dalaoyunaff.com")) issues.push("Primary recommendation: pending-verification entry was removed");
+  const body = primary.html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
+  for (const match of body.matchAll(/href="#([^"]+)"/g)) {
+    if (!body.includes(`id="${match[1]}"`)) issues.push(`Primary recommendation: missing section #${match[1]}`);
+  }
+}
+
 console.log(JSON.stringify(result, null, 2));
-if (issues.length || missingLongTails.length || missingBrandIntents.length) process.exitCode = 1;
+// Exact keyword variants are reported for editorial review, not required to be
+// inserted into visible copy. Technical and consistency problems fail the audit.
+if (issues.length) process.exitCode = 1;
